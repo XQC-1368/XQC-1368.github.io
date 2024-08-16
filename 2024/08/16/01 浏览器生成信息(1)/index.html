@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>浏览器生成信息 | XQC-1368的emo小屋</title>
+  <meta name="description" content="关键词：浏览器，Web服务器，网址（URL），HTTP，HTML，协议，URI，请求消息，解析器，Socket库，DNS服务器，域名  浏览器的具体工作步骤是：   解析URL（注意这个“解析”跟解析器没有关系） 生成HTTP请求消息 向DNS服务器查询域名对应的ip地址 委托操作系统内部的协议栈将消息发送给Web服务器，按照指定的顺序来调用Socket库中的程序组件。  一、输入URL，浏览器解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器生成信息">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="关键词：浏览器，Web服务器，网址（URL），HTTP，HTML，协议，URI，请求消息，解析器，Socket库，DNS服务器，域名  浏览器的具体工作步骤是：   解析URL（注意这个“解析”跟解析器没有关系） 生成HTTP请求消息 向DNS服务器查询域名对应的ip地址 委托操作系统内部的协议栈将消息发送给Web服务器，按照指定的顺序来调用Socket库中的程序组件。  一、输入URL，浏览器解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-38-54-Web%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90URL%E7%9A%84%E8%BF%87%E7%A8%8B.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-34-51-HTTP%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-06-HTTP%E7%9A%84%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-23-HTTP%E7%8A%B6%E6%80%81%E7%A0%81%E6%A6%82%E8%A6%81.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-36-53-IP%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-53-IP%E5%9C%B0%E5%9D%80%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-36-07-IP%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-34-19-gethostbyname.png">
+<meta property="og:image" content="c:\Users\xqc\AppData\Roaming\marktext\images\2024-07-23-17-04-06-%E8%A7%A3%E6%9E%90%E5%99%A8%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-35-16-%E8%A7%A3%E6%9E%90%E5%99%A8%E4%B8%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-48-54-DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%8E%A5%E5%8A%9B.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-48-09-DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%9F%A5%E6%89%BE.jpg">
+<meta property="og:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-01-32-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE.jpg">
+<meta property="article:published_time" content="2024-08-16T03:21:02.986Z">
+<meta property="article:modified_time" content="2024-08-16T05:37:28.666Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="浏览器">
+<meta property="article:tag" content="Web服务器">
+<meta property="article:tag" content="DNS服务器">
+<meta property="article:tag" content="HTTP协议">
+<meta property="article:tag" content="URL">
+<meta property="article:tag" content="URI">
+<meta property="article:tag" content="请求消息">
+<meta property="article:tag" content="域名">
+<meta property="article:tag" content="Socket库">
+<meta property="article:tag" content="解析器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-38-54-Web%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90URL%E7%9A%84%E8%BF%87%E7%A8%8B.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13px;">浏览器</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/" class="title">浏览器生成信息</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-16T03:21:02.986Z" itemprop="datePublished">2024-08-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF/" class="title">浏览器生成信息</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-16T03:21:02.986Z" itemprop="datePublished">2024-08-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/16/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-16T02:59:19.785Z" itemprop="datePublished">2024-08-16</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%BE%93%E5%85%A5URL%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90%E7%BD%91%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">一、输入URL，浏览器解析网址</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%E3%80%81%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E5%99%A8-URL"><span class="toc-number">1.1.</span> <span class="toc-text">1、统一资源定位器 URL</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90HTTP%E5%8D%8F%E8%AE%AE%E7%9A%84URL"><span class="toc-number">1.2.</span> <span class="toc-text">2、浏览器解析HTTP协议的URL</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%94%9F%E6%88%90HTTP%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text">二、生成HTTP请求消息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E8%B5%B7-%E6%9F%A5%E8%AF%A2-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84IP%E5%9C%B0%E5%9D%80-%E8%AF%B7%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">三、向DNS服务器发起  查询  Web服务器的IP地址 请求</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%E3%80%81IP%E5%9C%B0%E5%9D%80"><span class="toc-number">3.1.</span> <span class="toc-text">1、IP地址</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%E3%80%81Socket%E5%BA%93%E6%8F%90%E4%BE%9B%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%EF%BC%8C%E8%A7%A3%E6%9E%90%E5%99%A8%E5%90%91DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E8%B5%B7%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.</span> <span class="toc-text">2、Socket库提供查询功能，解析器向DNS服务器发起查询</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%9B%E3%80%81DNS%E6%9F%A5%E8%AF%A2%E5%88%B0-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80-%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">四、DNS查询到  Web服务器地址  的过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%A7%94%E6%89%98%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="toc-number">5.</span> <span class="toc-text">五、委托协议栈发送消息</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-01 浏览器生成信息(1)" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浏览器生成信息
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/" class="article-date">
+	  <time datetime="2024-08-16T03:21:02.986Z" itemprop="datePublished">2024-08-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a>, <a class="article-tag-link-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a>, <a class="article-tag-link-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a>, <a class="article-tag-link-link" href="/tags/URI/" rel="tag">URI</a>, <a class="article-tag-link-link" href="/tags/URL/" rel="tag">URL</a>, <a class="article-tag-link-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a>, <a class="article-tag-link-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a>, <a class="article-tag-link-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a>, <a class="article-tag-link-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a>, <a class="article-tag-link-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><strong>关键词：浏览器，Web服务器，网址（URL），HTTP，HTML，协议，URI，请求消息，解析器，Socket库，DNS服务器，域名</strong></p>
+<ul>
+<li>浏览器的具体工作步骤是：</li>
+</ul>
+<ol>
+<li>解析URL（注意这个“解析”跟解析器没有关系）</li>
+<li>生成HTTP请求消息</li>
+<li>向DNS服务器查询域名对应的ip地址</li>
+<li>委托操作系统内部的协议栈将消息发送给Web服务器，按照指定的顺序来调用Socket库中的程序组件。</li>
+</ol>
+<h5 id="一、输入URL，浏览器解析网址"><a href="#一、输入URL，浏览器解析网址" class="headerlink" title="一、输入URL，浏览器解析网址"></a>一、输入URL，浏览器解析网址</h5><h6 id="1、统一资源定位器-URL"><a href="#1、统一资源定位器-URL" class="headerlink" title="1、统一资源定位器 URL"></a>1、统一资源定位器 URL</h6><ul>
+<li><p>浏览器：具备多种客户端功能的综合性客户端软件</p>
+</li>
+<li><p>FTP：文件传输协议</p>
+</li>
+<li><p>域名：像<a target="_blank" rel="noopener" href="http://www.glasscom.com这样用句点(.)分隔的名称/">www.glasscom.com这样用句点（.）分隔的名称</a></p>
+</li>
+<li><p>URL：统一资源定位器</p>
+<ul>
+<li><p>功能：不同的头，可以用以判断使用哪种功能。访问Web服务器的时候，用“http”，访问FTP服务器的时候用“ftp:“</p>
+</li>
+<li><p>格式：协议（http:，ftp:，file:，mailto:，）&#x2F;&#x2F;服务器名称+数据源路径</p>
+<img title="" src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-38-54-Web浏览器解析URL的过程.jpg" alt="" width="485">
+
+<ul>
+<li><p>Web服务器和FTP服务器：</p>
+<ul>
+<li><p>用http协议访问Web服务器：<code>http://用户名(可省略):密码(可省略)@Web服务器域名:端口号(可省略)/文件的路径名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://user:password@www.glasscom.com:80/dir/file.html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用FTP协议下载和上传文件：<code>ftp://用户名(可省略):密码(可省略)@FTP服务器域名:端口号(可省略)/文件的路径名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp://user:password@ftp.glasscom.com:21/dir/file/html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务器读取客户端本地文件：<code>file://计算机名(可省略)/文件路径名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://localhost/c:/path/file1.zip</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>发送邮件的URL：<code>邮件地址</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mailto:tone@glasscom.com</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>省略文件名情况：</p>
+<p>比如<code>http://www.lab.glasscom.com/dir/</code>预先在dir文件夹下设置省略时访问的默认文件名，一般是<code>index.html</code>或者<code>default.html</code>，遇到这种情况直接访问默认页面</p>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="2、浏览器解析HTTP协议的URL"><a href="#2、浏览器解析HTTP协议的URL" class="headerlink" title="2、浏览器解析HTTP协议的URL"></a>2、浏览器解析HTTP协议的URL</h6><ul>
+<li><p>HTTP协议</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-34-51-HTTP的基本思路.jpg" title="" alt="" width="360">
+
+<p>功能：定义了客户端和服务器之间的交互</p>
+<p>请求信息包括：”对什么“（URI，统一资源标识符）+“进行怎样的操作”（访问方法，包括GET方法，POST方法等）</p>
+<ul>
+<li><p>URI：访问的各种目标，可以是一个网页数据文件名（html文件），也可以是一个CGI程序（Web服务器调用其他的程序）</p>
+</li>
+<li><p>GET方法：URI指定的是文件返回文件；URI指定的是CGI程序，返回输出结果</p>
+</li>
+<li><p>POST方法：向服务器发送数据，此时URI一般指向一个应用程序的文件名</p>
+</li>
+<li><p>HEAD方法：用于获取文件最后更新时间</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-06-HTTP的主要方法.jpg" title="" alt="" width="379">
+</li>
+<li><p>注：超链接主要是GET方法，表单有POST也有GET</p>
+</li>
+</ul>
+<p>返回消息是状态码</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-23-HTTP状态码概要.jpg" title="" alt="" width="458"></li>
+</ul>
+<h5 id="二、生成HTTP请求消息"><a href="#二、生成HTTP请求消息" class="headerlink" title="二、生成HTTP请求消息"></a>二、生成HTTP请求消息</h5><p>HTTP消息</p>
+<ul>
+<li><p>请求消息</p>
+<p>请求行（<code>方法 URI HTTP版本</code>）+消息头（请求附加信息）+消息体（POST方法消息体内有表单数据）</p>
+</li>
+<li><p>响应消息</p>
+<p>状态行（<code>HTTP 状态码 响应短语</code>）＋消息头+消息体（从文件中读取的数据orCGI程序的输出数据）</p>
+<ul>
+<li>状态码和响应短语表示内容一致，用途不同，状态码是一个数字，用来像程序告知执行结果；响应短语是文字，向人们告知执行结果。</li>
+</ul>
+</li>
+<li><p>每条请求消息只能写一个URI，所以最多只能获取一个文件。当网页包含图片时，会在网页相应位置嵌入图片标签，屏幕上会预留显示图片的空间，然后再次访问Web服务器请求图片。</p>
+<p>所以，一个网页包含3张图片，一共要向Web服务器发送4条请求</p>
+</li>
+</ul>
+<h5 id="三、向DNS服务器发起-查询-Web服务器的IP地址-请求"><a href="#三、向DNS服务器发起-查询-Web服务器的IP地址-请求" class="headerlink" title="三、向DNS服务器发起  查询  Web服务器的IP地址 请求"></a>三、向DNS服务器发起  查询  Web服务器的IP地址 请求</h5><h6 id="1、IP地址"><a href="#1、IP地址" class="headerlink" title="1、IP地址"></a>1、IP地址</h6><p>需求：在委托操作系统发送消息时，需要提供通信对象的IP地址。所以需要根据域名查询IP地址。（如果Web服务器采用了虚拟主机功能，可能无法通过IP地址访问）</p>
+<p>局域网是基于TCP&#x2F;IP结构设计的，小的子网通过路由器组成一个大的网络</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-36-53-IP基本思路.jpg" title="" alt="" width="357">
+
+<ul>
+<li><p>IP地址（一共32bit）</p>
+<p>定义：网络号+主机号（xx栋+xx室）</p>
+</li>
+<li><p>子网掩码：与IP地址等长，左半边全是1，右半边全是0，用以区分网络号和主机号</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-35-53-IP地址的表示方法.jpg" title="" alt="" width="385">
+</li>
+<li><p>例如：10.11.12.13&#x2F;255.255.255.0表示网络号是10.11.12，主机号是13</p>
+<p>若为10.11.12.13&#x2F;24，则表示子网掩码前24位为1</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-36-07-IP地址结构.jpg" title="" alt="" width="563">
+</li>
+<li><p>特殊情况：主机号比特全为0，表示代表整个子网。主机号比特全为1，表示对整个子网每个主机进行广播</p>
+</li>
+</ul>
+<h6 id="2、Socket库提供查询功能，解析器向DNS服务器发起查询"><a href="#2、Socket库提供查询功能，解析器向DNS服务器发起查询" class="headerlink" title="2、Socket库提供查询功能，解析器向DNS服务器发起查询"></a>2、Socket库提供查询功能，解析器向DNS服务器发起查询</h6><ul>
+<li><p>Socket库：可以让其他应用程序调用操作系统网络功能的库。</p>
+</li>
+<li><p>解析器（DNS解析器，DNS客户端）：是一段程序，包含在Socket库中，通过DNS查询IP地址的操作是 <u>域名解析</u></p>
+<ul>
+<li>解析器工作过程：一行代码<code>内存地址=gethostbyname(&#39;域名&#39;)</code></li>
+</ul>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-34-19-gethostbyname.png" title="" alt="" width="499">
+
+<ul>
+<li><p>解析器工作的内部原理：</p>
+<p>1.当网络应用程序（浏览器）调用解析器时，程序的控制流程就会<u>转移</u>（原程序暂停，被调用的程序运行）到解析器内</p>
+<p>2.解析器会生成发送给DNS服务器的查询消息，这个过程与生成要发送给Web服务器的HTTP请求类似。</p>
+<p>3.之后委托给操作系统内部的协议栈来执行发送功能，协议栈执行发送消息操作网卡将消息发送给DNS服务器。</p>
+<p>4.之后按照上述相反的过程层层返回</p>
+<p><img src="C:\Users\xqc\AppData\Roaming\marktext\images\2024-07-23-17-04-06-解析器内部原理.png"></p>
+</li>
+<li><p>注意：与发送其他消息不同的是，我们的终端预先已知DNS服务器的IP地址，不需要再去查询</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="四、DNS查询到-Web服务器地址-的过程"><a href="#四、DNS查询到-Web服务器地址-的过程" class="headerlink" title="四、DNS查询到  Web服务器地址  的过程"></a>四、DNS查询到  Web服务器地址  的过程</h5><ul>
+<li><p>DNS服务器的功能：</p>
+<p>接收来自客户端的<u>查询消息</u>，然后根据消息内容返回<u>IP地址</u>。</p>
+</li>
+<li><p>解析器（DNS终端）向DNS服务器发送的查询消息包括：</p>
+<ul>
+<li><p>域名（服务器名称，邮件服务器<u>名称</u>（即邮件地址中@之后的部分，不是邮件服务器的域名））</p>
+</li>
+<li><p>Class（始终为IN）</p>
+</li>
+<li><p>记录类型（A对应记录得到的是IP地址，MX对应记录得到的是邮件服务器）</p>
+</li>
+</ul>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-35-16-解析器与DNS服务器交互.jpg" title="" alt="" width="421">
+
+<p>注：当记录类型为MX时，DNS服务器会在记录中保存两种信息，分别是邮件服务器的域名和优先级。DNS服务器再次在自己内部用邮件服务器的域名搜索，可以找到邮件服务器的IP地址。</p>
+</li>
+<li><p>域名的层次结构</p>
+<p>域名：越靠右表示层级越高</p>
+<p>比如<a href="http://www.lab.glasscom.com表示：com集团，glasscom部，lab科，的www。">www.lab.glasscom.com表示：com集团，glasscom部，lab科，的www。</a></p>
+<p>子域：下级域</p>
+<p>建树：下级域的DNS服务器IP地址要注册到上级域的DNS服务器上</p>
+<ul>
+<li><p>根域：其实域名应该是<a target="_blank" rel="noopener" href="http://www.lab.glasscom.com.最后有一个点,表示注册在根域之下,不过根域一般省略.但是根域dns服务器注册在互联网所有dns服务器上./">www.lab.glasscom.com.最后有一个点，表示注册在根域之下，不过根域一般省略。但是根域DNS服务器注册在互联网所有DNS服务器上。</a></p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-48-54-DNS服务器的接力.jpg" title="" alt="" width="308">
+</li>
+<li><p>工作原理：客户端访问最近的一台DNS服务器，该服务器经过以下反复找寻环节后可以响应解析器的查询消息。（注意：反复找寻的操作是第一个DNS服务器干的活）</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-20-48-09-DNS服务器的查找.jpg" title="" alt="" width="306"></li>
+</ul>
+</li>
+<li><p>实际的访问过程：</p>
+<ul>
+<li><p>上级域和下级域共享一个DNS服务器，常有跳过一级查询</p>
+</li>
+<li><p>DNS服务器有缓存功能，若已缓存则直接返回，缓存有有效期</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="五、委托协议栈发送消息"><a href="#五、委托协议栈发送消息" class="headerlink" title="五、委托协议栈发送消息"></a>五、委托协议栈发送消息</h5><p>收发数据：TCP协议、UDP协议。</p>
+<p>TCP协议收发数据过程（由协议栈执行）：</p>
+<p>（1）创建套接字（创建套接字阶段）</p>
+<p>（2）将管道连接到服务器端的套接字上（连接阶段）</p>
+<p>（3）收发数据（通信阶段）</p>
+<p>（4）断开管道并删除套接字（断开阶段）</p>
+<ul>
+<li><p>套接字：数据通信管道两端的数据出入口</p>
+</li>
+<li><p>创建套接字：</p>
+<p>管道在连接是由客户端发起的，在断开是由服务器or客户端任意一方发起</p>
+<img src="file:///C:/Users/xqc/AppData/Roaming/marktext/images/2024-07-24-22-01-32-客户端与服务器收发数据.jpg" title="" alt="" width="509">
+
+<p>调用socket：创建套接字，返回描述符，放到指定内存中。</p>
+<ul>
+<li>描述符：用来识别不同的套接字的标识符</li>
+</ul>
+</li>
+<li><p>连接阶段：</p>
+<p>调用connect组件，需要：</p>
+<ul>
+<li><p>描述符</p>
+</li>
+<li><p>IP地址</p>
+</li>
+<li><p>端口号：当同时指定IP地址和端口号时，就可以识别出某台具体计算机上的套接字</p>
+</li>
+</ul>
+<p>注：在创建套接字时，协议栈会为这个套接字分配一个端口号；在执行连接操作时，会将这个随便分配的端口号通知服务器。</p>
+</li>
+<li><p>描述符和端口号的区别</p>
+<p>描述符：用来在一台计算机内部识别套接字的机制</p>
+<p>端口号：让通信的另一方能够识别出套接字的机制。预先约定：Web是80号端口，电子邮件是25端口。</p>
+</li>
+<li><p>通信阶段</p>
+<p>调用write，需要：</p>
+<ul>
+<li><p>描述符</p>
+</li>
+<li><p>发送的数据</p>
+</li>
+</ul>
+<p>调用read，需要：</p>
+<ul>
+<li>指定接收到的内存地址：接收缓冲区（位于应用程序的内存空间）</li>
+</ul>
+</li>
+<li><p>断开操作</p>
+<p>HTTP要求Web服务器先断开，HTTP1.1（能在一次连接中收发多个请求和响应）要求浏览器先断开</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF(1)/" title="浏览器生成信息" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/16/01 浏览器生成信息(1)/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF/" title="浏览器生成信息"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
