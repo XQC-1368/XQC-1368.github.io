@@ -17,24 +17,28 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>HTML语言简介 | XQC-1368的emo小屋</title>
-  <meta name="description" content="一、网页开发网页的相关概念1. 什么是网页： 1.网站是指在因特网上根据一定的规则，使用 HTML 等制作的用于展示特定内容相关的网页集合。 2.网页是网站中的一“页”，通常是 HTML 格式的文件，它要通过浏览器来阅读。 2. 网页的组成： 1.网页是构成网站的基本元素，它通常由图片、链接、文字、声音、视频等元素组成。通常我们看到的网页，常见以 .htm 或 .html 后缀结尾的文件，因此将其">
+  <title>HTML标签 | XQC-1368的emo小屋</title>
+  <meta name="description" content="一、HTML标签1.HTML语法规则：1.HTML 标签是由尖括号包围的关键词，例如 &lt;html&gt;。2.HTML 标签通常是成对出现的，例如 &lt;html&gt; 和 &lt;&#x2F;html&gt; ，我们称为双标签。3.签:标签对中的第一个标签是开始标签，第二个标签是结束标签。  有些特殊的标签必须是单个标签（极少情况），例如&lt;br &#x2F;&gt;，我们称为单标签。   2. 标签">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML语言简介">
-<meta property="og:url" content="https://xqc-1368.github.io/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:title" content="HTML标签">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/index.html">
 <meta property="og:site_name" content="XQC1368的emo小屋">
-<meta property="og:description" content="一、网页开发网页的相关概念1. 什么是网页： 1.网站是指在因特网上根据一定的规则，使用 HTML 等制作的用于展示特定内容相关的网页集合。 2.网页是网站中的一“页”，通常是 HTML 格式的文件，它要通过浏览器来阅读。 2. 网页的组成： 1.网页是构成网站的基本元素，它通常由图片、链接、文字、声音、视频等元素组成。通常我们看到的网页，常见以 .htm 或 .html 后缀结尾的文件，因此将其">
+<meta property="og:description" content="一、HTML标签1.HTML语法规则：1.HTML 标签是由尖括号包围的关键词，例如 &lt;html&gt;。2.HTML 标签通常是成对出现的，例如 &lt;html&gt; 和 &lt;&#x2F;html&gt; ，我们称为双标签。3.签:标签对中的第一个标签是开始标签，第二个标签是结束标签。  有些特殊的标签必须是单个标签（极少情况），例如&lt;br &#x2F;&gt;，我们称为单标签。   2. 标签">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-16T11:33:16.683Z">
-<meta property="article:modified_time" content="2024-08-16T11:32:36.314Z">
+<meta property="og:image" content="https://xqc-1368.github.io/%5Cimages%5C2024-03-15-15-41-21-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/%5Cimages%5C2024-03-15-15-41-39-image.png">
+<meta property="article:published_time" content="2024-08-16T11:40:19.107Z">
+<meta property="article:modified_time" content="2024-08-16T11:39:55.341Z">
 <meta property="article:author" content="XQC1368">
 <meta property="article:tag" content="HTML语言">
 <meta property="article:tag" content="网页">
-<meta property="article:tag" content="浏览器">
-<meta property="article:tag" content="web标准">
+<meta property="article:tag" content="HTML标签">
+<meta property="article:tag" content="HTML注释">
+<meta property="article:tag" content="HTML特殊字符">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/%5Cimages%5C2024-03-15-15-41-21-image.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/index.html">
+  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/index.html">
   
     <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
   
@@ -338,21 +342,21 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91%E7%BD%91%E9%A1%B5%E7%9A%84%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">一、网页开发网页的相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E9%A1%B5%EF%BC%9A"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1. 什么是网页：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%BD%91%E9%A1%B5%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2. 网页的组成：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E7%BD%91%E9%A1%B5%E7%9A%84%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3. 网页的总结：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%9A"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">4. 浏览器：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-web%E6%A0%87%E5%87%86%EF%BC%9A"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">5. web标准：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Web%E6%A0%87%E5%87%86%EF%BC%9A"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">6. 为什么需要Web标准：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-web%E6%A0%87%E5%87%86%E7%9A%84%E6%9E%84%E6%88%90%EF%BC%9A"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">7. web标准的构成：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9F%A5%E9%98%85%E6%96%87%E6%A1%A3%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">二、查阅文档：</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81HTML%E6%A0%87%E7%AD%BE"><span class="toc-number">1.</span> <span class="toc-text">一、HTML标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HTML%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1.HTML语法规则：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%87%E7%AD%BE%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">2. 标签的关系：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E9%AA%A8%E6%9E%B6%E6%9E%84%E5%BB%BA%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">(1) 骨架构建快捷键</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-DOCTYPE"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">(2) DOCTYPE</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-lang-%E8%AF%AD%E8%A8%80%E7%A7%8D%E7%B1%BB"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">(3) lang 语言种类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">(4) 字符集</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.1.</span> <span class="toc-text">(5) 语义化标签</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.2.</span> <span class="toc-text">[1] 标签 &lt;h1&gt; - &lt;h6&gt;</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.3.</span> <span class="toc-text">[2] 段落标签</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E6%8D%A2%E8%A1%8C%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.4.</span> <span class="toc-text">[3] 换行标签</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%A0%87%E7%AD%BE%EF%BC%9A"><span class="toc-number">1.2.0.4.5.</span> <span class="toc-text">[4] 文本格式化标签：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-div%E5%92%8Cspan%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.6.</span> <span class="toc-text">[5] div和span标签</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.0.4.7.</span> <span class="toc-text">[6]图片标签</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE%EF%BC%9A"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">(6)链接标签：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#7-%E6%B3%A8%E9%87%8A"><span class="toc-number">1.2.0.5.1.</span> <span class="toc-text">(7) 注释</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#8-%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="toc-number">1.2.0.5.2.</span> <span class="toc-text">(8) 特殊字符</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </nav>
   </div>
 </aside>
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-01 HTML 简介" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-02 HTML 标签 tag" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      HTML语言简介
+      HTML标签
     </h1>
   
 
@@ -360,8 +364,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/" class="article-date">
-	  <time datetime="2024-08-16T11:33:16.683Z" itemprop="datePublished">2024-08-16</time>
+	<a href="/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/" class="article-date">
+	  <time datetime="2024-08-16T11:40:19.107Z" itemprop="datePublished">2024-08-16</time>
 	</a>
 </span>
         
@@ -373,33 +377,172 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a>, <a class="article-tag-link-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a>, <a class="article-tag-link-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a>
+	<a class="article-tag-link-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a>, <a class="article-tag-link-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a>, <a class="article-tag-link-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a>, <a class="article-tag-link-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="一、网页开发网页的相关概念"><a href="#一、网页开发网页的相关概念" class="headerlink" title="一、网页开发网页的相关概念"></a>一、网页开发网页的相关概念</h2><h5 id="1-什么是网页："><a href="#1-什么是网页：" class="headerlink" title="1. 什么是网页："></a>1. 什么是网页：</h5><p> 1.网站是指在因特网上根据一定的规则，使用 HTML 等制作的用于展示特定内容相关的网页集合。<br> 2.网页是网站中的一“页”，通常是 HTML 格式的文件，它要通过浏览器来阅读。</p>
-<h5 id="2-网页的组成："><a href="#2-网页的组成：" class="headerlink" title="2. 网页的组成："></a>2. 网页的组成：</h5><p> 1.网页是构成网站的基本元素，它通常由图片、链接、文字、声音、视频等元素组成。通常我们看到的网页，常见以 .htm 或 .html 后缀结尾的文件，因此将其俗称为 HTML 文件。<br>指的是超文本标记语言 (Hyper Text Markup Language) ，它是用来描述网页的一种语言。<br> 2.HTML 不是一种编程语言，而是一种标记语言 (markup language)。<br> 标记语言是一套标记标签 (markup tag)。</p>
-<h5 id="3-网页的总结："><a href="#3-网页的总结：" class="headerlink" title="3. 网页的总结："></a>3. 网页的总结：</h5><p> 1.网页是图片、链接、文字、声音、视频等元素组成, 其实就是一个html文件(后缀名为html)<br> 2.网页生成制作:  有前端人员书写 HTML 文件, 然后浏览器打开,就能看到了网页.<br> 3.HTML: 超文本标记语言, 用来制作网页的一门语言. 有标签组成的. 比如 图片标签 链接标签 视频标签等…</p>
-<h5 id="4-浏览器："><a href="#4-浏览器：" class="headerlink" title="4. 浏览器："></a>4. 浏览器：</h5><p><strong>浏览器内核（渲染引擎）</strong></p>
-<p>负责读取网页内容，整理讯息，计算网页的显示方式并显示页面</p>
-<p>目前国内一般浏览器都会采用 <strong>Webkit&#x2F;Blink</strong> 内核，如 360、UC、QQ、搜狗等。</p>
-<h5 id="5-web标准："><a href="#5-web标准：" class="headerlink" title="5. web标准："></a>5. web标准：</h5><p>Web 标准是由 W3C 组织和其他标准化组织制定的一系列标准的集合。W3C（万维网联盟）是国际最著名的标准化组织。</p>
-<h5 id="6-为什么需要Web标准："><a href="#6-为什么需要Web标准：" class="headerlink" title="6. 为什么需要Web标准："></a>6. 为什么需要Web标准：</h5><p>浏览器不同，它们显示页面或者排版就有些许差异<br>遵循 Web 标准除了可以让不同的开发人员写出的页面更标准、更统一外，还有以下优点：<br> 1.让 Web 的发展前景更广阔。<br> 2.内容能被更广泛的设备访问。<br> 3.更容易被搜寻引擎搜索。<br> 4.降低网站流量费用。<br> 5.使网站更易于维护。<br> 6.提高页面浏览速度。</p>
-<h5 id="7-web标准的构成："><a href="#7-web标准的构成：" class="headerlink" title="7. web标准的构成："></a>7. web标准的构成：</h5><p> 主要包括 《结构Structure》 、《表现（Presentation）》和《行为（Behavior）》三个方面。</p>
-<p>Web 标准提出的最佳体验方案：<strong>结构、样式、行为相分离</strong>。<br>简单理解：<strong>结构写到 HTML 文件中， 表现写到 CSS 文件中， 行为写到 JavaScript 文件中</strong></p>
-<p>1.结构类似身体</p>
-<p>2.表现类似外观装饰</p>
-<p>3.行为类似行为动作</p>
-<p>4.相比较而言, 三者中结构最重要.</p>
-<h2 id="二、查阅文档："><a href="#二、查阅文档：" class="headerlink" title="二、查阅文档："></a>二、查阅文档：</h2><p>经常查阅文档是一个非常好的学习习惯。<br>推荐的网址：<br>百度:  <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a><br>W3C :  <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/">http://www.w3school.com.cn/</a><br>MDN: <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/">https://developer.mozilla.org/zh-CN/</a></p>
+        <h2 id="一、HTML标签"><a href="#一、HTML标签" class="headerlink" title="一、HTML标签"></a>一、HTML标签</h2><h3 id="1-HTML语法规则："><a href="#1-HTML语法规则：" class="headerlink" title="1.HTML语法规则："></a>1.HTML语法规则：</h3><p>1.HTML 标签是由尖括号包围的关键词，例如 <code>&lt;html&gt;</code>。<br>2.HTML 标签通常是成对出现的，例如 <code>&lt;html&gt;</code> 和 <code>&lt;/html&gt;</code> ，我们称为<strong>双标签</strong>。<br>3.签:标签对中的第一个标签是开始标签，第二个标签是结束标签。 </p>
+<p>有些特殊的标签必须是单个标签（极少情况），例如<code>&lt;br /&gt;</code>，我们称为<strong>单标签</strong>。  </p>
+<h3 id="2-标签的关系："><a href="#2-标签的关系：" class="headerlink" title="2. 标签的关系："></a>2. 标签的关系：</h3><p>双标签关系可以分为两类：包含关系和并列关系<br>包含标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">title</span>&gt;</span>            <span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>每个网页都会有一个基本的结构标签（也称为骨架标签），页面内容也是在这些基本标签上书写</p>
+<h5 id="1-骨架构建快捷键"><a href="#1-骨架构建快捷键" class="headerlink" title="(1) 骨架构建快捷键"></a>(1) 骨架构建快捷键</h5><ul>
+<li><p>VSCode生成页面骨架结构： 输入! 按下 Tab 键。</p>
+</li>
+<li><p>利用插件在浏览器中预览页面：单击鼠标右键，在弹出窗口中点击“Open In Default Browser”。</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>hello world!!!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-DOCTYPE"><a href="#2-DOCTYPE" class="headerlink" title="(2) DOCTYPE"></a>(2) DOCTYPE</h5><p>   <code>&lt;!DOCTYPE html&gt;</code> 文档类型声明标签,告诉浏览器这个页面采取<code>html5</code>版本来显示页面.</p>
+<h5 id="3-lang-语言种类"><a href="#3-lang-语言种类" class="headerlink" title="(3) lang 语言种类"></a>(3) lang 语言种类</h5><pre><code>用来定义当前文档显示的语言。
+</code></pre>
+<blockquote>
+<p><code>en</code>定义语言为英语</p>
+<p><code>zh-CN</code>定义语言为中文<br>简单来说,定义为<code>en</code> 就是英文网页, 定义为 <code>zh-CN</code> 就是中文网页<br>其实对于文档显示来说，定义成en的文档也可以显示中文，定义成zh-CN的文档也可以显示英文</p>
+</blockquote>
+<p><u>这个属性对浏览器和搜索引擎(百度.谷歌等)还是有作用的</u></p>
+<h5 id="4-字符集"><a href="#4-字符集" class="headerlink" title="(4) 字符集"></a>(4) 字符集</h5><p>1.字符集 (Character set)是多个字符的集合。以便计算机能够识别和存储各种文字。<br>2.在<code>&lt;head&gt;</code>标签内，可以通过<code>&lt;meta&gt;</code> 标签的 <code>charset</code> 属性来规定 HTML 文档应该使用哪种字符编码。<br>3.<code>&lt;meta charset=&quot; UTF-8&quot; /&gt;</code><br>4.<code>charset</code> 常用的值有：<code>GB2312</code> 、<code>BIG5</code> 、<code>GBK</code> 和 <code>UTF-8</code>，其中 <code>UTF-8</code> 也被称为万国码，基本包含了全世界所有国家需要用到的字符.<br>5.注意：上面语法是必须要写的代码，否则可能引起乱码的情况。一般情况下，统一使用<code>“UTF-8”</code>编码，尽量统一写成标准的 <code>&quot;UTF-8&quot;</code>，不要写成 <code>&quot;utf8&quot;</code> 或 <code>&quot;UTF8&quot;</code>。</p>
+<h6 id="5-语义化标签"><a href="#5-语义化标签" class="headerlink" title="(5) 语义化标签"></a>(5) 语义化标签</h6><p>学习标签是有技巧的，重点是记住每个标签的语义。简单理解就是指标签的含义，即这个标签是用来干嘛的。</p>
+<ul>
+<li>根据标签的语义，在合适的地方给一个最为合理的标签，可以让页面结构更清晰。</li>
+</ul>
+<h6 id="1-标签"><a href="#1-标签" class="headerlink" title="[1] 标签 &lt;h1&gt; - &lt;h6&gt;"></a>[1] 标签 <code>&lt;h1&gt; - &lt;h6&gt;</code></h6><p>HTML 提供了 6 个等级的网页标题，即<code>&lt;h1&gt; - &lt;h6&gt;</code>。</p>
+<p>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span> 我是一级标题 <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="2-段落标签"><a href="#2-段落标签" class="headerlink" title="[2] 段落标签"></a>[2] 段落标签</h6><p>在 HTML 标签中，<p>标签用于定义段落，它可以将整个网页分为若干个段落。<br>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span> 我是一个段落标签 <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="3-换行标签"><a href="#3-换行标签" class="headerlink" title="[3] 换行标签"></a>[3] 换行标签</h6><p>如果希望某段文本强制换行显示，就需要使用换行标签 <code>&lt;br /&gt;</code>。<br>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="4-文本格式化标签："><a href="#4-文本格式化标签：" class="headerlink" title="[4] 文本格式化标签："></a>[4] 文本格式化标签：</h6><p>在网页中，有时需要为文字设置粗体、斜体 或下划线等效果，这时就需要用到 HTML 中的文本格式化标签，使文字以特殊的方式显示。</p>
+<table>
+<thead>
+<tr>
+<th>语义</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加粗</td>
+<td>&lt; strong &gt;&lt; &#x2F;strong &gt;或者&lt; b&gt;&lt; &#x2F;b &gt;</td>
+</tr>
+<tr>
+<td>倾斜</td>
+<td>&lt; em &gt;&lt; &#x2F;em &gt;或者&lt; i &gt;&lt; &#x2F;i &gt;</td>
+</tr>
+<tr>
+<td>删除线</td>
+<td>&lt; del &gt;&lt; &#x2F;del &gt;或者&lt; s &gt;&lt; &#x2F;s &gt;</td>
+</tr>
+<tr>
+<td>下划线</td>
+<td>&lt; ins &gt;&lt; &#x2F;ins &gt;或者&lt; u &gt;&lt; &#x2F;u &gt;</td>
+</tr>
+</tbody></table>
+<h6 id="5-div和span标签"><a href="#5-div和span标签" class="headerlink" title="[5] div和span标签"></a>[5] div和span标签</h6><p><code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code> 是没有语义的，它们就是一个盒子，用来装内容的。<br>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span> 这是头部 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span> 今日价格 <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="6-图片标签"><a href="#6-图片标签" class="headerlink" title="[6]图片标签"></a>[6]图片标签</h6><p>在 HTML 标签中，<code>&lt;img&gt;</code>标签用于定义 HTML 页面中的图像。<br>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;smiley-2.gif&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Smiley face&quot;</span> <span class="attr">width</span>=<span class="string">&quot;42&quot;</span> <span class="attr">height</span>=<span class="string">&quot;42&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解释：<br> src 是标签的必须属性，它用于指定图像文件的路径和文件名。</p>
+<table>
+<thead>
+<tr>
+<th>src</th>
+<th><em>URL</em></th>
+<th>规定显示图像的 URL。</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>width</th>
+<th><em>pixels</em></th>
+<th>规定图像的宽度。</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">height</th>
+<th align="center"><em>pixels</em></th>
+<th align="center">规定图像的高度。</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">alt</th>
+<th align="center"><em>text</em></th>
+<th align="center">规定图像的替代文本。</th>
+</tr>
+</thead>
+</table>
+</li>
+<li><p>图像标签的其他属性：<img src="/%5Cimages%5C2024-03-15-15-41-21-image.png"></p>
+</li>
+<li><p>图像标签注意点：<br>1.图像标签可以拥有多个属性，必须写在标签名的后面。<br>2.属性之间不分先后顺序，标签名与属性、属性与属性之间均以空格分开。<br>3.属性采取键值对的格式，即 key&#x3D;“value” 的格式，属性 &#x3D;“属性值”。</p>
+<ul>
+<li>分为相对路径和绝对路径：<br><img src="/%5Cimages%5C2024-03-15-15-41-39-image.png"></li>
+</ul>
+</li>
+</ul>
+<h5 id="6-链接标签："><a href="#6-链接标签：" class="headerlink" title="(6)链接标签："></a>(6)链接标签：</h5><p>链接的语法格式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;跳转目标&quot;</span> <span class="attr">target</span>=<span class="string">&quot;目标窗口的弹出方式&quot;</span>&gt;</span> 文本或图像 <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1.href：用于指定链接目标的url地址<br>2.target:用于指定链接页面的打开方式：_self默认值 _blank新窗口打开<br>3.#：空链接</p>
+</blockquote>
+<ul>
+<li><p>在链接文本的 href 属性中，设置属性值为 <code>#名字</code> 的形式，如</p>
+<p><code>&lt;a href=&quot;#two&quot;&gt; 第2集 &lt;/a&gt; </code></p>
+</li>
+<li><p>找到目标位置标签，里面添加一个 id 属性 &#x3D; 刚才的名字 ，如：</p>
+<p><code>&lt;h3 id=&quot;two&quot;&gt;第2集介绍&lt;/h3&gt;</code></p>
+</li>
+</ul>
+<h6 id="7-注释"><a href="#7-注释" class="headerlink" title="(7) 注释"></a>(7) 注释</h6><p>如果需要在 HTML 文档中添加一些便于阅读和理解但又不需要显示在页面中的注释文字<br>具体实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注释语句 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>快捷键: <code>ctrl + /</code></em> </p>
+<p><em>一句话: 注释标签里面的内容是给程序猿看的, 这个代码是不执行不显示到页面中的.</em><br>添加注释是为了更好地解释代码的功能，便于相关开发人员理解和阅读代码，程序是不会执行注释内容的</p>
+<h6 id="8-特殊字符"><a href="#8-特殊字符" class="headerlink" title="(8) 特殊字符"></a>(8) 特殊字符</h6><p>在 HTML 页面中，一些特殊的符号很难或者不方便直接使用，此时我们就可以使用下面的字符来替代。<br>重点记住：空格 、大于号、 小于号 这三个， 其余的使用很少，如果需要回头查阅即可。</p>
+<table>
+<thead>
+<tr>
+<th><code>&amp;lt;</code></th>
+<th>&lt;</th>
+<th>小于号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&amp;gt;</code></td>
+<td>&gt;</td>
+<td>大于号</td>
+</tr>
+<tr>
+<td><code>&amp;nbsp;</code></td>
+<td></td>
+<td>空格</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -409,7 +552,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://xqc-1368.github.io/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/" title="HTML语言简介" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/16/01 HTML 简介/</a>
+      <a href="https://xqc-1368.github.io/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/" title="HTML标签" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/16/02 HTML 标签 tag/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -455,13 +598,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2024/08/16/02%20HTML%20%E6%A0%87%E7%AD%BE%20tag/" title="HTML标签"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2024/08/16/01%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E4%BF%A1%E6%81%AF/" title="浏览器生成信息"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2024/08/16/01%20HTML%20%E7%AE%80%E4%BB%8B/" title="HTML语言简介"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
