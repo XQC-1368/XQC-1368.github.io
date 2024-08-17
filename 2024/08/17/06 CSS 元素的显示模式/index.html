@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>CSS显示模式 | XQC-1368的emo小屋</title>
+  <meta name="description" content="一、css的显示模式 1、什么是元素的显示模式 定义： ​        元素显示模式就是元素（标签）以什么方式进行显示，比如自己占一行，比如一行可以放多个。 作用： ​        网页的标签非常多，在不同地方会用到不同类型的标签，了解他们的特点可以更好的布局我们的网页。 2、元素显示模式的分类 2.1、块元素 常见的块元素： 1&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS显示模式">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="一、css的显示模式 1、什么是元素的显示模式 定义： ​        元素显示模式就是元素（标签）以什么方式进行显示，比如自己占一行，比如一行可以放多个。 作用： ​        网页的标签非常多，在不同地方会用到不同类型的标签，了解他们的特点可以更好的布局我们的网页。 2、元素显示模式的分类 2.1、块元素 常见的块元素： 1&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-05-01-20-39-53-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-05-01-19-19-45-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-05-01-19-31-21-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-05-01-19-33-21-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-05-01-19-33-37-image.png">
+<meta property="article:published_time" content="2024-08-17T02:28:01.364Z">
+<meta property="article:modified_time" content="2024-08-17T02:01:10.681Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="网页">
+<meta property="article:tag" content="层叠样式表CSS">
+<meta property="article:tag" content="CSS显示模式">
+<meta property="article:tag" content="CSS块元素">
+<meta property="article:tag" content="CSS行内元素">
+<meta property="article:tag" content="CSS行内块元素">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2024-05-01-20-39-53-image.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.2px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.2px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.4px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.6px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.8px;">层叠样式表CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.2px;">浏览器</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 14px;">网页</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/17/09%20CSS%E5%AE%9A%E4%BD%8D/" class="title">CSS定位</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-17T02:28:01.411Z" itemprop="datePublished">2024-08-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/17/08%20CSS%20%E6%B5%AE%E5%8A%A8%E5%B8%83%E5%B1%80%20float/" class="title">CSS浮动布局</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-17T02:28:01.400Z" itemprop="datePublished">2024-08-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/" class="title">CSS盒子模型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-17T02:28:01.389Z" itemprop="datePublished">2024-08-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" class="title">CSS显示模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-17T02:28:01.364Z" itemprop="datePublished">2024-08-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/17/05%20CSS%20%E9%80%89%E6%8B%A9%E5%99%A8%20Selector/" class="title">CSS选择器</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-17T02:28:01.343Z" itemprop="datePublished">2024-08-17</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81css%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">一、css的显示模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">1、什么是元素的显示模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">2、元素显示模式的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E3%80%81%E5%9D%97%E5%85%83%E7%B4%A0"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1、块元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E3%80%81%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2、行内元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3%E3%80%81%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3、行内块元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4%E3%80%81%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4、元素显示模式总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.</span> <span class="toc-text">3、元素显示模式的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%8D%95%E8%A1%8C%E6%96%87%E5%AD%97%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">1.4.</span> <span class="toc-text">4、单行文字垂直居中的代码</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-06 CSS 元素的显示模式" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS显示模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2024-08-17T02:28:01.364Z" itemprop="datePublished">2024-08-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>►<a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a>, <a class="article-tag-link-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a>, <a class="article-tag-link-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a>, <a class="article-tag-link-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a>, <a class="article-tag-link-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="一、css的显示模式">一、css的显示模式</h2>
+<h3 id="1、什么是元素的显示模式">1、什么是元素的显示模式</h3>
+<p><strong>定义：</strong></p>
+<p>​        元素显示模式就是元素（标签）以什么方式进行显示，比如<div>自己占一行，比如一行可以放多个<span>。</p>
+<p><strong>作用：</strong></p>
+<p>​        网页的标签非常多，在不同地方会用到不同类型的标签，了解他们的特点可以更好的布局我们的网页。</p>
+<h3 id="2、元素显示模式的分类">2、元素显示模式的分类</h3>
+<h4 id="2-1、块元素">2.1、块元素</h4>
+<p><strong>常见的块元素</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;~&lt;h6&gt;、&lt;p&gt;、&lt;div&gt;、&lt;ul&gt;、&lt;ol&gt;、&lt;li&gt;</span><br></pre></td></tr></table></figure>
+<p>​        <div> 标签是最典型的块元素。</p>
+<p><strong>块级元素的特点</strong>：</p>
+<ul>
+<li>比较霸道，自己独占一行。</li>
+<li>高度，宽度、外边距以及内边距都可以控制。</li>
+<li>宽度默认是容器（父级宽度）的100%。</li>
+<li>是一个容器及盒子，里面可以放行内或者块级元素。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>​        文字类的元素内不能放块级元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt; 标签主要用于存放文字，因此 &lt;p&gt; 里面不能放块级元素，特别是不能放&lt;div&gt; </span><br><span class="line">同理， &lt;h1&gt;~&lt;h6&gt;等都是文字类块级标签，里面也不能放其他块级元素</span><br></pre></td></tr></table></figure>
+<h4 id="2-2、行内元素">2.2、行内元素</h4>
+<p><strong>常见的行内元素：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a&gt;、&lt;strong&gt;、&lt;b&gt;、&lt;em&gt;、&lt;i&gt;、&lt;del&gt;、&lt;s&gt;、&lt;ins&gt;、&lt;u&gt;、&lt;span&gt;</span><br></pre></td></tr></table></figure>
+<p>​        <span> 标签是最典型的行内元素。有的地方也将行内元素称为内联元素。</p>
+<p><strong>行内元素的特点：</strong></p>
+<ul>
+<li>
+<p>相邻行内元素在一行上，一行可以显示多个。</p>
+</li>
+<li>
+<p>高、宽直接设置是无效的。</p>
+</li>
+<li>
+<p>默认宽度就是它本身内容的宽度。</p>
+</li>
+<li>
+<p>行内元素只能容纳文本或其他行内元素。</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-tag">span</span>&#123;</span><br><span class="line">        <span class="attribute">background-color</span>:hotpink;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br>
+链接里面不能再放链接<br>
+特殊情况链接 <a> 里面可以放块级元素，但是给 <a> 转换一下块级模式最安全</p>
+<h4 id="2-3、行内块元素">2.3、行内块元素</h4>
+<p><strong>常见的行内块标签</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img /&gt;、&lt;input /&gt;、&lt;td&gt;</span><br></pre></td></tr></table></figure>
+<p>​        它们同时具有块元素和行内元素的特点。有些资料称它们为行内块元素。</p>
+<p><strong>行内块元素的特点</strong>：</p>
+<ul>
+<li>和相邻行内元素（行内块）在一行上，但是他们之间会有空白缝隙。</li>
+<li>一行可以显示多个（行内元素特点）。</li>
+<li>默认宽度就是它本身内容的宽度（行内元素特点）。</li>
+<li>高度，行高、外边距以及内边距都可以控制（块级元素特点）。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-tag">input</span>&#123;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">250px</span>;</span><br><span class="line">        <span class="attribute">height</span>:<span class="number">39px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4、元素显示模式总结">2.4、元素显示模式总结</h4>
+<p><img src="/images/2024-05-01-20-39-53-image.png" alt=""></p>
+<p>​        学习元素显示模式的主要目的就是分清它们各自的特点，当我们网页布局的时候，在合适的地方用合适的标签元素。</p>
+<h3 id="3、元素显示模式的转换">3、元素显示模式的转换</h3>
+<p><strong>简单理解</strong>:</p>
+<p>​        一个模式的元素需要另外一种模式的特性<br>
+​        比如想要增加链接 <a> 的触发范围。</p>
+<p><strong>转换方式</strong></p>
+<ul>
+<li>转换为块元素：display:block;</li>
+<li>转换为行内元素：display:inline;</li>
+<li>转换为行内块：display: inline-block;</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-tag">a</span>&#123;</span><br><span class="line">        <span class="attribute">height</span>:<span class="number">150px</span>;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">150px</span>;</span><br><span class="line">        <span class="attribute">background-color</span>:pink;</span><br><span class="line">        <span class="attribute">display</span>:block;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">div</span>&#123;</span><br><span class="line">        <span class="attribute">background-color</span>:purple;</span><br><span class="line">        <span class="attribute">display</span>:inline;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">span</span>&#123;</span><br><span class="line">       <span class="attribute">height</span>:<span class="number">300px</span>;</span><br><span class="line">       <span class="attribute">width</span>:<span class="number">30px</span>;</span><br><span class="line">       <span class="attribute">background-color</span>:blue;</span><br><span class="line">       <span class="attribute">display</span>:inline-block;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/2024-05-01-19-19-45-image.png" alt=""></p>
+<p>案例，小米侧边栏</p>
+<p><img src="/images/2024-05-01-19-31-21-image.png" alt=""></p>
+<h3 id="4、单行文字垂直居中的代码">4、单行文字垂直居中的代码</h3>
+<p><strong>解决方案</strong>:</p>
+<p>​        <u>让文字的行高等于盒子的高度  就可以让文字在当前盒子内垂直居中</u><br>
+<img src="/images/2024-05-01-19-33-21-image.png" alt=""></p>
+<p>实现：</p>
+<p><code>line-height:40px;</code></p>
+<p><img src="/images/2024-05-01-19-33-37-image.png" alt=""></p>
+<p><strong>简单理解</strong>:</p>
+<p>​        行高的上空隙和下空隙把文字挤到中间了，</p>
+<p>​        如果行高小于盒子高度,文字会偏上，</p>
+<p>​        如果行高大于盒子高度,则文字偏下。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/17/06%20CSS%20%E5%85%83%E7%B4%A0%E7%9A%84%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" title="CSS显示模式" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/17/06 CSS 元素的显示模式/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/" title="CSS盒子模型"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/08/17/05%20CSS%20%E9%80%89%E6%8B%A9%E5%99%A8%20Selector/" title="CSS选择器"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
