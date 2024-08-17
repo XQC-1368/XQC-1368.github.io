@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>05 单调队列优化DP：华科A题 | XQC-1368的emo小屋</title>
-  <meta name="description" content="单调队列 “如果一个选手比你小还比你强，你就可以退役了。”——单调队列的原理 单调队列是一种主要用于解决”滑动区间“的最值问题的数据结构 即，在长度为  的序列中，求每个长度为  的区间的区间最值。它的时间复杂度是  ，在这个问题中比  的ST表和线段树要优。  单调队列的基本思想是，维护一个双向队列（deque），遍历序列，仅当一个元素可能成为某个区间最值时才保留它。 形象地打个比方，上面的序列">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                05 单调队列优化DP：华科A题 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="单调队列 “如果一个选手比你小还比你强，你就可以退役了。”——单调队列的原理 单调队列是一种主要用于解决”滑动区间“的最值问题的数据结构 即，在长度为  的序列中，求每个长度为  的区间的区间最值。它的时间复杂度是  ，在这个问题中比  的ST表和线段树要优。  单调队列的基本思想是，维护一个双向队列（deque），遍历序列，仅当一个元素可能成为某个区间最值时才保留它。 形象地打个比方，上面的序列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05 单调队列优化DP：华科A题">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/index.html">
@@ -40,23 +45,25 @@
 <meta property="article:tag" content="DP的单调队列优化">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-ef66afc38e068600939980673114127f_1440w.webp">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
 
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -367,47 +374,51 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-05 单调队列优化DP：华科A题" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-05 单调队列优化DP：华科A题" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    <div class="article-header">
-      
+      <div class="article-header">
         
+          
   
     <h1 class="article-title" itemprop="name">
       05 单调队列优化DP：华科A题
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+            
+              <div class="article-meta">
+                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/" class="article-date">
 	  <time datetime="2024-08-17T06:53:17.210Z" itemprop="datePublished">2024-08-17</time>
 	</a>
 </span>
-        
+                  
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a>
   </span>
 
-        
+                    
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a>, <a class="article-tag-link-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
   </span>
 
 
-        
+                      
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/#comments" class="article-comment-link">评论</a></span>
-        
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/17/05%20%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96DP%EF%BC%9A%E5%8D%8E%E7%A7%91A%E9%A2%98/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
       </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="单调队列">单调队列</h2>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="单调队列">单调队列</h2>
 <p>“如果一个选手比你小还比你强，你就可以退役了。”——单调队列的原理</p>
 <h4 id="单调队列是一种主要用于解决”滑动区间“的最值问题的数据结构"><strong>单调队列</strong>是一种主要用于解决”滑动区间“的最值问题的数据结构</h4>
 <p>即，在长度为  的序列中，求每个长度为  的区间的区间最值。它的时间复杂度是  ，在这个问题中比  的ST表和线段树要优。</p>
@@ -517,10 +528,10 @@
 <p>一维数组空间优化代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxsize=<span class="number">4e4</span>+<span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> dp[maxsize]=&#123;<span class="number">0</span>&#125;,g[maxsize]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">int</span> v[<span class="number">10005</span>],w[<span class="number">10005</span>],m[<span class="number">10005</span>],n,W;</span><br><span class="line"><span class="type">signed</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;W;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;v[i]&gt;&gt;w[i]&gt;&gt;m[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//当前考虑到第i件物品</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> r=<span class="number">0</span>;r&lt;w[i];r++)<span class="comment">//考虑余数r，余数可能为0~w[i]-1中的任意一个数字</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">deque</span>&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">            <span class="built_in">memcpy</span>(g,dp,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=r;j&lt;=W;j+=w[i])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(!q.empty() &amp;&amp; j-q.front()&gt;m[i]*w[i])</span><br><span class="line">                    q.pop_front();</span><br><span class="line">                <span class="keyword">while</span> (!q.empty() &amp;&amp; g[q.back()] + (j - q.back()) / w[i] * v[i] &lt;= g[j])</span><br><span class="line">                    q.pop_back();</span><br><span class="line">                q.push_back(j);</span><br><span class="line">                dp[j] = g[q.front()] + (j - q.front()) / w[i] * v[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dp[W]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -552,7 +563,8 @@
 </div>
 
 
-    </div>
+      </div>
+      
   </article>
   
     
@@ -563,7 +575,7 @@
   </section>
 
 
-  
+      
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
@@ -606,7 +618,7 @@
   </div>
   </div>
 </nav>
-  
+    
 <!-- Modal -->
 <div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -650,7 +662,7 @@
 </div>
 
 
-
+      
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">

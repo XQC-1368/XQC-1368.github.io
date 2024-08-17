@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>02 区间DP：涂色 | XQC-1368的emo小屋</title>
-  <meta name="description" content="[CQOI2007] 涂色 题目描述 假设你有一条长度为 $5$ 的木板，初始时没有涂过任何颜色。你希望把它的 $5$ 个单位长度分别涂上红、绿、蓝、绿、红色，用一个长度为 $5$ 的字符串表示这个目标：$\texttt{RGBGR}$。 每次你可以把一段连续的木板涂成一个给定的颜色，后涂的颜色覆盖先涂的颜色。例如第一次把木板涂成 $\texttt{RRRRR}$，第二次涂成 $\texttt{R">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                02 区间DP：涂色 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="[CQOI2007] 涂色 题目描述 假设你有一条长度为 $5$ 的木板，初始时没有涂过任何颜色。你希望把它的 $5$ 个单位长度分别涂上红、绿、蓝、绿、红色，用一个长度为 $5$ 的字符串表示这个目标：$\texttt{RGBGR}$。 每次你可以把一段连续的木板涂成一个给定的颜色，后涂的颜色覆盖先涂的颜色。例如第一次把木板涂成 $\texttt{RRRRR}$，第二次涂成 $\texttt{R">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02 区间DP：涂色">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/index.html">
@@ -36,23 +41,25 @@
 <meta property="article:tag" content="区间DP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xqc-1368.github.io/images/2023-10-12-00-01-28-image.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
 
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -363,47 +370,51 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-02 区间DP：涂色" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-02 区间DP：涂色" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    <div class="article-header">
-      
+      <div class="article-header">
         
+          
   
     <h1 class="article-title" itemprop="name">
       02 区间DP：涂色
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+            
+              <div class="article-meta">
+                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/" class="article-date">
 	  <time datetime="2024-08-17T06:53:17.201Z" itemprop="datePublished">2024-08-17</time>
 	</a>
 </span>
-        
+                  
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a>
   </span>
 
-        
+                    
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>, <a class="article-tag-link-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
   </span>
 
 
-        
+                      
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/#comments" class="article-comment-link">评论</a></span>
-        
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/17/02%20%E5%8C%BA%E9%97%B4DP%EF%BC%9A%E6%B6%82%E8%89%B2/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
       </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h1>[CQOI2007] 涂色</h1>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h1>[CQOI2007] 涂色</h1>
 <h2 id="题目描述">题目描述</h2>
 <p>假设你有一条长度为 $5$ 的木板，初始时没有涂过任何颜色。你希望把它的 $5$ 个单位长度分别涂上红、绿、蓝、绿、红色，用一个长度为 $5$ 的字符串表示这个目标：$\texttt{RGBGR}$。</p>
 <p>每次你可以把一段连续的木板涂成一个给定的颜色，后涂的颜色覆盖先涂的颜色。例如第一次把木板涂成 $\texttt{RRRRR}$，第二次涂成 $\texttt{RGGGR}$，第三次涂成 $\texttt{RGBGR}$，达到目标。</p>
@@ -453,10 +464,10 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxsize 55</span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="type">int</span> dp[maxsize][maxsize]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">memset</span>(dp,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.size();i++)</span><br><span class="line">            dp[i][i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">0</span>;p&lt;s.size()<span class="number">-1</span>;p++)<span class="comment">//注意见下</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>,j=p+<span class="number">1</span>;j&lt;s.size();i++,j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i]==s[j])dp[i][j]=dp[i+<span class="number">1</span>][j];</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j]=dp[i][i]+dp[i+<span class="number">1</span>][j];</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> k=i;k&lt;j;k++)</span><br><span class="line">                    dp[i][j]=min(dp[i][j],dp[i][k]+dp[k+<span class="number">1</span>][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;dp[<span class="number">0</span>][s.size()<span class="number">-1</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>这里的p是指对第2~n个主对角线方向的斜线的遍历（第一个斜线即主对角线已经遍历过了）</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -488,7 +499,8 @@
 </div>
 
 
-    </div>
+      </div>
+      
   </article>
   
     
@@ -499,7 +511,7 @@
   </section>
 
 
-  
+      
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
@@ -542,7 +554,7 @@
   </div>
   </div>
 </nav>
-  
+    
 <!-- Modal -->
 <div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -586,7 +598,7 @@
 </div>
 
 
-
+      
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">

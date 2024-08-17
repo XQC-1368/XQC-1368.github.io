@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>09 区间DP的博弈论模型： Letter Picking | XQC-1368的emo小屋</title>
-  <meta name="description" content="区间DP的博弈论模型： Letter Picking Letter Picking 题面翻译 题目描述 Alice 和 Bob 在玩游戏。 给出一个长度为偶数的，非空的且仅含小写字母的字符串 $s$。每个玩家还拥有一个初始为空的字符串。 Alice 先手，两名玩家交替行动。在一次行动中，玩家可以取 $s$ 首或尾字符，将其从 $s$ 中移除后加入到自己的字符串的 最前面。 当 $s$ 为空时游戏结">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                09 区间DP的博弈论模型： Letter Picking | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="区间DP的博弈论模型： Letter Picking Letter Picking 题面翻译 题目描述 Alice 和 Bob 在玩游戏。 给出一个长度为偶数的，非空的且仅含小写字母的字符串 $s$。每个玩家还拥有一个初始为空的字符串。 Alice 先手，两名玩家交替行动。在一次行动中，玩家可以取 $s$ 首或尾字符，将其从 $s$ 中移除后加入到自己的字符串的 最前面。 当 $s$ 为空时游戏结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="09 区间DP的博弈论模型： Letter Picking">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/index.html">
@@ -36,23 +41,25 @@
 <meta property="article:tag" content="博弈论">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xqc-1368.github.io/images/2023-11-15-13-12-58-%E8%80%83%E8%99%91%E5%85%88%E6%89%8B.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
 
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -363,47 +370,51 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-09 区间DP的博弈论模型： Letter Picking" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-09 区间DP的博弈论模型： Letter Picking" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    <div class="article-header">
-      
+      <div class="article-header">
         
+          
   
     <h1 class="article-title" itemprop="name">
       09 区间DP的博弈论模型： Letter Picking
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+            
+              <div class="article-meta">
+                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/" class="article-date">
 	  <time datetime="2024-08-17T06:53:17.224Z" itemprop="datePublished">2024-08-17</time>
 	</a>
 </span>
-        
+                  
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a>
   </span>
 
-        
+                    
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>, <a class="article-tag-link-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a>, <a class="article-tag-link-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
   </span>
 
 
-        
+                      
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/#comments" class="article-comment-link">评论</a></span>
-        
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/17/09%20%E5%8C%BA%E9%97%B4DP%E7%9A%84%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A8%A1%E5%9E%8B%EF%BC%9A%20Letter%20Picking/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
       </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="区间DP的博弈论模型：-Letter-Picking">区间DP的博弈论模型： Letter Picking</h2>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="区间DP的博弈论模型：-Letter-Picking">区间DP的博弈论模型： Letter Picking</h2>
 <h1>Letter Picking</h1>
 <h2 id="题面翻译">题面翻译</h2>
 <h3 id="题目描述">题目描述</h3>
@@ -453,10 +464,10 @@
 <p>附上代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="type">int</span> dp[<span class="number">2005</span>][<span class="number">2005</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">solve</span><span class="params">(<span class="built_in">string</span> s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">2</span>; j &lt;= n; i++, j++) <span class="comment">// 1 start</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] == s[j])</span><br><span class="line">            dp[i][j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            dp[i][j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">2</span>; <span class="number">2</span> * k &lt;= n; k++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">2</span> * k; j &lt;= n; i++, j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((s[i] &lt; s[i + <span class="number">1</span>] &amp;&amp; dp[i + <span class="number">2</span>][j] == <span class="number">0</span> || dp[i + <span class="number">2</span>][j] == <span class="number">1</span>) </span><br><span class="line">            &amp;&amp; (dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">0</span> &amp;&amp; s[i] &lt; s[j] || dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">1</span>)  </span><br><span class="line">            || (s[j] &lt; s[j - <span class="number">1</span>] &amp;&amp; dp[i][j - <span class="number">2</span>] == <span class="number">0</span> || dp[i][j - <span class="number">2</span>] == <span class="number">1</span>)</span><br><span class="line">            &amp;&amp; (dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">0</span> &amp;&amp; s[j] &lt; s[i] || dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                dp[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span></span><br><span class="line">            (((s[i] &lt;= s[i + <span class="number">1</span>] &amp;&amp; dp[i + <span class="number">2</span>][j] == <span class="number">0</span> || dp[i + <span class="number">2</span>][j] == <span class="number">1</span>) </span><br><span class="line">            &amp;&amp; (dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">0</span> &amp;&amp; s[i] &lt;= s[j] || dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">1</span>))</span><br><span class="line">            || (s[j] &lt;= s[j - <span class="number">1</span>] &amp;&amp; dp[i][j - <span class="number">2</span>] == <span class="number">0</span> || dp[i][j - <span class="number">2</span>] == <span class="number">1</span>) </span><br><span class="line">            &amp;&amp; (dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">0</span> &amp;&amp; s[j] &lt;= s[i] || dp[i + <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                dp[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                dp[i][j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// for(int i=1;i&lt;=n;i++)</span></span><br><span class="line">    <span class="comment">// &#123;</span></span><br><span class="line">    <span class="comment">//     for(int j=1;j&lt;=n;j++)</span></span><br><span class="line">    <span class="comment">//     &#123;</span></span><br><span class="line">    <span class="comment">//         cout&lt;&lt;dp[i][j]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">//     &#125;</span></span><br><span class="line">    <span class="comment">//     cout&lt;&lt;endl;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">1</span>][n];</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">signed</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> N;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> temp, s = <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">        s += temp;</span><br><span class="line">        <span class="type">int</span> ans = solve(s);</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Draw&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">1</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Alice&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">-1</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Bob&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -488,7 +499,8 @@
 </div>
 
 
-    </div>
+      </div>
+      
   </article>
   
     
@@ -499,7 +511,7 @@
   </section>
 
 
-  
+      
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
@@ -542,7 +554,7 @@
   </div>
   </div>
 </nav>
-  
+    
 <!-- Modal -->
 <div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -586,7 +598,7 @@
 </div>
 
 
-
+      
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">

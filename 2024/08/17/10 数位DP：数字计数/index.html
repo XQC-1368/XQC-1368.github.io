@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>10 数位DP：数字计数 | XQC-1368的emo小屋</title>
-  <meta name="description" content="10数位DP：数字计数 [ZJOI2010] 数字计数 题目描述 给定两个正整数 $a$ 和 $b$，求在 $[a,b]$ 中的所有整数中，每个数码(digit)各出现了多少次。 输入格式 仅包含一行两个整数 $a,b$，含义如上所述。 输出格式 包含一行十个整数，分别表示 $0\sim 9$ 在 $[a,b]$ 中出现了多少次。 样例 #1 样例输入 #1 11 99 样例输出 #1 19 20">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                10 数位DP：数字计数 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="10数位DP：数字计数 [ZJOI2010] 数字计数 题目描述 给定两个正整数 $a$ 和 $b$，求在 $[a,b]$ 中的所有整数中，每个数码(digit)各出现了多少次。 输入格式 仅包含一行两个整数 $a,b$，含义如上所述。 输出格式 包含一行十个整数，分别表示 $0\sim 9$ 在 $[a,b]$ 中出现了多少次。 样例 #1 样例输入 #1 11 99 样例输出 #1 19 20">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10 数位DP：数字计数">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/index.html">
@@ -32,23 +37,25 @@
 <meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="数位DP">
 <meta name="twitter:card" content="summary">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
 
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -359,47 +366,51 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-10 数位DP：数字计数" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-10 数位DP：数字计数" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    <div class="article-header">
-      
+      <div class="article-header">
         
+          
   
     <h1 class="article-title" itemprop="name">
       10 数位DP：数字计数
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+            
+              <div class="article-meta">
+                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/" class="article-date">
 	  <time datetime="2024-08-17T06:53:17.229Z" itemprop="datePublished">2024-08-17</time>
 	</a>
 </span>
-        
+                  
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a>
   </span>
 
-        
+                    
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>, <a class="article-tag-link-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
   </span>
 
 
-        
+                      
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/#comments" class="article-comment-link">评论</a></span>
-        
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/17/10%20%E6%95%B0%E4%BD%8DDP%EF%BC%9A%E6%95%B0%E5%AD%97%E8%AE%A1%E6%95%B0/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
       </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="10数位DP：数字计数">10数位DP：数字计数</h2>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="10数位DP：数字计数">10数位DP：数字计数</h2>
 <h1>[ZJOI2010] 数字计数</h1>
 <h2 id="题目描述">题目描述</h2>
 <p>给定两个正整数 $a$ 和 $b$，求在 $[a,b]$ 中的所有整数中，每个数码(digit)各出现了多少次。</p>
@@ -446,10 +457,10 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> ay[<span class="number">100</span>];</span><br><span class="line"><span class="type">int</span> len=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> dp[<span class="number">100</span>][<span class="number">100</span>];<span class="comment">//dp[i][j]表示搜到第i位，前一位是j，的！limit方案totnum；</span></span><br><span class="line"><span class="comment">//zero=1表示前面是否全部都是前导零</span></span><br><span class="line"><span class="comment">//limit=1 表示前面对本位有没有限制</span></span><br><span class="line"><span class="comment">//即：前面都是贴着放的为1，前面某一位不是贴着放的，为0；</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pos,<span class="type">int</span> prenum,<span class="type">int</span> st,<span class="type">int</span> limit)</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//pos当前位置,pre前一位数,st判断前面是否全是0,limit最高位限制</span></span><br><span class="line">    <span class="keyword">if</span>(pos&gt;len)<span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//搜完了 </span></span><br><span class="line">    <span class="keyword">if</span>(limit==<span class="number">0</span> &amp;&amp; dp[pos][prenum]!=<span class="number">-1</span>)<span class="keyword">return</span> dp[pos][prenum];</span><br><span class="line">    <span class="comment">//没有最高位限制且已经搜过了</span></span><br><span class="line">    <span class="type">int</span> maxnum=limit?ay[len<span class="number">+1</span>-pos]:<span class="number">9</span>;<span class="comment">//当前位最大数字 </span></span><br><span class="line">    <span class="type">int</span> ret=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=maxnum;i++)<span class="comment">//从0枚举到最大数字 </span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(i-prenum)&lt;<span class="number">2</span>)<span class="keyword">continue</span>;<span class="comment">//不符合题意，继续</span></span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span> &amp;&amp; st==<span class="number">1</span>)ret+=<span class="built_in">dfs</span>(pos<span class="number">+1</span>,<span class="number">-2</span>,st,limit &amp;&amp; (i==maxnum));</span><br><span class="line">        <span class="comment">//如果有前导0，下一位随意 </span></span><br><span class="line">        <span class="keyword">else</span> ret+=<span class="built_in">dfs</span>(pos<span class="number">+1</span>,i,<span class="number">0</span>,limit &amp;&amp; (i==maxnum));</span><br><span class="line">        <span class="comment">//如果没有前导0，继续按部就班地搜 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(limit==<span class="number">0</span> &amp;&amp; st==<span class="number">0</span>)dp[pos][prenum]=ret;</span><br><span class="line"><span class="comment">//没有最高位限制且没有前导0时记录结果 ，至于为什么要这样，我也不知道，其实可以都记下来的</span></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">part</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    len=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(a)</span><br><span class="line">    &#123;</span><br><span class="line">        ay[++len]=a%<span class="number">10</span>;</span><br><span class="line">        a/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="built_in">sizeof</span> (dp));</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">-2</span>,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">part</span>(b)-<span class="built_in">part</span>(a<span class="number">-1</span>)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>咱就主打一个看注释吧。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -481,7 +492,8 @@
 </div>
 
 
-    </div>
+      </div>
+      
   </article>
   
     
@@ -492,7 +504,7 @@
   </section>
 
 
-  
+      
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
@@ -531,7 +543,7 @@
   </div>
   </div>
 </nav>
-  
+    
 <!-- Modal -->
 <div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -575,7 +587,7 @@
 </div>
 
 
-
+      
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">

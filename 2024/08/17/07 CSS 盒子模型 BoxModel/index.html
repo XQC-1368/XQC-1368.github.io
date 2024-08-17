@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>CSS盒子模型 | XQC-1368的emo小屋</title>
-  <meta name="description" content="一、盒子模型 1、网页布局的本质 网页布局的核心本质： 就是利用 CSS 摆盒子。  网页布局过程：  先准备好相关的网页元素，网页元素基本都是盒子 Box 。 利用 CSS 设置好盒子样式，然后摆放到相应位置。 往盒子里面装内容  2、盒子模型（Box Model）组成 ​        盒子模型：把 HTML 页面中的布局元素看作是一个矩形的盒子，也就是一个盛装内容的容器。 ​">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                CSS盒子模型 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="一、盒子模型 1、网页布局的本质 网页布局的核心本质： 就是利用 CSS 摆盒子。  网页布局过程：  先准备好相关的网页元素，网页元素基本都是盒子 Box 。 利用 CSS 设置好盒子样式，然后摆放到相应位置。 往盒子里面装内容  2、盒子模型（Box Model）组成 ​        盒子模型：把 HTML 页面中的布局元素看作是一个矩形的盒子，也就是一个盛装内容的容器。 ​">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS盒子模型">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/index.html">
@@ -40,8 +45,8 @@
 <meta property="article:published_time" content="2024-08-17T02:28:01.389Z">
 <meta property="article:modified_time" content="2024-08-17T02:05:56.499Z">
 <meta property="article:author" content="XQC1368">
-<meta property="article:tag" content="网页">
 <meta property="article:tag" content="层叠样式表CSS">
+<meta property="article:tag" content="网页">
 <meta property="article:tag" content="CSS文字阴影">
 <meta property="article:tag" content="CSS盒子模型">
 <meta property="article:tag" content="CSS边框样式">
@@ -52,23 +57,25 @@
 <meta property="article:tag" content="CSS盒子阴影">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xqc-1368.github.io/images/1571492334739.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
 
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -379,47 +386,51 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-07 CSS 盒子模型 BoxModel" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-07 CSS 盒子模型 BoxModel" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    <div class="article-header">
-      
+      <div class="article-header">
         
+          
   
     <h1 class="article-title" itemprop="name">
       CSS盒子模型
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+            
+              <div class="article-meta">
+                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/" class="article-date">
 	  <time datetime="2024-08-17T02:28:01.389Z" itemprop="datePublished">2024-08-17</time>
 	</a>
 </span>
-        
+                  
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>►<a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>
   </span>
 
-        
+                    
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a>, <a class="article-tag-link-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a>, <a class="article-tag-link-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a>, <a class="article-tag-link-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a>, <a class="article-tag-link-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a>, <a class="article-tag-link-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a>, <a class="article-tag-link-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a>, <a class="article-tag-link-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a>, <a class="article-tag-link-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a>
   </span>
 
 
-        
+                      
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/#comments" class="article-comment-link">评论</a></span>
-        
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/17/07%20CSS%20%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%20BoxModel/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
       </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="一、盒子模型">一、盒子模型</h2>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="一、盒子模型">一、盒子模型</h2>
 <h3 id="1、网页布局的本质">1、网页布局的本质</h3>
 <p>网页布局的核心本质： 就是利用 CSS 摆盒子。</p>
 <p><img src="/images/1571492334739.png" alt="1571492334739"></p>
@@ -560,10 +571,10 @@
 <p><img src="/images/2024-05-03-15-37-25-image.png" alt=""></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">text-shadow</span>: <span class="number">5px</span> <span class="number">5px</span> <span class="number">6px</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -595,7 +606,8 @@
 </div>
 
 
-    </div>
+      </div>
+      
   </article>
   
     
@@ -606,7 +618,7 @@
   </section>
 
 
-  
+      
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
@@ -649,7 +661,7 @@
   </div>
   </div>
 </nav>
-  
+    
 <!-- Modal -->
 <div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -693,7 +705,7 @@
 </div>
 
 
-
+      
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
