@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                01树的重心 and 换根dp | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="无根树——树的重心问题 在后文中，我将用  mss（maximum subtree size）表示最大子树大小。用$ size_u(v)$表示以u为根节点时包含v的子树的大小。 此外，我们设整棵树大小为n。 1. 定义 如果在树中选择某个节点并删除，这棵树将分为若干棵子树，统计子树节点数并记录最大值。取遍树上所有节点，使此最大值取到最小的节点被称为整个树的重心。 2. 引理 引理1：例如，设 u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01树的重心 and 换根dp">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="无根树——树的重心问题 在后文中，我将用  mss（maximum subtree size）表示最大子树大小。用$ size_u(v)$表示以u为根节点时包含v的子树的大小。 此外，我们设整棵树大小为n。 1. 定义 如果在树中选择某个节点并删除，这棵树将分为若干棵子树，统计子树节点数并记录最大值。取遍树上所有节点，使此最大值取到最小的节点被称为整个树的重心。 2. 引理 引理1：例如，设 u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-18-16-38-11-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-18-16-38-20-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-18-16-38-30-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-18-16-38-38-image.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/yip9u5z1.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/kawht13x.png">
+<meta property="article:published_time" content="2024-08-18T09:06:00.705Z">
+<meta property="article:modified_time" content="2024-08-18T09:26:26.831Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="树上问题">
+<meta property="article:tag" content="DFS">
+<meta property="article:tag" content="树的重心">
+<meta property="article:tag" content="换根dp">
+<meta property="article:tag" content="树形dp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2024-08-18-16-38-11-image.png">
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
+<link rel="stylesheet" href="/css/style.css">
+
+                        
+                          <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+                          
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">20</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E5%9F%9FDP/">区域DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/">多重背包DP的二进制优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%9F%E6%9C%9BDP/">期望DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%A0%91%E5%BD%A2DP/">树形DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8A%B6%E5%8E%8BDP/">状压DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/">环形DP的四边形不等式优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E8%83%8C%E5%8C%85DP/">背包DP</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9F%9FDP/" rel="tag">区域DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" rel="tag">多重背包DP的二进制优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" rel="tag">并查集的按秩合并优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" rel="tag">并查集的路径优化压缩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%9F%E6%9C%9BDP/" rel="tag">期望DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" rel="tag">树上差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" rel="tag">树上距离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2DP/" rel="tag">树形DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" rel="tag">树的深度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" rel="tag">树的直径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" rel="tag">环形DP的四边形不等式优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">种类并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%8C%E5%8C%85DP/" rel="tag">背包DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" rel="tag">遍历问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">链式二叉树</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/BFS/" style="font-size: 13.09px;">BFS</a> <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.09px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.09px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/DFS/" style="font-size: 13.45px;">DFS</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" style="font-size: 13px;">DP的单调队列优化</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.27px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.36px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/LCA/" style="font-size: 13.18px;">LCA</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.09px;">二叉树</a> <a href="/tags/%E5%80%8D%E5%A2%9E/" style="font-size: 13.18px;">倍增</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13.82px;">动态规划</a> <a href="/tags/%E5%8C%BA%E5%9F%9FDP/" style="font-size: 13px;">区域DP</a> <a href="/tags/%E5%8C%BA%E9%97%B4DP/" style="font-size: 13.09px;">区间DP</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">多重背包DP的二进制优化</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.73px;">层叠样式表CSS</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.09px;">并查集</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">并查集的按秩合并优化</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" style="font-size: 13px;">并查集的路径优化压缩</a> <a href="/tags/%E6%8D%A2%E6%A0%B9dp/" style="font-size: 13px;">换根dp</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 13px;">数位DP</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.64px;">数据结构</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 13px;">最大流</a> <a href="/tags/%E6%9C%9F%E6%9C%9BDP/" style="font-size: 13px;">期望DP</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" style="font-size: 13px;">树上差分</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" style="font-size: 13px;">树上距离</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" style="font-size: 13.55px;">树上问题</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 13px;">树形DP</a> <a href="/tags/%E6%A0%91%E5%BD%A2dp/" style="font-size: 13.09px;">树形dp</a> <a href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" style="font-size: 13px;">树的深度</a> <a href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" style="font-size: 13px;">树的直径</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" style="font-size: 13px;">树的重心</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.09px;">浏览器</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 13px;">状压DP</a> <a href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" style="font-size: 13px;">环形DP的四边形不等式优化</a> <a href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">种类并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 13.91px;">网页</a> <a href="/tags/%E8%83%8C%E5%8C%85DP/" style="font-size: 13px;">背包DP</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a> <a href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" style="font-size: 13px;">遍历问题</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">链式二叉树</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">37</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/18/03%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E8%B7%9D%E7%A6%BB%EF%BC%88LCA%EF%BC%89+%E6%B7%B1%E5%BA%A6%E6%A0%87%E8%AE%B0%EF%BC%9A%E4%BA%8C%E5%8F%89%E6%A0%91%E9%97%AE%E9%A2%98/" class="title">03二叉树的节点距离（LCA）+深度标记：二叉树问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-18T09:06:00.750Z" itemprop="datePublished">2024-08-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/18/03%20%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%EF%BC%88LCA%EF%BC%89%EF%BC%9A%E5%80%8D%E5%A2%9E%E8%A7%A3%E6%B3%95/" class="title">03 最近公共祖先（LCA）：倍增解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-18T09:06:00.743Z" itemprop="datePublished">2024-08-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/18/02%E9%A1%BA%E5%BA%8F%E4%BA%8C%E5%8F%89%E6%A0%91+%E6%B7%B1%E5%BA%A6%E6%A0%87%E8%AE%B0%EF%BC%9A%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%B1%E5%BA%A6/" class="title">02顺序二叉树+深度标记：二叉树深度</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-18T09:06:00.734Z" itemprop="datePublished">2024-08-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/18/02%20%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84%E9%97%AE%E9%A2%98/" class="title">02 树的直径问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-18T09:06:00.724Z" itemprop="datePublished">2024-08-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/" class="title">01树的重心 and 换根dp</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-18T09:06:00.705Z" itemprop="datePublished">2024-08-18</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E6%A0%B9%E6%A0%91%E2%80%94%E2%80%94%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">无根树——树的重心问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%BC%95%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">2. 引理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E6%80%A7%E8%B4%A8"><span class="toc-number">1.3.</span> <span class="toc-text">3. 性质</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BE%E9%87%8D%E5%BF%83"><span class="toc-number"></span> <span class="toc-text">找重心</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text">洛谷 P1395 会议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number"></span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">输入格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">输出格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B-1"><span class="toc-number"></span> <span class="toc-text">样例 #1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A5-1"><span class="toc-number"></span> <span class="toc-text">样例输入 #1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA-1"><span class="toc-number"></span> <span class="toc-text">样例输出 #1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-number"></span> <span class="toc-text">提示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="toc-number">1.</span> <span class="toc-text">数据范围</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text">医院设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number"></span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F-2"><span class="toc-number"></span> <span class="toc-text">输入格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F-2"><span class="toc-number"></span> <span class="toc-text">输出格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B-1-2"><span class="toc-number"></span> <span class="toc-text">样例 #1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A5-1-2"><span class="toc-number"></span> <span class="toc-text">样例输入 #1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA-1-2"><span class="toc-number"></span> <span class="toc-text">样例输出 #1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA-2"><span class="toc-number"></span> <span class="toc-text">提示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%84%E6%A8%A1%E4%B8%8E%E7%BA%A6%E5%AE%9A"><span class="toc-number">1.</span> <span class="toc-text">数据规模与约定</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-01树的重心 and 换根dp" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+      <div class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      01树的重心 and 换根dp
+    </h1>
+  
+
+            
+              <div class="article-meta">
+                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/" class="article-date">
+	  <time datetime="2024-08-18T09:06:00.705Z" itemprop="datePublished">2024-08-18</time>
+	</a>
+</span>
+                  
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>►<a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>►<a class="article-category-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
+                    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/DFS/" rel="tag">DFS</a>, <a class="article-tag-link-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a>, <a class="article-tag-link-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>, <a class="article-tag-link-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a>, <a class="article-tag-link-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a>, <a class="article-tag-link-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+                      
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
+      </div>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h4 id="无根树——树的重心问题">无根树——树的重心问题</h4>
+<p>在后文中，我将用  mss（maximum subtree size）表示<strong>最大子树大小</strong>。用$ size_u(v)$表示以u为根节点时包含v的<strong>子树</strong>的<strong>大小</strong>。 此外，我们设整棵树大小为n。</p>
+<h5 id="1-定义">1. 定义</h5>
+<p>如果在树中选择某个节点并删除，这棵树将分为若干棵子树，统计子树节点数并记录最大值。取遍树上所有节点，使此最大值取到最小的节点被称为整个树的重心。</p>
+<h5 id="2-引理">2. 引理</h5>
+<p>引理1：例如，设 u 和 v  相邻，则 $size_u(v)+size_v(u)=n$。因为树上任意节点 w 要么在以 u 为根 v 所在的子树上，此时有 w=v 或有  w 与 v 进而与 u 连通；要么在以  v 为根 u 所在的子树上，此时此时有 w=u 或有  w 与 u 进而与 v 连通  。</p>
+<p>引理2：设u，v,  w 连通，则$size_u(v) &gt; size_v(w)$ 。</p>
+<h5 id="3-性质">3. 性质</h5>
+<ul>
+<li>性质1: 某个点是树的<strong>重心</strong>等价于它最大子树大小<strong>不大于</strong>整棵树大小的<strong>一半</strong>。</li>
+</ul>
+<p><img src="/images/2024-08-18-16-38-11-image.png" alt=""></p>
+<ul>
+<li>性质2: 树<strong>至多有两个</strong>重心。如果树有两个重心，那么它们<strong>相邻</strong>。此时树一定有<strong>偶数</strong>个节点，且可以被划分为两个大小相等的分支，每个分支各自包含一个重心。</li>
+</ul>
+<p><img src="/images/2024-08-18-16-38-20-image.png" alt=""></p>
+<ul>
+<li>性质3：树中所有点到某个点的<strong>距离和</strong>中，到重心的距离和是最小的；如果有两个重心，那么到它们的距离和一样。反过来，距离和最小的点一定是重心。</li>
+</ul>
+<p><img src="/images/2024-08-18-16-38-30-image.png" alt=""></p>
+<ul>
+<li>性质4：往树上增加或减少一个<strong>叶子</strong>，如果原节点数是奇数，那么重心可能<strong>增加</strong>一个，原重心<strong>仍是重心</strong>；如果原节点数是偶数，重心可能<strong>减少</strong>一个，另一个重心<strong>仍是重心</strong>。</li>
+</ul>
+<p><img src="/images/2024-08-18-16-38-38-image.png" alt=""></p>
+<ul>
+<li>性质5：把两棵树通过一条边相连得到一棵新的树，则新的重心在<strong>较大</strong>的一棵树一侧的<strong>连接点</strong>与<strong>原重心</strong>之间的<strong>简单路径</strong>上。如果两棵树大小一样，则重心就是两个连接点。</li>
+</ul>
+<h2 id="找重心">找重心</h2>
+<p>利用性质1，一趟dfs即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n, sz[MAXN], mss[MAXN]; <span class="comment">// n：总结点数（请从外部传入），sz：树的大小，mss：最大子树大小</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ctr; <span class="comment">// 重心</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> fa = <span class="number">0</span>)</span> <span class="comment">// 找重心</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sz[p] = <span class="number">1</span>, mss[p] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> [to, w] : edges[p])</span><br><span class="line">        <span class="keyword">if</span> (to != fa)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(to, p);</span><br><span class="line">            mss[p] = <span class="built_in">max</span>(mss[p], sz[to]);</span><br><span class="line">            sz[p] += sz[to];</span><br><span class="line">        &#125;</span><br><span class="line">    mss[p] = <span class="built_in">max</span>(mss[p], n - sz[p]);</span><br><span class="line">    <span class="keyword">if</span> (mss[p] &lt;= n / <span class="number">2</span>) ctr.<span class="built_in">push_back</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>变式例题：同时需要统计计算距离的情况——使用换根dp</p>
+<h1>洛谷 P1395 会议</h1>
+<h2 id="题目描述">题目描述</h2>
+<p>有一个村庄居住着 $n$ 个村民，有 $n-1$ 条路径使得这 $n$ 个村民的家联通，每条路径的长度都为 $1$。现在村长希望在某个村民家中召开一场会议，村长希望所有村民到会议地点的距离之和最小，那么村长应该要把会议地点设置在哪个村民的家中，并且这个距离总和最小是多少？若有多个节点都满足条件，则选择节点编号最小的那个点。</p>
+<h2 id="输入格式">输入格式</h2>
+<p>第一行，一个数 $n$，表示有 $n$ 个村民。</p>
+<p>接下来 $n-1$ 行，每行两个数字 $a$ 和 $b$，表示村民 $a$ 的家和村民 $b$ 的家之间存在一条路径。</p>
+<h2 id="输出格式">输出格式</h2>
+<p>一行输出两个数字 $x$ 和 $y$。</p>
+<p>$x$ 表示村长将会在哪个村民家中举办会议。</p>
+<p>$y$ 表示距离之和的最小值。</p>
+<h2 id="样例-1">样例 #1</h2>
+<h3 id="样例输入-1">样例输入 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">1 2 </span><br><span class="line">2 3 </span><br><span class="line">3 4</span><br></pre></td></tr></table></figure>
+<h3 id="样例输出-1">样例输出 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 4</span><br></pre></td></tr></table></figure>
+<h2 id="提示">提示</h2>
+<h4 id="数据范围">数据范围</h4>
+<p>对于 $70%$ 数据 $n \le 10^3$。</p>
+<p>对于 $100%$ 数据 $n \le 5 \times 10^4$。</p>
+<blockquote>
+<p>这一题知道思路后还是非常好理解的</p>
+<p>我们为了使这棵树有一个确定的顺序,可以先定1为根(从1开始遍历,假如从i点走向j点就记i为j的父亲)</p>
+<p>我们定义d[i]为<strong>所有点到i点的距离和</strong>,ct[i]为<strong>i点的子树的所有节点数</strong></p>
+<p>对于这一题,我们可以从点1开始找最佳点,所以我们可以先求d[1]的值,求d[1]时顺便还可以求出所有ct[i]的值,然后我们再考虑怎么求其他的d[i]</p>
+<p>我们先看一张图</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/yip9u5z1.png" alt=""></p>
+<p>我们首先知道d[1]=16,我们来看d[2]应该怎么求,我们发现相对于d[1]来说,如果设2为最佳点,2,5,6其距离-1,剩下的1,4,3,7,8,9,10到其距离+1,</p>
+<p>所以d[2]=d[1]+3×(−1)+7×1=20</p>
+<p>我们发现3为2的子树加自己的节点数,即ct[2]+1,7则为其他点的数量,即n−(ct[2]+1),</p>
+<p>再试着举几个例子,不难发现,如果y为x的子树:</p>
+<p>则,d[y]=d[x]+(ct[y]+1)×(−1)+(n−(ct[y]+1))×1</p>
+<p>所以我们直接<strong>从1开始遍历</strong>,然后<strong>一个个算</strong>,最后再求最小值就可以了</p>
+</blockquote>
+<p>由此我们可以看出换根DP的套路：</p>
+<p>1，指定某个节点为根节点。</p>
+<p>2，第一次搜索完成预处理（如子树大小等），同时得到该节点的解。</p>
+<p>3，第二次搜索进行换根的动态规划，由已知解的节点推出相连节点的解。</p>
+<p>根据以上想法，也即是先利用深搜求出d [1]，继而用递推公式求出d[ n ]：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">5e4</span><span class="number">+5</span>;</span><br><span class="line">vector &lt;<span class="type">int</span>&gt; g[N];</span><br><span class="line"><span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> v[N]=&#123;<span class="number">0</span>&#125;;<span class="type">int</span> n,d[N]=&#123;<span class="number">0</span>&#125;,ct[N]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> nowpoint,<span class="type">int</span> dis,<span class="type">int</span> fa=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ip :g[nowpoint])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ip!=fa)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(ip,dis<span class="number">+1</span>,nowpoint);</span><br><span class="line">            ct[nowpoint]+=ct[ip]<span class="number">+1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    d[<span class="number">1</span>]+=dis;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fa=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ip: g[x])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ip!=fa)</span><br><span class="line">        &#123;</span><br><span class="line">            d[ip]=d[x]-(ct[ip]<span class="number">+1</span>)+(n-(ct[ip]<span class="number">+1</span>));</span><br><span class="line">            <span class="built_in">calculate</span>(ip,x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        g[a].<span class="built_in">push_back</span>(b);</span><br><span class="line">        g[b].<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">calculate</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> minn=d[<span class="number">1</span>],minnp=<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//cout&lt;&lt;d[1]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//cout&lt;&lt;d[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">        <span class="keyword">if</span>(d[i]&lt;minn)</span><br><span class="line">        &#123;</span><br><span class="line">            minn=d[i];</span><br><span class="line">            minnp=i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//cout&lt;&lt;endl;</span></span><br><span class="line">    cout&lt;&lt;minnp&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;minn&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>变式例题：同时需要节点加权的情况</p>
+<h1>医院设置</h1>
+<h2 id="题目描述-2">题目描述</h2>
+<p>设有一棵二叉树，如图：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/kawht13x.png" alt=""></p>
+<p>其中，圈中的数字表示结点中居民的人口。圈边上数字表示结点编号，现在要求在某个结点上建立一个医院，使所有居民所走的路程之和为最小，同时约定，相邻接点之间的距离为 $1$。如上图中，若医院建在 $1$ 处，则距离和 $=4+12+2\times20+2\times40=136$；若医院建在 $3$ 处，则距离和 $=4\times2+13+20+40=81$。</p>
+<h2 id="输入格式-2">输入格式</h2>
+<p>第一行一个整数 $n$，表示树的结点数。</p>
+<p>接下来的 $n$ 行每行描述了一个结点的状况，包含三个整数 $w, u, v$，其中 $w$ 为居民人口数，$u$ 为左链接（为 $0$ 表示无链接），$v$ 为右链接（为 $0$ 表示无链接）。</p>
+<h2 id="输出格式-2">输出格式</h2>
+<p>一个整数，表示最小距离和。</p>
+<h2 id="样例-1-2">样例 #1</h2>
+<h3 id="样例输入-1-2">样例输入 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">5                        </span><br><span class="line">13 2 3</span><br><span class="line">4 0 0</span><br><span class="line">12 4 5</span><br><span class="line">20 0 0</span><br><span class="line">40 0 0</span><br></pre></td></tr></table></figure>
+<h3 id="样例输出-1-2">样例输出 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">81</span><br></pre></td></tr></table></figure>
+<h2 id="提示-2">提示</h2>
+<h4 id="数据规模与约定">数据规模与约定</h4>
+<p>对于 $100%$ 的数据，保证 $1 \leq n \leq 100$，$0 \leq u, v \leq n$，$1 \leq w \leq 10^5$。</p>
+<p>即把原来的 ct（节点数）变成人口规模（size）即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; pt[<span class="number">105</span>];</span><br><span class="line"><span class="type">int</span> w[<span class="number">105</span>],size[<span class="number">105</span>],ds[<span class="number">105</span>];<span class="type">int</span> n,u,v,sumw;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> nowpoint,<span class="type">int</span> dis,<span class="type">int</span> fa=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ip:pt[nowpoint])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ip!=fa)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(ip,dis<span class="number">+1</span>,nowpoint);</span><br><span class="line">            size[nowpoint]+=size[ip]+w[ip];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ds[<span class="number">1</span>]+=w[nowpoint]*dis;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dynamic_programming</span><span class="params">(<span class="type">int</span> nowpoint,<span class="type">int</span> fa=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ip:pt[nowpoint])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ip!=fa)</span><br><span class="line">        &#123;</span><br><span class="line">            ds[ip]=ds[nowpoint]-size[ip]-w[ip]+(sumw-size[ip]-w[ip]);</span><br><span class="line">            <span class="built_in">dynamic_programming</span>(ip,nowpoint);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin&gt;&gt;w[i]&gt;&gt;u&gt;&gt;v;</span><br><span class="line">        sumw+=w[i];</span><br><span class="line">        <span class="keyword">if</span>(u!=<span class="number">0</span>)&#123;pt[i].<span class="built_in">emplace_back</span>(u);pt[v].<span class="built_in">emplace_back</span>(i);&#125;</span><br><span class="line">        <span class="keyword">if</span>(v!=<span class="number">0</span>)&#123;pt[i].<span class="built_in">emplace_back</span>(v);pt[u].<span class="built_in">emplace_back</span>(i);&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">dynamic_programming</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="comment">//先以1为根求出ds[1],和size[1~n]</span></span><br><span class="line">    <span class="type">int</span> mindis=ds[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        mindis=<span class="built_in">min</span>(mindis,ds[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;mindis&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/18/01%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83%20and%20%E6%8D%A2%E6%A0%B9dp/" title="01树的重心 and 换根dp" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/18/01树的重心 and 换根dp/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+      </div>
+      
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+      
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/08/18/02%20%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84%E9%97%AE%E9%A2%98/" title="02 树的直径问题"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/08/18/01%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91+%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98%EF%BC%9A%E6%B1%82%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/" title="01链式二叉树+遍历问题：求先序遍历"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+    
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
