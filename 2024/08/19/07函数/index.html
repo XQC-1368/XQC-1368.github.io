@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                07函数 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="基础笔记：07函数  1.函数定义、函数调用、函数原型 （1）定义：函数（Function）是C中模块化编程的最小单位；  一个C程序由一个或多个源程序文件组成   一个源程序文件由一个或多个函数组成   （2）函数的地位关系   函数是平等的   main()稍微特殊一点，C程序的执行从main函数开始。调用其他函数后流程回到main函数，在main函数中结束整个程序的运行    （3）函数的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07函数">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/19/07%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="基础笔记：07函数  1.函数定义、函数调用、函数原型 （1）定义：函数（Function）是C中模块化编程的最小单位；  一个C程序由一个或多个源程序文件组成   一个源程序文件由一个或多个函数组成   （2）函数的地位关系   函数是平等的   main()稍微特殊一点，C程序的执行从main函数开始。调用其他函数后流程回到main函数，在main函数中结束整个程序的运行    （3）函数的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-28-57-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-39-23-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-43-24-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-44-14-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-48-44-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-48-57-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-50-21-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-50-37-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-50-52-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-56-25-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-14-57-11-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-09-13-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-17-27-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-24-53-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-25-15-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-24-22-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-19-33-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-20-15-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-20-30-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-20-55-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-21-28-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-22-48-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-23-15-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-23-22-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-23-29-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2023-11-17-15-36-40-image.png">
+<meta property="article:published_time" content="2024-08-19T04:23:45.921Z">
+<meta property="article:modified_time" content="2024-08-19T03:31:56.292Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2023-11-17-14-28-57-image.png">
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/19/07%E5%87%BD%E6%95%B0/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
+<link rel="stylesheet" href="/css/style.css">
+
+                        
+                          <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+                          
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-STL/">C++ STL</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CMake/">CMake</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/">思想方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E8%AE%BA/">数论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AD%9B%E6%B3%95/">筛法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">33</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/">二分</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E5%9F%9FDP/">区域DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/">多重背包DP的二进制优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%9F%E6%9C%9BDP/">期望DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%A0%91%E5%BD%A2DP/">树形DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8A%B6%E5%8E%8BDP/">状压DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/">环形DP的四边形不等式优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E8%83%8C%E5%8C%85DP/">背包DP</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B4%A0%E6%95%B0/">素数</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">C语言 文件操作</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" rel="tag">Miller-Rabin素性检验</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pollard-Rho/" rel="tag">Pollard-Rho</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal%E7%AE%97%E6%B3%95/" rel="tag">kruskal算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag">内联函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag">前缀和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" rel="tag">动态内存分配</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" rel="tag">动态数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9F%9FDP/" rel="tag">区域DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E5%90%91BFS/" rel="tag">双向BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" rel="tag">埃氏筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%80%81/" rel="tag">多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" rel="tag">多重背包DP的二进制优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" rel="tag">威尔逊定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86/" rel="tag">差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" rel="tag">并查集的按秩合并优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" rel="tag">并查集的路径优化压缩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" rel="tag">快速乘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">快速幂</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" rel="tag">思想方法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">扩展欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" rel="tag">拓展欧几里得定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%87%E9%92%88/" rel="tag">指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" rel="tag">最大公约数gcd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" rel="tag">最小公倍数lcm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%9F%E6%9C%9BDP/" rel="tag">期望DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="tag">构造函数和析构函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" rel="tag">树上差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" rel="tag">树上距离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2DP/" rel="tag">树形DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" rel="tag">树的深度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" rel="tag">树的直径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" rel="tag">欧拉函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" rel="tag">派生类</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">流运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" rel="tag">环形DP的四边形不等式优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">生成树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">种类并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%9B%E6%B3%95/" rel="tag">筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" rel="tag">素数判定</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" rel="tag">线性筛法（欧拉筛法）</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" rel="tag">继承与复合关系</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%8C%E5%8C%85DP/" rel="tag">背包DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" rel="tag">虚函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" rel="tag">裴蜀定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" rel="tag">费马小定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" rel="tag">辗转相除法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" rel="tag">遍历问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" rel="tag">重载函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">链式二叉树</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/BFS/" style="font-size: 13.18px;">BFS</a> <a href="/tags/C/" style="font-size: 13.73px;">C++</a> <a href="/tags/CMake/" style="font-size: 13.09px;">CMake</a> <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.09px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.09px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 13.73px;">C语言</a> <a href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 13px;">C语言 文件操作</a> <a href="/tags/DFS/" style="font-size: 13.45px;">DFS</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" style="font-size: 13px;">DP的单调队列优化</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.27px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.36px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/LCA/" style="font-size: 13.18px;">LCA</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" style="font-size: 13px;">Miller-Rabin素性检验</a> <a href="/tags/OOP/" style="font-size: 13.45px;">OOP</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Pollard-Rho/" style="font-size: 13px;">Pollard-Rho</a> <a href="/tags/STL/" style="font-size: 13.09px;">STL</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kruskal%E7%AE%97%E6%B3%95/" style="font-size: 13px;">kruskal算法</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 13.09px;">二分</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.09px;">二叉树</a> <a href="/tags/%E5%80%8D%E5%A2%9E/" style="font-size: 13.18px;">倍增</a> <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" style="font-size: 13px;">内联函数</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 13px;">函数</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 13px;">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 13px;">动态内存分配</a> <a href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" style="font-size: 13px;">动态数组</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13.82px;">动态规划</a> <a href="/tags/%E5%8C%BA%E5%9F%9FDP/" style="font-size: 13px;">区域DP</a> <a href="/tags/%E5%8C%BA%E9%97%B4DP/" style="font-size: 13.09px;">区间DP</a> <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 13px;">单调栈</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%8F%8C%E5%90%91BFS/" style="font-size: 13px;">双向BFS</a> <a href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">埃氏筛法</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 13px;">多态</a> <a href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">多重背包DP的二进制优化</a> <a href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" style="font-size: 13px;">威尔逊定理</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.18px;">字符串</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.73px;">层叠样式表CSS</a> <a href="/tags/%E5%B7%AE%E5%88%86/" style="font-size: 13px;">差分</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.09px;">并查集</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">并查集的按秩合并优化</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" style="font-size: 13px;">并查集的路径优化压缩</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 13px;">引用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" style="font-size: 13px;">快速乘</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 13px;">快速幂</a> <a href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" style="font-size: 13.27px;">思想方法</a> <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">扩展欧拉定理</a> <a href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" style="font-size: 13px;">拓展欧几里得定理</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 13.18px;">指针</a> <a href="/tags/%E6%8D%A2%E6%A0%B9dp/" style="font-size: 13px;">换根dp</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 13px;">数位DP</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.82px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.09px;">数组</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 13.55px;">数论</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" style="font-size: 13px;">最大公约数gcd</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 13px;">最大流</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" style="font-size: 13px;">最小公倍数lcm</a> <a href="/tags/%E6%9C%9F%E6%9C%9BDP/" style="font-size: 13px;">期望DP</a> <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" style="font-size: 13px;">构造函数和析构函数</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.09px;">栈</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" style="font-size: 13px;">树上差分</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" style="font-size: 13px;">树上距离</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" style="font-size: 13.64px;">树上问题</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 13px;">树形DP</a> <a href="/tags/%E6%A0%91%E5%BD%A2dp/" style="font-size: 13.09px;">树形dp</a> <a href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" style="font-size: 13px;">树的深度</a> <a href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" style="font-size: 13px;">树的直径</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" style="font-size: 13px;">树的重心</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" style="font-size: 13px;">欧拉函数</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">欧拉定理</a> <a href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" style="font-size: 13px;">派生类</a> <a href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 13px;">流运算符</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.09px;">浏览器</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 13px;">状压DP</a> <a href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" style="font-size: 13px;">环形DP的四边形不等式优化</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 13px;">生成树</a> <a href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">种类并查集</a> <a href="/tags/%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">筛法</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" style="font-size: 13px;">类和对象</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 13px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" style="font-size: 13px;">素数判定</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" style="font-size: 13px;">线性筛法（欧拉筛法）</a> <a href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 13px;">继承与复合关系</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 13.91px;">网页</a> <a href="/tags/%E8%83%8C%E5%8C%85DP/" style="font-size: 13px;">背包DP</a> <a href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" style="font-size: 13px;">虚函数</a> <a href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" style="font-size: 13px;">裴蜀定理</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a> <a href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" style="font-size: 13px;">费马小定理</a> <a href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" style="font-size: 13px;">辗转相除法</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" style="font-size: 13.09px;">运算符重载</a> <a href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" style="font-size: 13px;">遍历问题</a> <a href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" style="font-size: 13px;">重载函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">链式二叉树</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">74</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/07%E5%87%BD%E6%95%B0/" class="title">07函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.921Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/07%20%E5%A4%9A%E6%80%81/" class="title">07 多态</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.918Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/06%20%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F/" class="title">06 继承与派生</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.912Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/05%20%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E4%B8%80%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD/" class="title">05 流运算符和一元运算符的重载</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.905Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/04%E5%8F%8C%E5%90%91%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%9A%E5%85%AB%E6%95%B0%E7%A0%81%E9%9A%BE%E9%A2%98/" class="title">04双向广度优先搜索：八数码难题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.901Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B007%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 基础笔记：07函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89-%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="toc-number">1.0.0.1.</span> <span class="toc-text"> 1.函数定义、函数调用、函数原型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.0.0.2.</span> <span class="toc-text"> 2.函数的参数传递与返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0"><span class="toc-number">1.0.0.3.</span> <span class="toc-text"> 3.递归函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.0.0.4.</span> <span class="toc-text"> 4.变量的作用域与存储类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%E6%A8%A1%E5%9D%97%E5%8C%96%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B"><span class="toc-number">1.0.0.5.</span> <span class="toc-text"> 5.模块化程序设计方法：自顶向下</span></a></li></ol></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-07函数" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+      <div class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      07函数
+    </h1>
+  
+
+            
+              <div class="article-meta">
+                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/19/07%E5%87%BD%E6%95%B0/" class="article-date">
+	  <time datetime="2024-08-19T04:23:45.921Z" itemprop="datePublished">2024-08-19</time>
+	</a>
+</span>
+                  
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a>
+  </span>
+
+                    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a>, <a class="article-tag-link-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a>
+  </span>
+
+
+                      
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/19/07%E5%87%BD%E6%95%B0/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
+      </div>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="基础笔记07函数"><a class="markdownIt-Anchor" href="#基础笔记07函数"></a> 基础笔记：07函数</h2>
+<h5 id="1函数定义-函数调用-函数原型"><a class="markdownIt-Anchor" href="#1函数定义-函数调用-函数原型"></a> 1.函数定义、函数调用、函数原型</h5>
+<p>（1）定义：函数（Function）是C中模块化编程的最小单位；</p>
+<ul>
+<li>一个C程序由一个或多个源程序文件组成</li>
+</ul>
+<ul>
+<li>一个源程序文件由一个或多个函数组成<br />
+<img src="/images/2023-11-17-14-28-57-image.png" alt="" /></li>
+</ul>
+<p>（2）函数的地位关系</p>
+<ul>
+<li>
+<p>函数是平等的</p>
+</li>
+<li>
+<p>main()稍微特殊一点，C程序的执行从main函数开始。调用其他函数后流程回到main函数，在main函数中结束整个程序的运行<br />
+<img src="/images/2023-11-17-14-39-23-image.png" alt="" /></p>
+</li>
+</ul>
+<p>（3）函数的分类</p>
+<p>标准库函数</p>
+<ul>
+<li>
+<p>ANSI/ISOC定义的标准库函数</p>
+<ul>
+<li>
+<p>符合标准的C语言编译器必须提供这些函数</p>
+</li>
+<li>
+<p>函数的行为也要符合ANSI/ISOC定义</p>
+</li>
+</ul>
+</li>
+<li>
+<p>第三方库函数</p>
+<ul>
+<li>
+<p>其他厂商自行开发的C语言函数库</p>
+</li>
+<li>
+<p>不在标准范围内，能扩充C语言的功能（图形、数据库等）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>自定义函数</p>
+<ul>
+<li>
+<p>用户自己定义的函数</p>
+<ul>
+<li>包装后，也可成为函数库，供别人使用</li>
+</ul>
+</li>
+</ul>
+<p>（4）程序设计中函数的功能</p>
+<ul>
+<li>不局限于计算，还有判断推理</li>
+</ul>
+<p>（5）函数定义方法<br />
+<img src="/images/2023-11-17-14-43-24-image.png" alt="" /><br />
+<img src="/images/2023-11-17-14-44-14-image.png" alt="" /></p>
+<blockquote>
+<p><strong>C/C++main函数返回值以及return 0的作用</strong></p>
+<p><strong>main函数的返回值</strong></p>
+<p>main函数的返回值用于说明程序的退出状态。如果返回0，则代表程序正常退出。返回其它数字的含义则由系统决定。通常，返回非零代表程序异常退出。</p>
+</blockquote>
+<p>素养阅读<br />
+<img src="/images/2023-11-17-14-48-44-image.png" alt="" /></p>
+<p><img src="/images/2023-11-17-14-48-57-image.png" alt="" /></p>
+<h5 id="2函数的参数传递与返回值"><a class="markdownIt-Anchor" href="#2函数的参数传递与返回值"></a> 2.函数的参数传递与返回值</h5>
+<p>（1）函数的参数传递和返回值</p>
+<ul>
+<li>
+<p>调用者通过函数名调用函数</p>
+</li>
+<li>
+<p><img src="/images/2023-11-17-14-50-21-image.png" alt="" /></p>
+</li>
+<li>
+<p>有返回值时，可放到一个赋值表达式语句中</p>
+</li>
+<li>
+<p><img src="/images/2023-11-17-14-50-37-image.png" alt="" /></p>
+</li>
+<li>
+<p>还可放到一个函数调用语句中，作为另一个函数的参数</p>
+</li>
+<li>
+<p><img src="/images/2023-11-17-14-50-52-image.png" alt="" /></p>
+</li>
+</ul>
+<p>（2）函数调用</p>
+<ul>
+<li>
+<p>函数定义时的参数，形式参数（Parameter），简称形参</p>
+</li>
+<li>
+<p>函数调用时的参数，实际参数（Argument），简称实参</p>
+</li>
+</ul>
+<p>过程：每次执行函数调用时</p>
+<ul>
+<li>
+<p>现场保护并为函数的内部变量（包括形参）分配内存</p>
+</li>
+<li>
+<p>把实参值复制给形参，单向传值（实参–&gt;形参）</p>
+</li>
+<li>
+<p>实参与形参数目一致，类型匹配（否则类型自动转换）</p>
+</li>
+<li>
+<p>现场保护</p>
+</li>
+</ul>
+<p>执行函数内语句</p>
+<ul>
+<li>当执行到return语句或}时，从函数退出</li>
+</ul>
+<p>从函数退出时</p>
+<ul>
+<li>
+<p>根据函数调用栈中保存的返回地址，返回到当次函数调用的地方</p>
+</li>
+<li>
+<p>程序控制权交给调用者，返回值作为函数调用表达式的值</p>
+</li>
+<li>
+<p>收回分配给函数内所有变量（包括形参）的内存</p>
+</li>
+</ul>
+<p>（3）函数原型</p>
+<ul>
+<li>
+<p>调用函数前先声明返回值类型、函数名和形参类型</p>
+</li>
+<li>
+<p>有助于编译器对函数参数类型的匹配检查<br />
+<img src="/images/2023-11-17-14-56-25-image.png" alt="" /></p>
+</li>
+</ul>
+<p>区别：<br />
+<img src="/images/2023-11-17-14-57-11-image.png" alt="" /></p>
+<p>（4）函数封装（Encapsulation）</p>
+<ul>
+<li>
+<p>外界对函数的影响仅限于入口参数</p>
+</li>
+<li>
+<p>函数对外界的影响仅限于一个返回值和数组、指针形参</p>
+</li>
+</ul>
+<p>如何增强程序的健壮性，使函数具有遇到不正确使用或非法数据输入时避免出错的能力？答：在函数的入口处，检查输入参数的合法性，同时，主程序增加对函数返回值的检验</p>
+<p>（5）函数复用：就是用好几次</p>
+<p>（6）断言（assert）<br />
+<img src="/images/2023-11-17-15-09-13-image.png" alt="" /></p>
+<p>考虑使用断言的几种情况</p>
+<ul>
+<li>
+<p>检查程序中的各种假设的正确性</p>
+</li>
+<li>
+<p>证实或测试某种不可能发生的状况确实不会发生</p>
+</li>
+</ul>
+<p>仅用于调试程序，不能作为程序的功能</p>
+<ul>
+<li>
+<p>Debug版有效</p>
+</li>
+<li>
+<p>Release版失效</p>
+<blockquote>
+<p><strong>Debug和Release的区别</strong><br />
+Debug：调试版本，包含调试信息，所以容量比Release大很多，并且不进行任何优化（优化会使调试复杂化，因为源代码和生成的指令间关系会更复杂），便于程序员调试。<strong>Debug模式下生成两个文件，除了.exe或.dll文件外，还有一个.pdb文件，该文件记录了代码中断点等调试信息</strong><br />
+Release：发布版本，不对源代码进行调试，编译时对应用程序的速度进行优化，使得程序在代码大小和运行速度上都是最优的。（调试信息可在单独的PDB文件中生成）。<strong>Release模式下生成一个文件.exe或.dll文件</strong></p>
+<p><strong>Debug 版本：</strong><br />
+/MDd /MLd 或 /MTd 使用 Debug runtime library(调试版本的运行时刻函数库)<br />
+/Od 关闭优化开关<br />
+/D “_DEBUG” 相当于 #define _DEBUG,打开编译调试代码开关(主要针对assert函数)<br />
+/ZI 创建 Edit and continue(编辑继续)数据库，这样在调试过程中如果修改了源代码不需重新编译<br />
+/GZ 可以帮助捕获内存错误<br />
+/Gm 打开最小化重链接开关，减少链接时间</p>
+<p><strong>Release 版本：</strong><br />
+/MD /ML 或 /MT 使用发布版本的运行时刻函数库<br />
+/O1 或 /O2 优化开关，使程序最小或最快<br />
+/D “NDEBUG” 关闭条件编译调试代码开关(即不编译assert函数)<br />
+/GF 合并重复的字符串，并将字符串常量放到只读内存，防止被修改</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="3递归函数"><a class="markdownIt-Anchor" href="#3递归函数"></a> 3.递归函数</h5>
+<p>（1）函数的嵌套调用</p>
+<ul>
+<li>
+<p>C语言规定函数不能嵌套定义</p>
+<ul>
+<li>函数是相互平行的，该限制可以使编译器简单化</li>
+</ul>
+</li>
+<li>
+<p>但可以嵌套调用</p>
+<ul>
+<li>在调用一个函数的过程中又调用另一个函数<br />
+<img src="/images/2023-11-17-15-17-27-image.png" alt="" /></li>
+</ul>
+</li>
+<li>
+<p>函数直接或间接调用自己，称为递归调用（RecursiveCall），这样的函数，称为递归函数（Recursive Function）</p>
+</li>
+</ul>
+<p>（2）递归函数</p>
+<ul>
+<li>
+<p>字典是递归定义的典型实例<br />
+<img src="/images/2023-11-17-15-24-53-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-25-15-image.png" alt="" /></p>
+</li>
+<li>
+<p>递归过程<br />
+<img src="/images/2023-11-17-15-24-22-image.png" alt="" /></p>
+</li>
+<li>
+<p>函数调用栈<br />
+<img src="/images/2023-11-17-15-19-33-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-20-15-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-20-30-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-20-55-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-21-28-image.png" alt="" /></p>
+</li>
+</ul>
+<p><img src="/images/2023-11-17-15-22-48-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-23-15-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-23-22-image.png" alt="" /><br />
+<img src="/images/2023-11-17-15-23-29-image.png" alt="" /></p>
+<p>(5)递归方法编写程序的优点</p>
+<ul>
+<li>
+<p>符合人的思维习惯，逼近数学公式的表示</p>
+</li>
+<li>
+<p>从编程角度来看，简洁、直观、精炼，易编、易懂、逻辑清楚，结构清晰、可读性好</p>
+</li>
+</ul>
+<p>（6）递归方法编写程序的缺点</p>
+<ul>
+<li>
+<p>增加了函数调用开销，每次调用都需参数传递、现场保护等，为函数使用的参数、局部变量等额外分配存储空间</p>
+</li>
+<li>
+<p>耗费更多的时间和栈空间，时空效率低</p>
+</li>
+<li>
+<p>重复计算多</p>
+</li>
+</ul>
+<h5 id="4变量的作用域与存储类型"><a class="markdownIt-Anchor" href="#4变量的作用域与存储类型"></a> 4.变量的作用域与存储类型</h5>
+<ul>
+<li>
+<p>变量的作用域 （Scope）:指在源程序中定义变量的位置及其能被读写访问的</p>
+<p>范围，分为：</p>
+<ul>
+<li>
+<p>局部变量（Local Variable）:在语句块内（函数、复合语句）定义的变量</p>
+</li>
+<li>
+<p>有效范围仅为该语句块（函数，复合语句）</p>
+<p>仅能由语句块内的语句访问，退出语句块时释放内存，不再有效</p>
+</li>
+<li>
+<p>全局变量（Global Variable )：在所有函数之外定义的变量</p>
+<p>有效范围是从定义变量的位置开始，到本程序结束</p>
+</li>
+</ul>
+</li>
+<li>
+<p>假如变量同名…</p>
+<ul>
+<li>
+<p>并列语句块内各自定义（不同作用域）的变量同名互不干扰</p>
+</li>
+<li>
+<p>形参和实参的作用域不同，互不干扰（改变形参对实参不影响）</p>
+</li>
+<li>
+<p>局部变量与全局变量同名：局部变量屏蔽全局变量</p>
+<p>只要作用域不同，新的声明屏蔽旧的声明<br />
+<img src="/images/2023-11-17-15-36-40-image.png" alt="" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>编译器如何区分不同作用域的同名变量？</p>
+<ul>
+<li>
+<p>一个变量名能代表两个不同的值，仅当它能代表两个不同的内存地址</p>
+</li>
+<li>
+<p>编译器通过将同名变量映射到不同的内存地址来实现作用域的划分局部变量和全局变量被分配的内存区域不同，因而内存地址也不同</p>
+</li>
+<li>
+<p>形参和实参的作用域、内存地址不同，所以形参值的改变不会影响实参</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>可划分为四大内存分区：堆、栈、静态存储区和代码区。</p>
+<p><strong>堆区：</strong><br />
+由程序猿手动申请，手动释放，若不手动释放，程序结束后由系统回收，生命周期是整个程序运行期间。使用malloc或者new进行堆的申请，堆的总大小为机器的虚拟内存的大小。<br />
+说明：new操作符本质上是使用了malloc进行内存的申请，new和malloc的区别如下：<br />
+（1）malloc是C语言中的函数，而new是C++中的操作符。<br />
+（2）malloc申请之后返回的类型是void*，而new返回的指针带有类型。<br />
+（3）malloc只负责内存的分配而不会调用类的构造函数，而new不仅会分配内存，而且会自动调用类的构造函数。</p>
+<p><strong>栈区：</strong><br />
+由系统进行内存的管理。主要存放函数的参数以及局部变量。在函数完成执行，系统自行释放栈区内存，不需要用户管理。整个程序的栈区的大小可以在编译器中由用户自行设定，VS中默认的栈区大小为1M，可通过VS手动更改栈的大小。64bits的Linux默认栈大小为10MB，可通过ulimit -s临时修改。</p>
+<p><strong>静态存储区：</strong><br />
+静态存储区内的变量在程序编译阶段已经分配好内存空间并初始化。这块内存在程序的整个运行期间都存在，它主要存放静态变量、全局变量和常量。<br />
+<strong>注意：</strong><br />
+（1）<em>这里不区分初始化和未初始化的数据区</em>，是因为静态存储区内的变量若不显示初始化，则编译器会自动以默认的方式进行初始化，即静态存储区内不存在未初始化的变量。<br />
+（2）静态存储区内的常量分为常变量和字符串常量，一经初始化，不可修改。静态存储内的常变量是全局变量，与局部常变量不同，区别在于局部常变量存放于栈，实际可间接通过指针或者引用进行修改，而全局常变量存放于静态常量区则不可以间接修改。<br />
+（3）字符串常量存储在静态存储区的常量区，字符串常量的名称即为它本身，属于常变量。<br />
+（4）数据区的具体划分，有利于我们对于变量类型的理解。不同类型的变量存放的区域不同。后面将以实例代码说明这四种数据区中具体对应的变量。</p>
+<p><strong>代码区：</strong><br />
+存放程序体的二进制代码。比如我们写的函数，都是在代码区的。</p>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>;<span class="comment">//静态全局变量区</span></span><br><span class="line"><span class="type">char</span> *p1; <span class="comment">//编译器默认初始化为NULL</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> b; <span class="comment">//栈</span></span><br><span class="line">    <span class="type">char</span> s[] = <span class="string">&quot;abc&quot;</span>;<span class="comment">//栈</span></span><br><span class="line">    <span class="type">char</span> *p2 = <span class="string">&quot;123456&quot;</span>;<span class="comment">//123456在字符串常量区，p2在栈上</span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> c =<span class="number">0</span>; <span class="comment">//c在静态变量区，0为文字常量，在代码区</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> d=<span class="number">0</span>; <span class="comment">//栈</span></span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> d;<span class="comment">//静态常量区</span></span><br><span class="line">    p1 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);<span class="comment">//分配得来得10字节在堆区。</span></span><br><span class="line">    <span class="built_in">strcpy</span>(p1, <span class="string">&quot;123456&quot;</span>); <span class="comment">//123456放在字符变量想串常量区，编译器可能会将它与p2所指向的&quot;123456&quot;优化成一个地方</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上所有代码，编译成二进制后存放于代码区，文字常量存放于代码区，是不可寻址的。</p>
+</blockquote>
+<ul>
+<li>
+<p>变量的存储类型</p>
+<p>存储类型  数据类型  变量名;</p>
+<ul>
+<li>C存储类型关键字：auto（自动变量）、static（静态变量）(包括：静态局部变量，静态外部变量)、extern（外部变量）（编译器并不对其分配内存，只是表明“我知道了”）、register（寄存器变量）</li>
+</ul>
+</li>
+<li>
+<p>全局变量（跟下面几类不是并列关系）</p>
+</li>
+</ul>
+<p>先看看定义：定义在函数外面的变量，就叫全局变量。</p>
+<p>包括：<strong>普通全局变量</strong>   <strong>静态全局变量</strong>    <strong>跨文件引用全局变量(extern)</strong></p>
+<ul>
+<li><strong>关于自动变量的解释</strong></li>
+</ul>
+<blockquote>
+<p>又叫动态局部变量（缺省类型），存在栈内。进入语句块时自动申请内存，退出时自动释放内存，离开函数，值就消失</p>
+</blockquote>
+<ul>
+<li><strong>关于外部变量的解释</strong></li>
+</ul>
+<blockquote>
+<p>全局变量在整个程序中起作用，如果程序包含多个程序文件模块，可以通过外部声明，使得全局变量的作用范围扩展到其他模块，也可以通过定义静态全局变量，使其作用范围仅限制在这个模块</p>
+<p>全局变量只能被定义一次，如果其他模块要使用该全局变量，需要通过外部变量的声明。</p>
+<p>外部变量声明格式： extern 变量名表；</p>
+<p>只起说明作用，不分配存储单元，对应存储单元在全局变量定义时分配。</p>
+<p><strong>main.c</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> count ;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">write_extern</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"> count = <span class="number">5</span>;</span><br><span class="line"> write_extern();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>support.c</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> count;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">write_extern</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;count is %d\n&quot;</span>, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><strong>关于静态局部变量的解释</strong></li>
+</ul>
+<blockquote>
+<ol>
+<li>静态局部变量在静态存储区内分配存储单元，在程序整个运行期间都不释放。而普通局部变量属于动态存储类别，存储在动态存储区空间，函数调用结束后即释放；</li>
+<li>静态局部变量只初始化一次，以后每次调用函数时保留上次函数调用结束时的值。而自动变量每调用一次函数重新执行一次赋值语句；</li>
+<li>静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0(对数值型变量)或空字符(对字符型变量)。而对自动变量来说，如果不赋初值，则它的值是一个不确定的值。这是由于每次函数调用结束后存储单元已释放，下次调用时又重新另分配存储单元，而所分配的单元中的值是不确定的。</li>
+<li>静态局部变量始终驻留在全局数据区，直到程序运行结束。但其作用域仍为局部作用域，当定义它的函数或语句块结束时，其作用域随之结束。虽然静态局部变量在函数调用结束后仍然存在，但其他函数是不能引用它的。</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>关于静态全局变量的解释</strong></li>
+</ul>
+<blockquote>
+<p>当程序只有一个文件模块，其与一般全局变量作用相同； 当程序有多个模块时，C语言静态全局变量的作用范围局限于该模块。</p>
+<p>1）全局变量是不显式用static修饰的全局变量，但全局变量默认是动态的，作用域是整个工程，在一个文件内定义的全局变量，在另一个文件中，通过extern 全局变量名的声明，就可以使用全局变量。</p>
+<p>2）全局静态变量是显式用static修饰的全局变量，作用域是声明此变量所在的文件，其他的文件即使用extern声明也不能使用。</p>
+<p>静态全局变量有以下特点：</p>
+<p>1.该变量在全局数据区分配内存；</p>
+<p>2.未经初始化的静态全局变量会被程序自动初始化为0</p>
+<p>3.静态全局变量在声明它的整个文件都是可见的，而在文件之外是不可见的；</p>
+<p>4.静态变量都在全局数据区分配内存，包括后面将要提到的静态局部变量。</p>
+<ul>
+<li>
+<p>局部变量初始化时机问题：</p>
+<p>首先，静态局部变量和全局变量一样，数据都存放在全局区域，所以在主程序之前，编译器已经为其分配好了内存，但在C和C++中静态局部变量的初始化节点又有点不太一样。</p>
+<p>在C中，初始化发生在代码执行之前，编译阶段分配好内存之后，就会进行初始化，所以我们看到在C语言中无法使用变量对静态局部变量进行初始化，在程序运行结束，变量所处的全局内存会被全部回收。</p>
+<p>而在C<ins>中，初始化时在执行相关代码时才会进行初始化，~~*主要是由于C</ins>引入对象后，要进行初始化必须执行相应构造函数和析构函数，在构造函数或析构函数中经常会需要进行某些程序中需要进行的特定操作，并非简单地分配内存。所以C<ins>标准定为全局或静态对象是有首次用到时才会进行构造，并通过atexit()来管理。在程序结束，按照构造顺序反方向进行逐个析构。*~~ **所以在C</ins>中是可以使用变量对静态局部变量进行初始化的。**</p>
+</li>
+<li>
+<p>后面再来谈谈另一个问题，假如我们在一个循环中，定义了一个静态局部变量并进行初始化，循环过程中，编译器怎么知道当前的静态局部变量已经初始化过了呢？</p>
+<ul>
+<li>
+<p>这个问题C和C++的处理方式也是不一样的。</p>
+</li>
+<li>
+<p>C中编译器会直接跳过这一个语句，因为在编译的时候已经对静态局部变量进行过分配空间并初始化，所以代码执行过程中根本不需要再次执行。</p>
+</li>
+<li>
+<p>而在C++中，编译器会在编译器分配内存后，在全局区域（当前静态局部变量的地址）<strong>附近</strong>同样分配一块空间，进行记录变量是否已经进行过初始化。之所以说附近是根据编译器不同，处理方式不同导致的。</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>关于寄存器变量的解释</strong></li>
+</ul>
+<blockquote>
+<p>在程序运行时，根据需要到内存中相应的存储单元中调用，如果一个变量在程序中频繁使用，例如循环变量，那么，系统就必须多次访问内存中的该单元，影响程序的执行效率。</p>
+<p>因此，C语言\C++语言还定义了一种变量，不是保存在内存上，而是直接存储在CPU中的寄存器中，这种变量称为寄存器变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">register</span> <span class="type">int</span> i=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>C编译程序会自动地将寄存器变量变为自动变量</li>
+</ol>
+<ul>
+<li>
+<p>对于VC编译器会自动优化，即使没有声明寄存器变量，VC也会自动优化。</p>
+</li>
+<li>
+<p>对于GCC编译器就不会自动优化。</p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>由于受硬件寄存器长度的限制，所以寄存器变量只能是char、int或指针型。</p>
+</li>
+<li>
+<p>寄存器说明符只能用于说明函数中的变量和函数中的形参，因此不允许将外部变量或静态变量说明为&quot;register&quot;</p>
+</li>
+<li>
+<p>register变量使用的是硬件CPU中的寄存器，寄存器变量无地址，所以不能使用取地址运算符&quot;&amp;&quot;求寄存器变量的地址。</p>
+</li>
+</ol>
+</blockquote>
+<h5 id="5模块化程序设计方法自顶向下"><a class="markdownIt-Anchor" href="#5模块化程序设计方法自顶向下"></a> 5.模块化程序设计方法：自顶向下</h5>
+
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/19/07%E5%87%BD%E6%95%B0/" title="07函数" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/19/07函数/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+      </div>
+      
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+      
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/08/19/07%20%E5%A4%9A%E6%80%81/" title="07 多态"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+    
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

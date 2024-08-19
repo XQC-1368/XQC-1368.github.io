@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                CMake学习笔记1 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="CMake学习笔记 来源： 文件资料 CMake 保姆级教程（上） | 爱编程的大丙 (subingwen.cn) 视频教学 【CMake 保姆级教程【C&#x2F;C++】】  （一）第一次开发顺序： 1.要写的main程序写好，分程序写好，头文件库写好 2.建立CMakeLists.txt文件，在里面写内容 3.在终端上建立build文件夹，cd到里面，使用MinGW编译器把cmake文件转为make">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMake学习笔记1">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="CMake学习笔记 来源： 文件资料 CMake 保姆级教程（上） | 爱编程的大丙 (subingwen.cn) 视频教学 【CMake 保姆级教程【C&#x2F;C++】】  （一）第一次开发顺序： 1.要写的main程序写好，分程序写好，头文件库写好 2.建立CMakeLists.txt文件，在里面写内容 3.在终端上建立build文件夹，cd到里面，使用MinGW编译器把cmake文件转为make">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-19-11-39-50-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-02-12-11-57-58-image.png">
+<meta property="article:published_time" content="2024-08-19T04:23:45.782Z">
+<meta property="article:modified_time" content="2024-08-19T03:40:30.200Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="CMake">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2024-08-19-11-39-50-image.png">
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
+<link rel="stylesheet" href="/css/style.css">
+
+                        
+                          <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+                          
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-STL/">C++ STL</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CMake/">CMake</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/">思想方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E8%AE%BA/">数论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AD%9B%E6%B3%95/">筛法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">33</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/">二分</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E5%9F%9FDP/">区域DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/">多重背包DP的二进制优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%9F%E6%9C%9BDP/">期望DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%A0%91%E5%BD%A2DP/">树形DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8A%B6%E5%8E%8BDP/">状压DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/">环形DP的四边形不等式优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E8%83%8C%E5%8C%85DP/">背包DP</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B4%A0%E6%95%B0/">素数</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">C语言 文件操作</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" rel="tag">Miller-Rabin素性检验</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pollard-Rho/" rel="tag">Pollard-Rho</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal%E7%AE%97%E6%B3%95/" rel="tag">kruskal算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag">内联函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag">前缀和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" rel="tag">动态内存分配</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" rel="tag">动态数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9F%9FDP/" rel="tag">区域DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E5%90%91BFS/" rel="tag">双向BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" rel="tag">埃氏筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%80%81/" rel="tag">多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" rel="tag">多重背包DP的二进制优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" rel="tag">威尔逊定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86/" rel="tag">差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" rel="tag">并查集的按秩合并优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" rel="tag">并查集的路径优化压缩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" rel="tag">快速乘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">快速幂</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" rel="tag">思想方法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">扩展欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" rel="tag">拓展欧几里得定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%87%E9%92%88/" rel="tag">指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" rel="tag">最大公约数gcd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" rel="tag">最小公倍数lcm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%9F%E6%9C%9BDP/" rel="tag">期望DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="tag">构造函数和析构函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" rel="tag">树上差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" rel="tag">树上距离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2DP/" rel="tag">树形DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" rel="tag">树的深度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" rel="tag">树的直径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" rel="tag">欧拉函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" rel="tag">派生类</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">流运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" rel="tag">环形DP的四边形不等式优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">生成树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">种类并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%9B%E6%B3%95/" rel="tag">筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" rel="tag">素数判定</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" rel="tag">线性筛法（欧拉筛法）</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" rel="tag">继承与复合关系</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%8C%E5%8C%85DP/" rel="tag">背包DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" rel="tag">虚函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" rel="tag">裴蜀定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" rel="tag">费马小定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" rel="tag">辗转相除法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" rel="tag">遍历问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" rel="tag">重载函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">链式二叉树</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/BFS/" style="font-size: 13.18px;">BFS</a> <a href="/tags/C/" style="font-size: 13.73px;">C++</a> <a href="/tags/CMake/" style="font-size: 13.09px;">CMake</a> <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.09px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.09px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 13.73px;">C语言</a> <a href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 13px;">C语言 文件操作</a> <a href="/tags/DFS/" style="font-size: 13.45px;">DFS</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" style="font-size: 13px;">DP的单调队列优化</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.27px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.36px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/LCA/" style="font-size: 13.18px;">LCA</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" style="font-size: 13px;">Miller-Rabin素性检验</a> <a href="/tags/OOP/" style="font-size: 13.45px;">OOP</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Pollard-Rho/" style="font-size: 13px;">Pollard-Rho</a> <a href="/tags/STL/" style="font-size: 13.09px;">STL</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kruskal%E7%AE%97%E6%B3%95/" style="font-size: 13px;">kruskal算法</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 13.09px;">二分</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.09px;">二叉树</a> <a href="/tags/%E5%80%8D%E5%A2%9E/" style="font-size: 13.18px;">倍增</a> <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" style="font-size: 13px;">内联函数</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 13px;">函数</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 13px;">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 13px;">动态内存分配</a> <a href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" style="font-size: 13px;">动态数组</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13.82px;">动态规划</a> <a href="/tags/%E5%8C%BA%E5%9F%9FDP/" style="font-size: 13px;">区域DP</a> <a href="/tags/%E5%8C%BA%E9%97%B4DP/" style="font-size: 13.09px;">区间DP</a> <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 13px;">单调栈</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%8F%8C%E5%90%91BFS/" style="font-size: 13px;">双向BFS</a> <a href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">埃氏筛法</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 13px;">多态</a> <a href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">多重背包DP的二进制优化</a> <a href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" style="font-size: 13px;">威尔逊定理</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.18px;">字符串</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.73px;">层叠样式表CSS</a> <a href="/tags/%E5%B7%AE%E5%88%86/" style="font-size: 13px;">差分</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.09px;">并查集</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">并查集的按秩合并优化</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" style="font-size: 13px;">并查集的路径优化压缩</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 13px;">引用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" style="font-size: 13px;">快速乘</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 13px;">快速幂</a> <a href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" style="font-size: 13.27px;">思想方法</a> <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">扩展欧拉定理</a> <a href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" style="font-size: 13px;">拓展欧几里得定理</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 13.18px;">指针</a> <a href="/tags/%E6%8D%A2%E6%A0%B9dp/" style="font-size: 13px;">换根dp</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 13px;">数位DP</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.82px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.09px;">数组</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 13.55px;">数论</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" style="font-size: 13px;">最大公约数gcd</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 13px;">最大流</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" style="font-size: 13px;">最小公倍数lcm</a> <a href="/tags/%E6%9C%9F%E6%9C%9BDP/" style="font-size: 13px;">期望DP</a> <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" style="font-size: 13px;">构造函数和析构函数</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.09px;">栈</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" style="font-size: 13px;">树上差分</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" style="font-size: 13px;">树上距离</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" style="font-size: 13.64px;">树上问题</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 13px;">树形DP</a> <a href="/tags/%E6%A0%91%E5%BD%A2dp/" style="font-size: 13.09px;">树形dp</a> <a href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" style="font-size: 13px;">树的深度</a> <a href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" style="font-size: 13px;">树的直径</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" style="font-size: 13px;">树的重心</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" style="font-size: 13px;">欧拉函数</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">欧拉定理</a> <a href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" style="font-size: 13px;">派生类</a> <a href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 13px;">流运算符</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.09px;">浏览器</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 13px;">状压DP</a> <a href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" style="font-size: 13px;">环形DP的四边形不等式优化</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 13px;">生成树</a> <a href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">种类并查集</a> <a href="/tags/%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">筛法</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" style="font-size: 13px;">类和对象</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 13px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" style="font-size: 13px;">素数判定</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" style="font-size: 13px;">线性筛法（欧拉筛法）</a> <a href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 13px;">继承与复合关系</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 13.91px;">网页</a> <a href="/tags/%E8%83%8C%E5%8C%85DP/" style="font-size: 13px;">背包DP</a> <a href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" style="font-size: 13px;">虚函数</a> <a href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" style="font-size: 13px;">裴蜀定理</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a> <a href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" style="font-size: 13px;">费马小定理</a> <a href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" style="font-size: 13px;">辗转相除法</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" style="font-size: 13.09px;">运算符重载</a> <a href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" style="font-size: 13px;">遍历问题</a> <a href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" style="font-size: 13px;">重载函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">链式二叉树</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">74</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/07%E5%87%BD%E6%95%B0/" class="title">07函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.921Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/07%20%E5%A4%9A%E6%80%81/" class="title">07 多态</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.918Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/06%20%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F/" class="title">06 继承与派生</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.912Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/05%20%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E4%B8%80%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD/" class="title">05 流运算符和一元运算符的重载</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.905Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/04%E5%8F%8C%E5%90%91%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%9A%E5%85%AB%E6%95%B0%E7%A0%81%E9%9A%BE%E9%A2%98/" class="title">04双向广度优先搜索：八数码难题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T04:23:45.901Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cmake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> CMake学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.0.0.1.</span> <span class="toc-text"> （一）第一次开发顺序：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E4%BA%8C%E6%AC%A1%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.0.2.</span> <span class="toc-text"> （二）二次修改后的问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E4%B8%8B%E9%9D%A2%E6%98%AF%E6%AD%A3%E6%96%87"><span class="toc-number">1.0.0.3.</span> <span class="toc-text"> （三）下面是正文：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1cmake%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.CMake概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2cmake%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 2.CMake的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#21-%E6%B3%A8%E9%87%8A"><span class="toc-number">1.2.0.1.</span> <span class="toc-text"> 2.1 注释</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#211-%E6%B3%A8%E9%87%8A%E8%A1%8C"><span class="toc-number">1.2.0.1.1.</span> <span class="toc-text"> 2.1.1 注释行</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#212-%E6%B3%A8%E9%87%8A%E5%9D%97"><span class="toc-number">1.2.0.2.</span> <span class="toc-text"> 2.1.2 注释块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#21-%E5%8F%AA%E6%9C%89%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.0.3.</span> <span class="toc-text"> 2.1 只有源文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#211-%E5%85%B1%E5%A4%84%E4%B8%80%E5%AE%A4"><span class="toc-number">1.2.0.3.1.</span> <span class="toc-text"> 2.1.1 共处一室</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#212-vip-%E5%8C%85%E6%88%BF"><span class="toc-number">1.2.0.3.2.</span> <span class="toc-text"> 2.1.2 VIP 包房</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#22-%E7%A7%81%E4%BA%BA%E8%AE%A2%E5%88%B6"><span class="toc-number">1.2.0.4.</span> <span class="toc-text"> 2.2 私人订制</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#221-%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.0.4.1.</span> <span class="toc-text"> 2.2.1 定义变量</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#223-%E6%8C%87%E5%AE%9A%E8%BE%93%E5%87%BA%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-number">1.2.0.4.2.</span> <span class="toc-text"> 2.2.3 指定输出的路径</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#23-%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.0.5.</span> <span class="toc-text"> 2.3 搜索文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#231-%E6%96%B9%E5%BC%8F1"><span class="toc-number">1.2.0.5.1.</span> <span class="toc-text"> 2.3.1 方式1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#232-%E6%96%B9%E5%BC%8F2"><span class="toc-number">1.2.0.5.2.</span> <span class="toc-text"> 2.3.2 方式2</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#24-%E5%8C%85%E5%90%AB%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.0.6.</span> <span class="toc-text"> 2.4 包含头文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#25-%E5%88%B6%E4%BD%9C%E5%8A%A8%E6%80%81%E5%BA%93%E6%88%96%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">1.2.0.7.</span> <span class="toc-text"> 2.5 制作动态库或静态库</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#251-%E5%88%B6%E4%BD%9C%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">1.2.0.7.1.</span> <span class="toc-text"> 2.5.1 制作静态库</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#252-%E5%88%B6%E4%BD%9C%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">1.2.0.7.2.</span> <span class="toc-text"> 2.5.2 制作动态库</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#253-%E6%8C%87%E5%AE%9A%E8%BE%93%E5%87%BA%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-number">1.2.0.7.3.</span> <span class="toc-text"> 2.5.3 指定输出的路径</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#26-%E5%8C%85%E5%90%AB%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.0.8.</span> <span class="toc-text"> 2.6 包含库文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#261-%E9%93%BE%E6%8E%A5%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">1.2.0.8.1.</span> <span class="toc-text"> 2.6.1 链接静态库</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#262-%E9%93%BE%E6%8E%A5%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">1.2.0.8.2.</span> <span class="toc-text"> 2.6.2 链接动态库</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-CMake学习笔记1" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+      <div class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      CMake学习笔记1
+    </h1>
+  
+
+            
+              <div class="article-meta">
+                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" class="article-date">
+	  <time datetime="2024-08-19T04:23:45.782Z" itemprop="datePublished">2024-08-19</time>
+	</a>
+</span>
+                  
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/CMake/">CMake</a>
+  </span>
+
+                    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-link-link" href="/tags/CMake/" rel="tag">CMake</a>
+  </span>
+
+
+                      
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
+      </div>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h2 id="cmake学习笔记"><a class="markdownIt-Anchor" href="#cmake学习笔记"></a> CMake学习笔记</h2>
+<p>来源：</p>
+<p>文件资料</p>
+<p><a target="_blank" rel="noopener" href="https://subingwen.cn/cmake/CMake-primer/">CMake 保姆级教程（上） | 爱编程的大丙 (subingwen.cn)</a></p>
+<p>视频教学</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14s4y1g7Zj?p=6&amp;vd_source=c6cac99ae3e57c727ad51765bee0a508">【CMake 保姆级教程【C/C++】】</a></p>
+<h5 id="一第一次开发顺序"><a class="markdownIt-Anchor" href="#一第一次开发顺序"></a> （一）第一次开发顺序：</h5>
+<p>1.要写的main程序写好，分程序写好，头文件库写好</p>
+<p>2.建立<code>CMakeLists.txt</code>文件，在里面写内容</p>
+<p>3.在终端上建立build文件夹，<code>cd</code>到里面，使用MinGW编译器把cmake文件转为makefile工程文件（Windows下），即在终端写入以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -G &quot;MinGW makefiles&quot; ../</span><br></pre></td></tr></table></figure>
+<p>在Linux上：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake .. </span><br></pre></td></tr></table></figure>
+<p>即可，生成的是makefile文件夹</p>
+<p>4.将makefile文件做成可执行程序：在终端中输入 <code>make</code>  即可</p>
+<h5 id="二二次修改后的问题"><a class="markdownIt-Anchor" href="#二二次修改后的问题"></a> （二）二次修改后的问题</h5>
+<p>问题1：编译失败</p>
+<p>检查有无语法错误</p>
+<p>ctrl+shift+p选择工具包，使用cmake -G “MinGW makefiles” …/指令</p>
+<p>关闭保存cmakelists.txt时候才会生成自动生成build文件夹</p>
+<p>问题2：修改之后重新编译</p>
+<p>关闭并保存文件，看是否报错，错了可能语法有问题，没错自动编译</p>
+<h5 id="三下面是正文"><a class="markdownIt-Anchor" href="#三下面是正文"></a> （三）下面是正文：</h5>
+<h3 id="1cmake概述"><a class="markdownIt-Anchor" href="#1cmake概述"></a> 1.CMake概述</h3>
+<p>CMake 是一个项目构建工具，并且是跨平台的。关于项目构建我们所熟知的还有Makefile（通过 make 命令进行项目的构建），大多是IDE软件都集成了make，比如：VS 的 nmake、linux 下的 GNU make、Qt 的 qmake等，如果自己动手写 makefile，会发现，makefile 通常依赖于当前的编译平台，而且编写 makefile 的工作量比较大，解决依赖关系时也容易出错。</p>
+<p>而 CMake 恰好能解决上述问题， 其允许开发者指定整个工程的编译流程，在根据编译平台，自动生成本地化的Makefile和工程文件，最后用户只需make编译即可，所以可以把CMake看成一款自动生成 Makefile的工具，其编译流程如下图：</p>
+<p><img src="/images/2024-08-19-11-39-50-image.png" alt="" /></p>
+<p>蓝色虚线表示使用<code>makefile</code>构建项目的过程<br />
+红色实线表示使用<code>cmake</code>构建项目的过程</p>
+<p>介绍完CMake的作用之后，再来总结一下它的优点：</p>
+<ul>
+<li>
+<p>跨平台</p>
+</li>
+<li>
+<p>能够管理大型项目</p>
+</li>
+<li>
+<p>简化编译构建过程和编译过程</p>
+</li>
+<li>
+<p>可扩展：可以为 cmake 编写特定功能的模块，扩充 cmake 功能</p>
+</li>
+</ul>
+<h3 id="2cmake的使用"><a class="markdownIt-Anchor" href="#2cmake的使用"></a> 2.CMake的使用</h3>
+<p>CMake支持大写、小写、混合大小写的命令。如果在编写CMakeLists.txt文件时使用的工具有对应的命令提示，那么大小写随缘即可，不要太过在意。</p>
+<h5 id="21-注释"><a class="markdownIt-Anchor" href="#21-注释"></a> 2.1 注释</h5>
+<h6 id="211-注释行"><a class="markdownIt-Anchor" href="#211-注释行"></a> 2.1.1 注释行</h6>
+<p>CMake 使用 # 进行行注释，可以放在任何位置。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是一个 CMakeLists.txt 文件</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>.<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="212-注释块"><a class="markdownIt-Anchor" href="#212-注释块"></a> 2.1.2 注释块</h5>
+<p>CMake 使用 #[[ ]] 形式进行块注释。(哦这个展示他失败了)</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#[[ 这是一个 CMakeLists.txt 文件。</span></span><br><span class="line"><span class="comment"> 这是一个 CMakeLists.txt 文件</span></span><br><span class="line"><span class="comment"> 这是一个 CMakeLists.txt 文件]]</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>.<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>实际上是可以的：</p>
+<p><img src="/images/2024-02-12-11-57-58-image.png" alt="" /></p>
+<h5 id="21-只有源文件"><a class="markdownIt-Anchor" href="#21-只有源文件"></a> 2.1 只有源文件</h5>
+<h6 id="211-共处一室"><a class="markdownIt-Anchor" href="#211-共处一室"></a> 2.1.1 共处一室</h6>
+<p><strong>1.准备工作</strong>，为了方便测试，在我本地电脑准备了这么几个测试文件</p>
+<p>add.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sub.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你好</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">subtract</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a-b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mult.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a*b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>div.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">double</span>)a/b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>head.h</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _HEAD_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _HEAD_H</span></span><br><span class="line"><span class="comment">// 加法</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="comment">// 减法</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">subtract</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="comment">// 乘法</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="comment">// 除法</span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>main.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">20</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">12</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d, b = %d\n&quot;</span>, a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, <span class="built_in">add</span>(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a - b = %d\n&quot;</span>, <span class="built_in">subtract</span>(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a * b = %d\n&quot;</span>, <span class="built_in">multiply</span>(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a / b = %f\n&quot;</span>, <span class="built_in">divide</span>(a, b));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2.上述文件的目录结构如下：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree</span></span><br><span class="line">.</span><br><span class="line">├── add.c</span><br><span class="line">├── div.c</span><br><span class="line">├── head.h</span><br><span class="line">├── main.c</span><br><span class="line">├── mult.c</span><br><span class="line">└── sub.c</span><br></pre></td></tr></table></figure>
+<p><strong>3.添加 CMakeLists.txt 文件</strong></p>
+<p>在上述源文件所在目录下添加一个新文件 CMakeLists.txt，文件内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cmake_minimum_required</span>(VESION <span class="number">3.0</span>)</span><br><span class="line"><span class="built_in">project</span>(CALC)</span><br><span class="line"><span class="built_in">add_executable</span>(app add.c div.c main.c mult.c sub.c)</span><br></pre></td></tr></table></figure>
+<p>接下来依次介绍一下在 CMakeLists.txt 文件中添加的三个命令:</p>
+<p><code>cmake_minimum_required</code>：指定使用的 cmake 的最低版本</p>
+<p>可选，非必须，如果不加可能会有警告<br />
+<code>project</code>：定义工程名称，并可指定工程的版本、工程描述、web主页地址、支持的语言（默认情况支持所有语言），如果不需要这些都是可以忽略的，只需要指定出工程名字即可。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PROJECT 指令的语法是：</span></span><br><span class="line"><span class="keyword">project</span>(&lt;<span class="keyword">PROJECT</span>-NAME&gt; [&lt;language-name&gt;...])</span><br><span class="line"><span class="keyword">project</span>(&lt;<span class="keyword">PROJECT</span>-NAME&gt;</span><br><span class="line">       [VERSION &lt;major&gt;[.&lt;minor&gt;[.&lt;patch&gt;[.&lt;tweak&gt;]]]]</span><br><span class="line">       [DESCRIPTION &lt;<span class="keyword">project</span>-description-<span class="keyword">string</span>&gt;]</span><br><span class="line">       [HOMEPAGE_URL &lt;url-<span class="keyword">string</span>&gt;]</span><br><span class="line">       [LANGUAGES &lt;language-name&gt;...])</span><br></pre></td></tr></table></figure>
+<p><code>add_executable</code>：定义工程会生成一个可执行程序</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(可执行程序名 源文件名称)</span><br></pre></td></tr></table></figure>
+<p>这里的可执行程序名和<code>project</code>中的项目名没有任何关系</p>
+<p>源文件名可以是一个也可以是多个，如有多个可用空格或 <code>;</code> 间隔</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 样式1</span></span><br><span class="line"><span class="keyword">add_executable</span>(app add.c div.c main.c mult.c sub.c)</span><br><span class="line"><span class="comment"># 样式2</span></span><br><span class="line"><span class="keyword">add_executable</span>(app add.c;div.c;main.c;mult.c;sub.c)</span><br></pre></td></tr></table></figure>
+<p><strong>4.执行CMake 命令</strong></p>
+<p>万事俱备只欠东风，将 CMakeLists.txt 文件编辑好之后，就可以执行 cmake命令了。</p>
+<p>(win关闭保存cmakelists.txt 文件后会自动执行cmake)</p>
+<h6 id="212-vip-包房"><a class="markdownIt-Anchor" href="#212-vip-包房"></a> 2.1.2 VIP 包房</h6>
+<p>通过上面的例子可以看出，如果在<code>CMakeLists.txt</code>文件所在目录执行了<code>cmake</code>命令之后就会生成一些目录和文件（包括 <code>makefile</code> 文件），如果再基于<code>makefile</code>文件执行<code>make</code>命令，程序在编译过程中还会生成一些中间文件和一个可执行文件，这样会导致整个项目目录看起来很混乱，不太容易管理和维护，此时我们就可以把生成的这些与项目源码无关的文件统一放到一个对应的目录里边，比如将这个目录命名为<code>build</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -G <span class="string">&quot;MinGW makefiles&quot;</span> ../</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make</span></span><br></pre></td></tr></table></figure>
+<p>现在<code>cmake</code>命令是在<code>build</code>目录中执行的，但是<code>CMakeLists.txt</code>文件是<code>build</code>目录的上一级目录中，所以<code>cmake </code>命令后指定的路径为<code>..</code>，即当前目录的上一级目录。</p>
+<p>当命令执行完毕之后，在<code>build</code>目录中会生成一个<code>makefile</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree build -L 1</span></span><br><span class="line">build</span><br><span class="line">├── CMakeCache.txt</span><br><span class="line">├── CMakeFiles</span><br><span class="line">├── cmake_install.cmake</span><br><span class="line">└── Makefile</span><br><span class="line"></span><br><span class="line">1 directory, 3 files</span><br></pre></td></tr></table></figure>
+<p>这样就可以在<code>build</code>目录中执行<code>make</code>命令编译项目，生成的相关文件自然也就被存储到<code>build</code>目录中了。这样通过<code>cmake</code>和<code>make</code>生成的所有文件就全部和项目源文件隔离开了，各回各家，各找各妈。</p>
+<h5 id="22-私人订制"><a class="markdownIt-Anchor" href="#22-私人订制"></a> 2.2 私人订制</h5>
+<h6 id="221-定义变量"><a class="markdownIt-Anchor" href="#221-定义变量"></a> 2.2.1 定义变量</h6>
+<p>在上面的例子中一共提供了5个源文件，假设这五个源文件需要反复被使用，每次都直接将它们的名字写出来确实是很麻烦，此时我们就需要定义一个变量，将文件名对应的字符串存储起来，在<code>cmake</code>里定义变量需要使用<code>set</code>。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SET 指令的语法是：</span></span><br><span class="line"><span class="comment"># [] 中的参数为可选项, 如不需要可以不写</span></span><br><span class="line"><span class="keyword">SET</span>(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]])</span><br></pre></td></tr></table></figure>
+<p><code>VAR</code>：变量名<br />
+<code>VALUE</code>：变量值</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1: 各个源文件之间使用空格间隔</span></span><br><span class="line"><span class="comment"># set(SRC_LIST add.c  div.c   main.c  mult.c  sub.c)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2: 各个源文件之间使用分号 ; 间隔</span></span><br><span class="line"><span class="keyword">set</span>(SRC_LIST add.c;div.c;main.c;mult.c;sub.c)</span><br><span class="line"><span class="keyword">add_executable</span>(app  <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>2.2.2 指定使用的C<ins>标准<br />
+在编写C</ins>程序的时候，可能会用到C<ins>11、C</ins>14、C<ins>17、C</ins>20等新特性，那么就需要在编译的时候在编译命令中制定出要使用哪个标准：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">g++ *.cpp -std=c++11 -o app</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中通过参数-std=c<ins>11指定出要使用c</ins>11标准编译程序，C<ins>标准对应有一宏叫做DCMAKE_CXX_STANDARD。在CMake中想要指定C</ins>标准有两种方式：</p>
+<ul>
+<li>
+<p>1.在 CMakeLists.txt 中通过 set 命令指定</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#增加-std=c++11</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXXSTANDARD <span class="number">11</span>)</span><br><span class="line"><span class="comment">#增加-std=c++14</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="comment">#增加-std=c++17</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 2.在执行 cmake 命令的时候指定出这个宏的值</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">#增加-std=c++11</span><br><span class="line">cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=11</span><br><span class="line">#增加-std=c++14</span><br><span class="line">cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=14</span><br><span class="line">#增加-std=c++17</span><br><span class="line">cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=17</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在上面例子中 CMake 后的路径需要根据实际情况酌情修改。</p>
+</blockquote>
+<h6 id="223-指定输出的路径"><a class="markdownIt-Anchor" href="#223-指定输出的路径"></a> 2.2.3 指定输出的路径</h6>
+<p>在CMake中指定可执行程序输出的路径，也对应一个宏，叫做<code>EXECUTABLE_OUTPUT_PATH</code>，它的值还是通过<code>set</code>命令进行设置:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(HOME /home/robin/Linux/Sort)</span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">$&#123;HOME&#125;</span>/bin)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>第一行：定义一个变量用于存储一个绝对路径</p>
+</li>
+<li>
+<p>第二行：将拼接好的路径值设置给<code>EXECUTABLE_OUTPUT_PATH</code>宏</p>
+<ul>
+<li>如果这个路径中的子目录不存在，会自动生成，无需自己手动创建</li>
+</ul>
+</li>
+</ul>
+<p>由于可执行程序是基于 <code>cmake </code>命令生成的<code>makefile</code>文件然后再执行 <code>make </code>命令得到的，所以如果此处指定可执行程序生成路径的时候使用的是相对路径<code> ./xxx/xxx</code>，那么这个路径中的 <code>./ </code>对应的是 <code>makefile </code>文件所在的那个目录。</p>
+<h5 id="23-搜索文件"><a class="markdownIt-Anchor" href="#23-搜索文件"></a> 2.3 搜索文件</h5>
+<p>如果一个项目里边的源文件很多，在编写<code>CMakeLists.txt</code>文件的时候不可能将项目目录的各个文件一一罗列出来，这样太麻烦也不现实。所以，在<code>CMake</code>中为我们提供了搜索文件的命令，可以使用<code>aux_source_directory</code>命令或者<code>file</code>命令。</p>
+<h6 id="231-方式1"><a class="markdownIt-Anchor" href="#231-方式1"></a> 2.3.1 方式1</h6>
+<p>在 <code>CMake</code> 中使用<code>aux_source_directory</code> 命令可以查找某个路径下的所有源文件，命令格式为：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">aux_source_directory</span>(&lt; dir &gt; &lt; variable &gt;)</span><br></pre></td></tr></table></figure>
+<p><code>dir</code>：要搜索的目录<br />
+<code>variable</code>：将从dir目录下搜索到的源文件列表存储到该变量中</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="comment"># 搜索 src 目录下的源文件</span></span><br><span class="line"><span class="keyword">aux_source_directory</span>(<span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/src SRC_LIST)</span><br><span class="line"><span class="keyword">add_executable</span>(app  <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="232-方式2"><a class="markdownIt-Anchor" href="#232-方式2"></a> 2.3.2 方式2</h6>
+<p>如果一个项目里边的源文件很多，在编写<code>CMakeLists.txt</code>文件的时候不可能将项目目录的各个文件一一罗列出来，这样太麻烦了。所以，在<code>CMake</code>中为我们提供了搜索文件的命令，他就是<code>file</code>（当然，除了搜索以外通过 <code>file </code>还可以做其他事情）。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">file</span>(GLOB/GLOB_RECURSE 变量名 要搜索的文件路径和文件类型)</span><br></pre></td></tr></table></figure>
+<p><code>GLOB</code>: 将指定目录下搜索到的满足条件的所有文件名生成一个列表，并将其存储到变量中。<br />
+<code>GLOB_RECURSE</code>：递归搜索指定目录，将搜索到的满足条件的文件名生成一个列表，并将其存储到变量中。</p>
+<p>搜索当前目录的src目录下所有的源文件，并存储到变量中</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">file</span>(GLOB MAIN_SRC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src/*.cpp)</span><br><span class="line"><span class="keyword">file</span>(GLOB MAIN_HEAD <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>/*.h)</span><br></pre></td></tr></table></figure>
+<p><code>CMAKE_CURRENT_SOURCE_DIR</code>  或  <code>CMAKE_SOURCE_DIR</code> 宏表示当前访问的 <code>CMakeLists.txt </code>文件所在的路径。</p>
+<p>关于要搜索的文件路径和类型可加双引号，也可不加:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">file</span>(GLOB MAIN_HEAD <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/src/*.h&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="24-包含头文件"><a class="markdownIt-Anchor" href="#24-包含头文件"></a> 2.4 包含头文件</h5>
+<p>在编译项目源文件的时候，很多时候都需要将源文件对应的头文件路径指定出来，这样才能保证在编译过程中编译器能够找到这些头文件，并顺利通过编译。在<code>CMake</code>中设置要包含的目录也很简单，通过一个命令就可以搞定了，他就是<code>include_directories</code>:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include_directories</span>(headpath)</span><br></pre></td></tr></table></figure>
+<p>举例说明，有源文件若干，其目录结构如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ tree</span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── <span class="keyword">include</span></span><br><span class="line">│   └── head.h</span><br><span class="line">└── src</span><br><span class="line">    ├── add.cpp</span><br><span class="line">    ├── div.cpp</span><br><span class="line">    ├── main.cpp</span><br><span class="line">    ├── mult.cpp</span><br><span class="line">    └── sub.cpp</span><br><span class="line"></span><br><span class="line"><span class="number">3</span> directories, <span class="number">7</span> files</span><br></pre></td></tr></table></figure>
+<p><code>CMakeLists.txt</code>文件内容如下:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">set</span>(CMAKECXX_STANDARD <span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(HOME /home/robin/Linux/calc)</span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">$&#123;HOME&#125;</span>/bin/)</span><br><span class="line"><span class="comment">#或写成$&#123;PROJECT_BINARY_DIR&#125;/bin，其中PROJECT_BINARY_DIR为build目录的地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="comment">#或写成include_directories($&#123;CMAKE_SOURCE_DIR&#125;/include)</span></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src/*.cpp)</span><br><span class="line"><span class="keyword">add_executable</span>(app  <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>其中，第六行指定就是头文件的路径，<code>PROJECT_SOURCE_DIR</code>宏对应的值就是我们在使用<code>cmake</code>命令时，后面紧跟的目录，一般是工程的根目录。</p>
+<h5 id="25-制作动态库或静态库"><a class="markdownIt-Anchor" href="#25-制作动态库或静态库"></a> 2.5 制作动态库或静态库</h5>
+<p>有些时候我们编写的源代码并不需要将他们编译生成可执行程序，而是生成一些静态库或动态库提供给第三方使用，下面来讲解在  <code>cmake</code>  中生成这两类库文件的方法。</p>
+<h6 id="251-制作静态库"><a class="markdownIt-Anchor" href="#251-制作静态库"></a> 2.5.1 制作静态库</h6>
+<p>在  <code>cmake</code>  中，如果要制作静态库，需要使用的命令如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(库名称 STATIC 源文件<span class="number">1</span> [源文件<span class="number">2</span>] ...) </span><br></pre></td></tr></table></figure>
+<p>在<code>Linux</code>中，静态库名字分为三部分：<code>lib+库名字+.a</code>，此处只需要指定出库的名字就可以了，另外两部分在生成该文件的时候会自动填充。</p>
+<p>在<code>Windows</code>中虽然库名和<code>Linux</code>格式不同（<code>lib+库名字+.lib</code>然而事实上不是这样），但也只需指定出名字即可。</p>
+<p>下面有一个目录，需要将<code>src</code>目录中的源文件编译成静态库，然后再使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include           # 头文件目录</span><br><span class="line">│   └── head.h</span><br><span class="line">├── main.cpp          # 用于测试的源文件</span><br><span class="line">└── src               # 源文件目录</span><br><span class="line">    ├── add.cpp</span><br><span class="line">    ├── div.cpp</span><br><span class="line">    ├── mult.cpp</span><br><span class="line">    └── sub.cpp</span><br></pre></td></tr></table></figure>
+<p>根据上面的目录结构，可以这样编写<code>CMakeLists.txt</code>文件:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/src/*.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">add_library</span>(calc STATIC <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>这样最终就会生成对应的静态库文件<code>libcalc.a</code>。</p>
+<h6 id="252-制作动态库"><a class="markdownIt-Anchor" href="#252-制作动态库"></a> 2.5.2 制作动态库</h6>
+<p>在cmake中，如果要制作动态库，需要使用的命令如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(库名称 SHARED 源文件<span class="number">1</span> [源文件<span class="number">2</span>] ...) </span><br></pre></td></tr></table></figure>
+<p>在<code>Linux</code>中，动态库名字分为三部分：<code>lib+库名字+.so</code>，此处只需要指定出库的名字就可以了，另外两部分在生成该文件的时候会自动填充。</p>
+<p>在<code>Windows</code>中虽然库名和<code>Linux</code>格式不同 (<code>.dll</code>文件) ，但也只需指定出名字即可。</p>
+<p>根据上面的目录结构，可以这样编写<code>CMakeLists.txt</code>文件:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/src/*.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">add_library</span>(calc SHARED <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>这样最终就会生成对应的动态库文件<code>libcalc.so</code>。</p>
+<h6 id="253-指定输出的路径"><a class="markdownIt-Anchor" href="#253-指定输出的路径"></a> 2.5.3 指定输出的路径</h6>
+<p><strong>方式1 - 适用于动态库</strong><br />
+对于生成的库文件来说和可执行程序一样都可以指定输出路径。由于在Linux下生成的动态库默认是有执行权限的，所以可以按照生成可执行程序的方式去指定它生成的目录：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/src/*.cpp&quot;</span>)</span><br><span class="line"><span class="comment"># 设置动态库生成路径</span></span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)</span><br><span class="line"><span class="keyword">add_library</span>(calc SHARED <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>方式2 - 都适用</strong><br />
+由于在<code>Linux</code>下生成的静态库默认不具有可执行权限，所以在指定静态库生成的路径的时候就不能使用<code>EXECUTABLE_OUTPUT_PATH</code>宏了，而应该使用<code>LIBRARY_OUTPUT_PATH</code>，这个宏对应静态库文件和动态库文件都适用。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/src/*.cpp&quot;</span>)</span><br><span class="line"><span class="comment"># 设置动态库/静态库生成路径</span></span><br><span class="line"><span class="keyword">set</span>(LIBRARY_OUTPUT_PATH <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)</span><br><span class="line"><span class="comment"># 生成动态库</span></span><br><span class="line"><span class="comment">#add_library(calc SHARED $&#123;SRC_LIST&#125;)</span></span><br><span class="line"><span class="comment"># 生成静态库</span></span><br><span class="line"><span class="keyword">add_library</span>(calc STATIC <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="26-包含库文件"><a class="markdownIt-Anchor" href="#26-包含库文件"></a> 2.6 包含库文件</h5>
+<p>在编写程序的过程中，可能会用到一些系统提供的动态库或者自己制作出的动态库或者静态库文件，cmake中也为我们提供了相关的加载动态库的命令。</p>
+<h6 id="261-链接静态库"><a class="markdownIt-Anchor" href="#261-链接静态库"></a> 2.6.1 链接静态库</h6>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── add.cpp</span><br><span class="line">├── div.cpp</span><br><span class="line">├── main.cpp</span><br><span class="line">├── mult.cpp</span><br><span class="line">└── sub.cpp</span><br></pre></td></tr></table></figure>
+<p>现在我们把上面<code>src</code>目录中的<code>add.cpp</code>、<code>div.cpp</code>、<code>mult.cpp</code>、<code>sub.cpp</code>编译成一个静态库文件<code>libcalc.a</code>。</p>
+<p>测试目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree</span> </span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include</span><br><span class="line">│   └── head.h</span><br><span class="line">├── lib</span><br><span class="line">│   └── libcalc.a     # 制作出的静态库的名字</span><br><span class="line">└── src</span><br><span class="line">    └── main.cpp</span><br><span class="line"></span><br><span class="line">4 directories, 4 files</span><br></pre></td></tr></table></figure>
+<p>在cmake中，链接静态库的命令如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">link_libraries</span>(&lt;static lib&gt; [&lt;static lib&gt;...])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>参数1：指定出要链接的静态库的名字</p>
+<ul>
+<li>
+<p>可以是全名<code> libxxx.a</code></p>
+</li>
+<li>
+<p>也可以是掐头（<code>lib</code>）去尾（<code>.a</code>）之后的名字<code> xxx</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>参数2-N：要链接的其它静态库的名字</p>
+</li>
+</ul>
+<p>如果该静态库不是系统提供的（自己制作或者使用第三方提供的静态库）可能出现静态库找不到的情况，此时可以将静态库的路径也指定出来：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">link_directories</span>(&lt;lib path&gt;)</span><br></pre></td></tr></table></figure>
+<p>这样，修改之后的<code>CMakeLists.txt</code>文件内容如下:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(CALC)</span><br><span class="line"><span class="comment"># 搜索指定目录下源文件</span></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src/*.cpp)</span><br><span class="line"><span class="comment"># 包含头文件路径</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="comment"># 包含静态库路径</span></span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)</span><br><span class="line"><span class="comment"># 链接静态库</span></span><br><span class="line"><span class="keyword">link_libraries</span>(calc)</span><br><span class="line"><span class="keyword">add_executable</span>(app <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>添加了第8行的代码，就可以根据参数指定的路径找到这个静态库了</p>
+<h6 id="262-链接动态库"><a class="markdownIt-Anchor" href="#262-链接动态库"></a> 2.6.2 链接动态库</h6>
+<p>在程序编写过程中，除了在项目中引入静态库，好多时候也会使用一些标准的或者第三方提供的一些动态库，关于动态库的制作、使用以及在内存中的加载方式和静态库都是不同的，在此不再过多赘述，如有疑惑请参考<a href="">Linux静态库与动态库</a></p>
+<p>在<code>cmake</code>中链接动态库的命令如下:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(</span><br><span class="line">    &lt;<span class="keyword">target</span>&gt; </span><br><span class="line">    &lt;PRIVATE|PUBLIC|INTERFACE&gt; &lt;item&gt;... </span><br><span class="line">    [&lt;PRIVATE|PUBLIC|INTERFACE&gt; &lt;item&gt;...]...)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><strong>target</strong>：指定要加载动态库的文件的名字</p>
+<ul>
+<li>
+<p>该文件可能是一个源文件</p>
+</li>
+<li>
+<p>该文件可能是一个动态库文件</p>
+</li>
+<li>
+<p>该文件可能是一个可执行文件</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>PRIVATE|PUBLIC|INTERFACE</strong>：动态库的访问权限，默认为PUBLIC</p>
+<ul>
+<li>
+<p>如果各个动态库之间没有依赖关系，无需做任何设置，三者没有没有区别，一般无需指定，使用默认的 PUBLIC 即可。</p>
+</li>
+<li>
+<p>动态库的链接具有传递性，如果动态库 A 链接了动态库B、C，动态库D链接了动态库A，此时动态库D相当于也链接了动态库B、C，并可以使用动态库B、C中定义的方法。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(A B C)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(D A)</span><br></pre></td></tr></table></figure>
+<p><code>PUBLIC</code>：在public后面的库会被Link到前面的target中，并且里面的符号也会被导出，提供给第三方使用。<br />
+<code>PRIVATE</code>：在private后面的库仅被link到前面的target中，并且终结掉，第三方不能感知你调了啥库<br />
+<code>INTERFACE</code>：在interface后面引入的库不会被链接到前面的target中，只会导出符号。</p>
+<p><strong>链接系统动态库</strong><br />
+动态库的链接和静态库是完全不同的：</p>
+<p>静态库会在生成可执行程序的链接阶段被打包到可执行程序中，所以可执行程序启动，静态库就被加载到内存中了。<br />
+动态库在生成可执行程序的链接阶段不会被打包到可执行程序中，当可执行程序被启动并且调用了动态库中的函数的时候，动态库才会被加载到内存<br />
+因此，在cmake中指定要链接的动态库的时候，应该将命令写到生成了可执行文件之后：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">TEST</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/*.cpp)</span><br><span class="line"><span class="comment"># 添加并指定最终生成的可执行程序名</span></span><br><span class="line"><span class="keyword">add_executable</span>(app <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br><span class="line"><span class="comment"># 指定可执行程序要链接的动态库名字</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(app pthread)</span><br></pre></td></tr></table></figure>
+<p>链接第三方动态库<br />
+现在，自己生成了一个动态库，对应的目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree</span> </span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include</span><br><span class="line">│   └── head.h            # 动态库对应的头文件</span><br><span class="line">├── lib</span><br><span class="line">│   └── libcalc.so        # 自己制作的动态库文件</span><br><span class="line">└── main.cpp              # 测试用的源文件</span><br><span class="line"></span><br><span class="line">3 directories, 4 files</span><br></pre></td></tr></table></figure>
+<p>假设在测试文件<code>main.cpp</code>中既使用了自己制作的动态库<code>libcalc.so</code>又使用了系统提供的线程库，此时<code>CMakeLists.txt</code>文件可以这样写：（注意以下代码是有小错误的再往下看）</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">TEST</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/*.cpp)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(app <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(app pthread calc)</span><br></pre></td></tr></table></figure>
+<p>在第六行中，<code>pthread</code>、<code>calc</code>都是可执行程序<code>app</code>要链接的动态库的名字。当可执行程序<code>app</code>生成之后并执行该文件，会提示有如下错误信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./app</span></span><br><span class="line">./app: error while loading shared libraries: libcalc.so: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>这是因为可执行程序启动之后，去加载<code>calc</code>这个动态库，但是不知道这个动态库被放到了什么位置，所以就加载失败了，在 <code>CMake</code> 中可以在生成可执行程序之前，通过命令指定出要链接的动态库的位置，指定静态库位置使用的也是这个命令：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">link_directories</span>(path)</span><br></pre></td></tr></table></figure>
+<p>所以修改之后的<code>CMakeLists.txt</code>文件应该是这样的：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">TEST</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/*.cpp)</span><br><span class="line"><span class="comment"># 指定源文件或者动态库对应的头文件路径</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="comment"># 指定要链接的动态库的路径</span></span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)</span><br><span class="line"><span class="comment"># 添加并生成一个可执行程序</span></span><br><span class="line"><span class="keyword">add_executable</span>(app <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br><span class="line"><span class="comment"># 指定要链接的动态库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(app pthread calc)</span><br></pre></td></tr></table></figure>
+<p>通过link_directories指定了动态库的路径之后，在执行生成的可执行程序的时候，就不会出现找不到动态库的问题了。</p>
+<blockquote>
+<p>温馨提示：使用 target_link_libraries 命令就可以链接动态库，也可以链接静态库文件。</p>
+</blockquote>
+
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" title="CMake学习笔记1" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/19/CMake学习笔记1/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+      </div>
+      
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+      
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/08/19/CMake%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/" title="CMake学习笔记2"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/08/19/13%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="13文件操作"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+    
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
