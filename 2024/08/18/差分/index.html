@@ -23,12 +23,12 @@
                 差分 | 
                     XQC-1368的emo小屋
             </title>
-            <meta name="description" content="差分算法 1、介绍 一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。 所以差分往往应用于线性的场合，即一维数组的环境，但是除此之外，差分还可以应用于二维数组，但是相比较一维数组，应用的较少。 2、定义 差分可以简单的看成序列中每个元素与其前一个元素的差。 3、差分与前缀和 12345678910111213141516171819202122const int N &#x3D;">
+            <meta name="description" content="差分算法1、介绍一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。 所以差分往往应用于线性的场合，即一维数组的环境，但是除此之外，差分还可以应用于二维数组，但是相比较一维数组，应用的较少。 2、定义差分可以简单的看成序列中每个元素与其前一个元素的差。 3、差分与前缀和  12345678910111213141516171819202122const int N &#x3D; 100">
 <meta property="og:type" content="article">
 <meta property="og:title" content="差分">
 <meta property="og:url" content="https://xqc-1368.github.io/2024/08/18/%E5%B7%AE%E5%88%86/index.html">
 <meta property="og:site_name" content="XQC1368的emo小屋">
-<meta property="og:description" content="差分算法 1、介绍 一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。 所以差分往往应用于线性的场合，即一维数组的环境，但是除此之外，差分还可以应用于二维数组，但是相比较一维数组，应用的较少。 2、定义 差分可以简单的看成序列中每个元素与其前一个元素的差。 3、差分与前缀和 12345678910111213141516171819202122const int N &#x3D;">
+<meta property="og:description" content="差分算法1、介绍一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。 所以差分往往应用于线性的场合，即一维数组的环境，但是除此之外，差分还可以应用于二维数组，但是相比较一维数组，应用的较少。 2、定义差分可以简单的看成序列中每个元素与其前一个元素的差。 3、差分与前缀和  12345678910111213141516171819202122const int N &#x3D; 100">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-18T12:07:25.616Z">
 <meta property="article:modified_time" content="2024-08-18T11:48:39.750Z">
@@ -360,7 +360,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text"> 差分算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%96%87%E6%88%90%E7%BB%A9"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 语文成绩</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.0.1.0.1.</span> <span class="toc-text"> 题目背景</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.0.1.0.2.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.1.0.3.</span> <span class="toc-text"> 输入格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.1.0.4.</span> <span class="toc-text"> 输出格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B-1"><span class="toc-number">1.0.1.0.5.</span> <span class="toc-text"> 样例 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A5-1"><span class="toc-number">1.0.1.0.6.</span> <span class="toc-text"> 样例输入 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA-1"><span class="toc-number">1.0.1.0.7.</span> <span class="toc-text"> 样例输出 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-number">1.0.1.0.8.</span> <span class="toc-text"> 提示</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">差分算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%96%87%E6%88%90%E7%BB%A9"><span class="toc-number">1.0.1.</span> <span class="toc-text">语文成绩</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.0.1.0.1.</span> <span class="toc-text">题目背景</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.0.1.0.2.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.1.0.3.</span> <span class="toc-text">输入格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.1.0.4.</span> <span class="toc-text">输出格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B-1"><span class="toc-number">1.0.1.0.5.</span> <span class="toc-text">样例 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%85%A5-1"><span class="toc-number">1.0.1.0.6.</span> <span class="toc-text">样例输入 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%BE%93%E5%87%BA-1"><span class="toc-number">1.0.1.0.7.</span> <span class="toc-text">样例输出 #1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-number">1.0.1.0.8.</span> <span class="toc-text">提示</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </nav>
   </div>
 </aside>
@@ -418,26 +418,19 @@
       </div>
       <div class="article-entry marked-body" itemprop="articleBody">
         
-                  <h2 id="差分算法"><a class="markdownIt-Anchor" href="#差分算法"></a> 差分算法</h2>
-<p>1、介绍<br />
-一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。</p>
+                  <h2 id="差分算法"><a href="#差分算法" class="headerlink" title="差分算法"></a>差分算法</h2><p>1、介绍<br>一般地，差分主要用于让一个序列某一特定范围内的所有值都加上或减去一个常数。</p>
 <p>所以差分往往应用于线性的场合，即一维数组的环境，但是除此之外，差分还可以应用于二维数组，但是相比较一维数组，应用的较少。</p>
-<p>2、定义<br />
-差分可以简单的看成序列中每个元素与其前一个元素的差。</p>
-<p>3、差分与前缀和</p>
+<p>2、定义<br>差分可以简单的看成序列中每个元素与其前一个元素的差。</p>
+<p>3、差分与前缀和 </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="type">int</span> n; <span class="comment">//n数组长度</span></span><br><span class="line"><span class="comment">//定义两个一维整形数组 a为原数组，b为差分数组</span></span><br><span class="line"><span class="type">int</span> a[N],b[N];  </span><br><span class="line"></span><br><span class="line"><span class="comment">//根据定义可知</span></span><br><span class="line">b[i] = a[i] - a[i<span class="number">-1</span>];</span><br><span class="line"><span class="comment">//稍微具体</span></span><br><span class="line">b[<span class="number">1</span>] = a[<span class="number">1</span>];</span><br><span class="line">b[<span class="number">2</span>] = a[<span class="number">2</span>] - a[<span class="number">1</span>];</span><br><span class="line">b[<span class="number">3</span>] = a[<span class="number">3</span>] - a[<span class="number">2</span>];</span><br><span class="line">...</span><br><span class="line">b[i] = a[i] - a[i<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//转化一下，求数组b的前缀和,根据上面公式可得</span></span><br><span class="line"> b[<span class="number">1</span>]+b[<span class="number">2</span>]+b[<span class="number">3</span>]+...+b[i]</span><br><span class="line">= a[<span class="number">1</span>]+(a[<span class="number">2</span>]-a[<span class="number">1</span>])+(a[<span class="number">3</span>]-a[<span class="number">2</span>])+...+(a[i]-a[i<span class="number">-1</span>])</span><br><span class="line">= a[i]</span><br><span class="line"></span><br><span class="line"><span class="comment">//由此可知，原序列为差分序列的前缀和序列</span></span><br><span class="line">a[i] = b[<span class="number">1</span>]+b[<span class="number">2</span>]+b[<span class="number">3</span>]+...+b[i];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>一般地，我们认为原序列就是差分序列的前缀和，所以把差分看做前缀和的逆运算</li>
 </ul>
-<p>二、一维差分<br />
-1、定义<br />
-一维差分是指给定一个长度为n的序列a，要求支持操作pro(l,r,c)表示对a[l]~a[r]区间上的每一个值都加上或减去常数c，并求修改后的序列a。</p>
-<p>2、作用<br />
-让<u>一个序列中某个区间内的所有值均加上或减去一个常数</u>。</p>
+<p>二、一维差分<br>1、定义<br>一维差分是指给定一个长度为n的序列a，要求支持操作pro(l,r,c)表示对a[l]~a[r]区间上的每一个值都加上或减去常数c，并求修改后的序列a。</p>
+<p>2、作用<br>让<u>一个序列中某个区间内的所有值均加上或减去一个常数</u>。</p>
 <p>可以将对a数组任意区间的同一操作优化到O(1)。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//区间[l,r]中的所有值都加上常数c</span></span><br><span class="line">b[l] += c;</span><br><span class="line">b[r<span class="number">+1</span>] -= c;</span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>//想象下：<br />
-因为：<code>b[l]=a[l]-a[l-1];</code>，而前面的b[1]<sub>b[l-1]都没有发生变化，所以$a[l-1]=b[1]+…+b[l-1]$不变，所以只可能是a[l]加了c。若要使a[l]</sub>a[r]区间都加上c，则：</p>
+<p>//想象下：<br>因为：<code>b[l]=a[l]-a[l-1];</code>，而前面的b[1]~b[l-1]都没有发生变化，所以$a[l-1]=b[1]+…+b[l-1]$不变，所以只可能是a[l]加了c。若要使a[l]~a[r]区间都加上c，则：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b[l+1]=a[l+1]-a[l]</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">b[r]=a[r]-a[r-1]</span><br></pre></td></tr></table></figure>
 <p>这中间所有的b中元素统统不变（被减数和减数同时加了c）</p>
 <p>而</p>
@@ -446,27 +439,18 @@
 <p>最后对b数组求前缀和，所以以上程序可以实现在a[l]~a[r]里面同时加上c</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    b[i] += b[i<span class="number">-1</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>例题：</p>
-<h4 id="语文成绩"><a class="markdownIt-Anchor" href="#语文成绩"></a> 语文成绩</h4>
-<h6 id="题目背景"><a class="markdownIt-Anchor" href="#题目背景"></a> 题目背景</h6>
-<p>语文考试结束了，成绩还是一如既往地有问题。</p>
-<h6 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h6>
-<p>语文老师总是写错成绩，所以当她修改成绩的时候，总是累得不行。她总是要一遍遍地给某些同学增加分数，又要注意最低分是多少。你能帮帮她吗？</p>
-<h6 id="输入格式"><a class="markdownIt-Anchor" href="#输入格式"></a> 输入格式</h6>
-<p>第一行有两个整数 n，p，代表学生数与增加分数的次数。</p>
+<h4 id="语文成绩"><a href="#语文成绩" class="headerlink" title="语文成绩"></a>语文成绩</h4><h6 id="题目背景"><a href="#题目背景" class="headerlink" title="题目背景"></a>题目背景</h6><p>语文考试结束了，成绩还是一如既往地有问题。</p>
+<h6 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h6><p>语文老师总是写错成绩，所以当她修改成绩的时候，总是累得不行。她总是要一遍遍地给某些同学增加分数，又要注意最低分是多少。你能帮帮她吗？</p>
+<h6 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h6><p>第一行有两个整数 n，p，代表学生数与增加分数的次数。</p>
 <p>第二行有 n 个数，a_1 \sim a_n，代表各个学生的初始成绩。</p>
 <p>接下来 p 行，每行有三个数，x，y，z，代表给第 x 个到第 y 个学生每人增加 z 分。</p>
-<h6 id="输出格式"><a class="markdownIt-Anchor" href="#输出格式"></a> 输出格式</h6>
-<p>输出仅一行，代表更改分数后，全班的最低分。</p>
-<h6 id="样例-1"><a class="markdownIt-Anchor" href="#样例-1"></a> 样例 #1</h6>
-<h6 id="样例输入-1"><a class="markdownIt-Anchor" href="#样例输入-1"></a> 样例输入 #1</h6>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 2</span><br><span class="line">1 1 1</span><br><span class="line">1 2 1</span><br><span class="line">2 3 1</span><br></pre></td></tr></table></figure>
-<h6 id="样例输出-1"><a class="markdownIt-Anchor" href="#样例输出-1"></a> 样例输出 #1</h6>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
-<h6 id="提示"><a class="markdownIt-Anchor" href="#提示"></a> 提示</h6>
-<p>对于 40% 的数据，有 n \le 10^3。</p>
-<p>对于 60% 的数据，有 n \le 10^4。</p>
-<p>对于 80% 的数据，有 n \le 10^5。</p>
-<p>对于 100% 的数据，有 n \le 5\times 10^6，p \le n，学生初始成绩 \le 100，z \le 100。</p>
+<h6 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h6><p>输出仅一行，代表更改分数后，全班的最低分。</p>
+<h6 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h6><h6 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 2</span><br><span class="line">1 1 1</span><br><span class="line">1 2 1</span><br><span class="line">2 3 1</span><br></pre></td></tr></table></figure>
+<h6 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+<h6 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h6><p>对于 40\% 的数据，有 n \le 10^3。</p>
+<p>对于 60\% 的数据，有 n \le 10^4。</p>
+<p>对于 80\% 的数据，有 n \le 10^5。</p>
+<p>对于 100\% 的数据，有 n \le 5\times 10^6，p \le n，学生初始成绩 \le 100，z \le 100。</p>
 
                     
       </div>
