@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                数字逻辑设计01  RAM随机访问存储器 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="数字逻辑设计：自动操作  一、寄存器 用来暂时存放参与运算的数据和运算结果。把能够用来存储一组二进制代码的同步时序逻辑电路称为寄存器。  注意看，这本来是一个D触发器，由于命名方式的改变，他的D：数据输入端被更名为DI（即Data In），他的时钟信号端被命名为W（写操作端，Write），他原来的输出端Q被命名为DO（Data Out）   将他们以同步时序电路的方式”并联“：  可以得到一个八">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字逻辑设计01  RAM随机访问存储器">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/19/2%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A101%20%20RAM%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%AD%98%E5%82%A8%E5%99%A8/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="数字逻辑设计：自动操作  一、寄存器 用来暂时存放参与运算的数据和运算结果。把能够用来存储一组二进制代码的同步时序逻辑电路称为寄存器。  注意看，这本来是一个D触发器，由于命名方式的改变，他的D：数据输入端被更名为DI（即Data In），他的时钟信号端被命名为W（写操作端，Write），他原来的输出端Q被命名为DO（Data Out）   将他们以同步时序电路的方式”并联“：  可以得到一个八">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-20-46-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-21-05-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-21-15-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-21-36-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-22-20-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-22-38-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-23-45-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-24-04-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-24-30-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-07-17-13-24-55-image.png">
+<meta property="article:published_time" content="2024-08-19T11:53:47.611Z">
+<meta property="article:modified_time" content="2024-08-19T11:41:37.472Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="RAM">
+<meta property="article:tag" content="《code编码》">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2024-07-17-13-20-46-image.png">
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/19/2%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A101%20%20RAM%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%AD%98%E5%82%A8%E5%99%A8/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
+<link rel="stylesheet" href="/css/style.css">
+
+                        
+                          <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+                          
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-STL/">C++ STL</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CMake/">CMake</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/">思想方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">数字电子技术基础</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E8%AE%BA/">数论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AD%9B%E6%B3%95/">筛法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">33</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/">二分</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E5%9F%9FDP/">区域DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/">多重背包DP的二进制优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%9F%E6%9C%9BDP/">期望DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%A0%91%E5%BD%A2DP/">树形DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8A%B6%E5%8E%8BDP/">状压DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/">环形DP的四边形不等式优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E8%83%8C%E5%8C%85DP/">背包DP</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B4%A0%E6%95%B0/">素数</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALU/" rel="tag">ALU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/" rel="tag">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">C语言 文件操作</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GUI/" rel="tag">GUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO%E6%A8%A1%E5%9D%97/" rel="tag">IO模块</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" rel="tag">Miller-Rabin素性检验</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pollard-Rho/" rel="tag">Pollard-Rho</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAM/" rel="tag">RAM</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROM/" rel="tag">ROM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal%E7%AE%97%E6%B3%95/" rel="tag">kruskal算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8Acode%E7%BC%96%E7%A0%81%E3%80%8B/" rel="tag">《code编码》</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag">内联函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag">前缀和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8%E4%B8%8E%E5%87%8F%E6%B3%95%E5%99%A8/" rel="tag">加法器与减法器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" rel="tag">动态内存分配</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" rel="tag">动态数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9F%9FDP/" rel="tag">区域DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E5%90%91BFS/" rel="tag">双向BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" rel="tag">埃氏筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%80%81/" rel="tag">多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" rel="tag">多重背包DP的二进制优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" rel="tag">威尔逊定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9D%97/" rel="tag">存储模块</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86/" rel="tag">差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" rel="tag">并查集的按秩合并优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" rel="tag">并查集的路径优化压缩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" rel="tag">快速乘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">快速幂</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" rel="tag">思想方法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BA%BF/" rel="tag">总线</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E5%AF%BB%E5%9D%80/" rel="tag">扩展寻址</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">扩展欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" rel="tag">拓展欧几里得定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%87%E9%92%88/" rel="tag">指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83%E5%99%A8/" rel="tag">数值比较器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%88%B6%E4%B8%8E%E7%A0%81%E5%88%B6/" rel="tag">数制与码制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">数据选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%94%B5/" rel="tag">数电</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" rel="tag">时序逻辑电路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" rel="tag">最大公约数gcd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" rel="tag">最小公倍数lcm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%9F%E6%9C%9BDP/" rel="tag">期望DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/" rel="tag">机器语言</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="tag">构造函数和析构函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" rel="tag">树上差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" rel="tag">树上距离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2DP/" rel="tag">树形DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" rel="tag">树的深度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" rel="tag">树的直径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" rel="tag">欧拉函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" rel="tag">汇编语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" rel="tag">派生类</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">流运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/" rel="tag">浮点数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" rel="tag">环形DP的四边形不等式优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">生成树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">种类并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%9B%E6%B3%95/" rel="tag">筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" rel="tag">素数判定</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" rel="tag">线性筛法（欧拉筛法）</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" rel="tag">继承与复合关系</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">编码器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%8C%E5%8C%85DP/" rel="tag">背包DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" rel="tag">虚函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" rel="tag">裴蜀定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A6%E5%8F%91%E5%99%A8/" rel="tag">触发器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E7%A0%81%E5%99%A8/" rel="tag">译码器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" rel="tag">费马小定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%B3%E8%BD%ACJUMP/" rel="tag">跳转JUMP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" rel="tag">辗转相除法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E5%8A%A0%E5%99%A8/" rel="tag">连加器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" rel="tag">遍历问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" rel="tag">重载函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">链式二叉树</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ALU/" style="font-size: 13px;">ALU</a> <a href="/tags/BFS/" style="font-size: 13.17px;">BFS</a> <a href="/tags/C/" style="font-size: 13.75px;">C++</a> <a href="/tags/CMake/" style="font-size: 13.08px;">CMake</a> <a href="/tags/CPU/" style="font-size: 13px;">CPU</a> <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.08px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.08px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 13.75px;">C语言</a> <a href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 13px;">C语言 文件操作</a> <a href="/tags/DFS/" style="font-size: 13.42px;">DFS</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" style="font-size: 13px;">DP的单调队列优化</a> <a href="/tags/GUI/" style="font-size: 13px;">GUI</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.25px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.33px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/IO%E6%A8%A1%E5%9D%97/" style="font-size: 13px;">IO模块</a> <a href="/tags/LCA/" style="font-size: 13.17px;">LCA</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" style="font-size: 13px;">Miller-Rabin素性检验</a> <a href="/tags/OOP/" style="font-size: 13.42px;">OOP</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Pollard-Rho/" style="font-size: 13px;">Pollard-Rho</a> <a href="/tags/RAM/" style="font-size: 13.25px;">RAM</a> <a href="/tags/ROM/" style="font-size: 13.08px;">ROM</a> <a href="/tags/STL/" style="font-size: 13.08px;">STL</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kruskal%E7%AE%97%E6%B3%95/" style="font-size: 13px;">kruskal算法</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E3%80%8Acode%E7%BC%96%E7%A0%81%E3%80%8B/" style="font-size: 13.67px;">《code编码》</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 13.08px;">二分</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.08px;">二叉树</a> <a href="/tags/%E5%80%8D%E5%A2%9E/" style="font-size: 13.17px;">倍增</a> <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" style="font-size: 13px;">内联函数</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 13px;">函数</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 13px;">前缀和</a> <a href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8%E4%B8%8E%E5%87%8F%E6%B3%95%E5%99%A8/" style="font-size: 13.08px;">加法器与减法器</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 13px;">动态内存分配</a> <a href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" style="font-size: 13px;">动态数组</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13.83px;">动态规划</a> <a href="/tags/%E5%8C%BA%E5%9F%9FDP/" style="font-size: 13px;">区域DP</a> <a href="/tags/%E5%8C%BA%E9%97%B4DP/" style="font-size: 13.08px;">区间DP</a> <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 13px;">单调栈</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%8F%8C%E5%90%91BFS/" style="font-size: 13px;">双向BFS</a> <a href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">埃氏筛法</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 13px;">多态</a> <a href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">多重背包DP的二进制优化</a> <a href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" style="font-size: 13px;">威尔逊定理</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.17px;">字符串</a> <a href="/tags/%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9D%97/" style="font-size: 13.17px;">存储模块</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.75px;">层叠样式表CSS</a> <a href="/tags/%E5%B7%AE%E5%88%86/" style="font-size: 13px;">差分</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.08px;">并查集</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">并查集的按秩合并优化</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" style="font-size: 13px;">并查集的路径优化压缩</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 13px;">引用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" style="font-size: 13px;">快速乘</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 13px;">快速幂</a> <a href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" style="font-size: 13.25px;">思想方法</a> <a href="/tags/%E6%80%BB%E7%BA%BF/" style="font-size: 13px;">总线</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AF%BB%E5%9D%80/" style="font-size: 13px;">扩展寻址</a> <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">扩展欧拉定理</a> <a href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" style="font-size: 13px;">拓展欧几里得定理</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 13.17px;">指针</a> <a href="/tags/%E6%8D%A2%E6%A0%B9dp/" style="font-size: 13px;">换根dp</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.17px;">操作系统</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 13px;">数位DP</a> <a href="/tags/%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83%E5%99%A8/" style="font-size: 13px;">数值比较器</a> <a href="/tags/%E6%95%B0%E5%88%B6%E4%B8%8E%E7%A0%81%E5%88%B6/" style="font-size: 13px;">数制与码制</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.83px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">数据选择器</a> <a href="/tags/%E6%95%B0%E7%94%B5/" style="font-size: 13.5px;">数电</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.08px;">数组</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 13.5px;">数论</a> <a href="/tags/%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" style="font-size: 13px;">时序逻辑电路</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" style="font-size: 13px;">最大公约数gcd</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 13px;">最大流</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" style="font-size: 13px;">最小公倍数lcm</a> <a href="/tags/%E6%9C%9F%E6%9C%9BDP/" style="font-size: 13px;">期望DP</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/" style="font-size: 13.08px;">机器语言</a> <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" style="font-size: 13px;">构造函数和析构函数</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.08px;">栈</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" style="font-size: 13px;">树上差分</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" style="font-size: 13px;">树上距离</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" style="font-size: 13.58px;">树上问题</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 13px;">树形DP</a> <a href="/tags/%E6%A0%91%E5%BD%A2dp/" style="font-size: 13.08px;">树形dp</a> <a href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" style="font-size: 13px;">树的深度</a> <a href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" style="font-size: 13px;">树的直径</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" style="font-size: 13px;">树的重心</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" style="font-size: 13px;">欧拉函数</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">欧拉定理</a> <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" style="font-size: 13px;">汇编语言</a> <a href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" style="font-size: 13px;">派生类</a> <a href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 13px;">流运算符</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.08px;">浏览器</a> <a href="/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/" style="font-size: 13px;">浮点数</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 13px;">状压DP</a> <a href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" style="font-size: 13px;">环形DP的四边形不等式优化</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 13px;">生成树</a> <a href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">种类并查集</a> <a href="/tags/%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">筛法</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" style="font-size: 13px;">类和对象</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 13px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" style="font-size: 13px;">素数判定</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" style="font-size: 13px;">线性筛法（欧拉筛法）</a> <a href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 13px;">继承与复合关系</a> <a href="/tags/%E7%BC%96%E7%A0%81%E5%99%A8/" style="font-size: 13px;">编码器</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13px;">编译原理</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 13.92px;">网页</a> <a href="/tags/%E8%83%8C%E5%8C%85DP/" style="font-size: 13px;">背包DP</a> <a href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" style="font-size: 13px;">虚函数</a> <a href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" style="font-size: 13px;">裴蜀定理</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%A7%A6%E5%8F%91%E5%99%A8/" style="font-size: 13px;">触发器</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13.33px;">计算机组成原理</a> <a href="/tags/%E8%AF%91%E7%A0%81%E5%99%A8/" style="font-size: 13px;">译码器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a> <a href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" style="font-size: 13px;">费马小定理</a> <a href="/tags/%E8%B7%B3%E8%BD%ACJUMP/" style="font-size: 13px;">跳转JUMP</a> <a href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" style="font-size: 13px;">辗转相除法</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" style="font-size: 13.08px;">运算符重载</a> <a href="/tags/%E8%BF%9E%E5%8A%A0%E5%99%A8/" style="font-size: 13px;">连加器</a> <a href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" style="font-size: 13px;">遍历问题</a> <a href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" style="font-size: 13px;">重载函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">链式二叉树</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">90</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/8%20%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80/" class="title">8 高级语言</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.635Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/7%20%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" class="title">7 定点数与浮点数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.632Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/6%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOperation%20System/" class="title">6 操作系统Operation System</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.629Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/5%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%EF%BC%9A%E6%80%BB%E7%BA%BF/" class="title">5 计算机组成原理：总线</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.626Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/4%20%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%85%B8%E5%9E%8B%E7%9A%84%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/" class="title">4 微机原理：两种典型的微处理器</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.622Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text"> 数字逻辑设计：自动操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 一、寄存器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C-%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8ram%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 二、随机存储器（RAM）的基本结构</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2 数字逻辑设计01  RAM随机访问存储器" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+      <div class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      数字逻辑设计01  RAM随机访问存储器
+    </h1>
+  
+
+            
+              <div class="article-meta">
+                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/19/2%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A101%20%20RAM%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%AD%98%E5%82%A8%E5%99%A8/" class="article-date">
+	  <time datetime="2024-08-19T11:53:47.611Z" itemprop="datePublished">2024-08-19</time>
+	</a>
+</span>
+                  
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+  </span>
+
+                    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/RAM/" rel="tag">RAM</a>, <a class="article-tag-link-link" href="/tags/%E3%80%8Acode%E7%BC%96%E7%A0%81%E3%80%8B/" rel="tag">《code编码》</a>, <a class="article-tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+  </span>
+
+
+                      
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/19/2%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A101%20%20RAM%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%AD%98%E5%82%A8%E5%99%A8/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
+      </div>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h3 id="数字逻辑设计自动操作"><a class="markdownIt-Anchor" href="#数字逻辑设计自动操作"></a> 数字逻辑设计：自动操作</h3>
+<h5 id="一-寄存器"><a class="markdownIt-Anchor" href="#一-寄存器"></a> 一、寄存器</h5>
+<p>用来暂时存放参与运算的数据和运算结果。把能够用来存储<u>一组</u>二进制代码的<u>同步时序逻辑电路</u>称为寄存器。</p>
+<ul>
+<li>注意看，这本来是一个D触发器，由于命名方式的改变，他的D：数据输入端被更名为DI（即Data In），他的时钟信号端被命名为W（写操作端，Write），他原来的输出端Q被命名为DO（Data Out）</li>
+</ul>
+<p><img src="/images/2024-07-17-13-20-46-image.png" alt="" /></p>
+<p>将他们以同步时序电路的方式”并联“：</p>
+<p><img src="/images/2024-07-17-13-21-05-image.png" alt="" /></p>
+<p>可以得到一个八位寄存器（《code》中用八位锁存器代指这个概念，以下图片不作区分）</p>
+<p><img src="/images/2024-07-17-13-21-15-image.png" alt="" /></p>
+<p>可以简化为如下所示的图：</p>
+<p><img src="/images/2024-07-17-13-21-36-image.png" alt="" /></p>
+<h5 id="二-随机存储器ram的基本结构"><a class="markdownIt-Anchor" href="#二-随机存储器ram的基本结构"></a> 二、随机存储器（RAM）的基本结构</h5>
+<ul>
+<li>又名“读/写存储器”</li>
+</ul>
+<p>读写操作很自由，只需要改变地址及相关的输入，就可以从寄存器中读出或写入需要的数据</p>
+<ul>
+<li>
+<p>随机访问存储器的符号<br />
+<img src="/images/2024-07-17-13-22-20-image.png" alt="" /></p>
+</li>
+<li>
+<p>随机存储器的组成：译码器＋寄存器+选择器<br />
+<img src="/images/2024-07-17-13-22-38-image.png" alt="" /></p>
+</li>
+</ul>
+<p>将两个RAM组合成RAM阵列<br />
+<img src="/images/2024-07-17-13-23-45-image.png" alt="" /><br />
+<img src="/images/2024-07-17-13-24-04-image.png" alt="" /></p>
+<p>这个RAM阵列可以存储的二进制数依然是8个，但每个数的位宽为2位。</p>
+<p>使用2个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">8\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>的RAM搭一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">16\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>的RAM</p>
+<ul>
+<li>
+<p>相当于把两个3-8译码器用一个1-2译码器联结起来</p>
+</li>
+<li>
+<p>下方用一个2-1选择器把两个8-1选择器联结起来</p>
+</li>
+</ul>
+<p>（红圈部分不太理解是什么意思）<br />
+<img src="/images/2024-07-17-13-24-30-image.png" alt="" /></p>
+<p>S作为选择端，本质上用于选择存储的信息，所以可以并入地址端（A_3端即为S端）<br />
+<img src="/images/2024-07-17-13-24-55-image.png" alt="" /></p>
+<ul>
+<li>
+<p>注意：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">16\times1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>中</p>
+<ul>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>前一个数字</mtext><mo>=</mo><mtext>存储</mtext><mi>R</mi><mi>A</mi><mi>M</mi><mtext>阵列的存储容量</mtext><mo>=</mo><msup><mn>2</mn><mtext>地址输入端的个数</mtext></msup></mrow><annotation encoding="application/x-tex">前一个数字 = 存储RAM阵列的存储容量 = 2^{地址输入端的个数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">前</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">存</span><span class="mord cjk_fallback">储</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord cjk_fallback">阵</span><span class="mord cjk_fallback">列</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">存</span><span class="mord cjk_fallback">储</span><span class="mord cjk_fallback">容</span><span class="mord cjk_fallback">量</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">地</span><span class="mord cjk_fallback mtight">址</span><span class="mord cjk_fallback mtight">输</span><span class="mord cjk_fallback mtight">入</span><span class="mord cjk_fallback mtight">端</span><span class="mord cjk_fallback mtight">的</span><span class="mord cjk_fallback mtight">个</span><span class="mord cjk_fallback mtight">数</span></span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>后一个数字</mtext><mo>=</mo><mtext>每个单位由几位二进制数构成</mtext><mo>=</mo><mtext>数据输入端的个数</mtext></mrow><annotation encoding="application/x-tex">后一个数字 = 每个单位由几位二进制数构成 = 数据输入端的个数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">每</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">单</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">由</span><span class="mord cjk_fallback">几</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">进</span><span class="mord cjk_fallback">制</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">构</span><span class="mord cjk_fallback">成</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">入</span><span class="mord cjk_fallback">端</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">数</span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ul>
+
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/19/2%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A101%20%20RAM%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%AD%98%E5%82%A8%E5%99%A8/" title="数字逻辑设计01  RAM随机访问存储器" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/19/2 数字逻辑设计01  RAM随机访问存储器/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+      </div>
+      
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+      
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/08/19/3%20%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A102%20%20%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="数字逻辑设计02  微处理器设计"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/08/19/1%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E5%A4%A7%E7%BA%B2Computer%20Science%20And%20Technology/" title="1 计算机科学与技术——大纲Computer Science And Technology"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+    
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
