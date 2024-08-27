@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="Cache-Control" content="no-transform" />
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no,adress=no">
+      <!-- Color theme for statusbar -->
+      <meta name="theme-color" content="#000000" />
+      <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+      <meta http-equiv="window-target" content="_top" />
+      
+          
+            <title>
+              
+                用电信号传输TCP/IP数据 | 
+                    XQC-1368的emo小屋
+            </title>
+            <meta name="description" content="第二章 用电信号传输TCP&#x2F;IP数据 关键词：TCP&#x2F;IP，套接字，协议栈，IP地址，端口号，包，头部，网卡，网卡驱动，MAC地址，以太网控制器，ICMP，UDP  一、创建套接字  1、协议栈的内部结构 TCP&#x2F;IP软件采用分层结构：上层会向下层委派任务  协议栈位于操作系统内部，协议栈内部包括上下两个部分。   上面部分包括：   TCP模块，负责用TCP协议收发数据，   UDP模块，负责">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用电信号传输TCP&#x2F;IP数据">
+<meta property="og:url" content="https://xqc-1368.github.io/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="XQC1368的emo小屋">
+<meta property="og:description" content="第二章 用电信号传输TCP&#x2F;IP数据 关键词：TCP&#x2F;IP，套接字，协议栈，IP地址，端口号，包，头部，网卡，网卡驱动，MAC地址，以太网控制器，ICMP，UDP  一、创建套接字  1、协议栈的内部结构 TCP&#x2F;IP软件采用分层结构：上层会向下层委派任务  协议栈位于操作系统内部，协议栈内部包括上下两个部分。   上面部分包括：   TCP模块，负责用TCP协议收发数据，   UDP模块，负责">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-06-20-01-55-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-06-22-04-24-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-06-22-37-31-0932d0e5fdcd6b8af6c82225fe5085f.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-06-22-59-57-84993837e21edcfffa2a9dc2349f65c.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-06-23-05-21-9bce43ea94eea89518a7acebf16008d.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-11-08-56-0932d0e5fdcd6b8af6c82225fe5085f.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-11-26-42-71c7a3e2f3e382f0158f8d72941d929.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-11-38-33-2912d0ec2ea03960a8f344a8c3c7b14.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-11-55-29-067bf74e19439c016004e60ce84628c.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-12-09-16-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-19-12-35-71931ecae2dd07d5eea2b66bb42b9d3.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-19-36-42-87a264ef6bbcbc367f50582b8fcdeed.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-20-33-19-image.png">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-21-45-26-d157df0815fbcaf5f680fdb9d0ca2ff.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-13-38-01f90b6c878158b7a7a8933a45a832f.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-25-28-edd95d2e081a1b2fe0be02e0b85ea5e.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-19-57-4b54748e37c4d9f91f1f64c6906f265.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-25-16-d1164e83ca180e0e581634470b68bb0.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-31-16-13ade9dee2de1a554b9db9976e8c898.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-07-22-32-27-fba18365ec45b9fd1302ad1d960780c.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-00-50-cbe1477fce995f917c25d10fe32e6a5.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-00-41-3c4caac8a020dc6d25bc0d6e37d277f.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-00-21-dd80d762f48af995dbc0646993cba51.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-19-59-51-9827960a438cff0da48aff40ca86e9a.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-01-25-2145e0f130253f79b08eb5c40d6a04d.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-01-42-8700bd1b82acb0697cc101a9d1e388d.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-01-57-b01908c0df23876f2649e9f9f4aaf5d.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-02-15-f610911631843cc658bf33d33e19409.jpg">
+<meta property="og:image" content="https://xqc-1368.github.io/images/2024-08-27-20-02-32-d878b15d542671517587f23a52a9feb.jpg">
+<meta property="article:published_time" content="2024-08-27T11:48:56.580Z">
+<meta property="article:modified_time" content="2024-08-27T12:08:14.129Z">
+<meta property="article:author" content="XQC1368">
+<meta property="article:tag" content="TCP&#x2F;IP">
+<meta property="article:tag" content="套接字">
+<meta property="article:tag" content="协议栈">
+<meta property="article:tag" content="IP地址">
+<meta property="article:tag" content="端口号">
+<meta property="article:tag" content="网卡">
+<meta property="article:tag" content="MAC地址">
+<meta property="article:tag" content="UDP">
+<meta property="article:tag" content="ICMP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xqc-1368.github.io/images/2024-08-06-20-01-55-image.png">
+              <!-- Canonical links -->
+              <link rel="canonical" href="https://xqc-1368.github.io/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/index.html">
+              
+                <link rel="alternate" href="/atom.xml" title="XQC1368的emo小屋" type="application/atom+xml">
+                
+                  
+                    <link rel="icon" href="/favicon.png" type="image/x-icon">
+                    
+                      
+<link rel="stylesheet" href="/css/style.css">
+
+                        
+                            
+                                
+                                    
+                                        <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+                                          rel="stylesheet" type="text/css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/XQC-1368" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">XQC-1368</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">我见青山多妩媚 料青山见我应如是</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 中国 广东省 深圳市 南山区</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">日期归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类查看</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签查询</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目汇总</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">相关书目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">相关链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于作者</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>作者不保证内容正确性，欢迎指正</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-STL/">C++ STL</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CMake/">CMake</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">C语言程序设计</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">OOP面向对象</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/">思想方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">数字电子技术基础</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E8%AE%BA/">数论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">树上问题</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AD%9B%E6%B3%95/">筛法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">33</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/">二分</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/">DP的单调队列优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E5%9F%9FDP/">区域DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8C%BA%E9%97%B4DP/">区间DP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/">多重背包DP的二进制优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%95%B0%E4%BD%8DDP/">数位DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%9F%E6%9C%9BDP/">期望DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%A0%91%E5%BD%A2DP/">树形DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8A%B6%E5%8E%8BDP/">状压DP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/">环形DP的四边形不等式优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E8%83%8C%E5%8C%85DP/">背包DP</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2/">搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B4%A0%E6%95%B0/">素数</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALU/" rel="tag">ALU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/" rel="tag">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSSID选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" rel="tag">CSS三角绘制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" rel="tag">CSS优先级问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS伪元素选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" rel="tag">CSS元素显示与隐藏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" rel="tag">CSS内边距padding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS后代选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" rel="tag">CSS圆角边框</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS复合选择器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" rel="tag">CSS外边距margin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" rel="tag">CSS子绝父相</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS子选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93font/" rel="tag">CSS字体font</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" rel="tag">CSS字体图标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="tag">CSS定位注意事项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS属性选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS并集选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" rel="tag">CSS文字阴影</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" rel="tag">CSS文本修饰</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" rel="tag">CSS文本对齐</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" rel="tag">CSS文本格式属性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="tag">CSS显示模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS标签选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B3%A8%E9%87%8A/" rel="tag">CSS注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" rel="tag">CSS浮动float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" rel="tag">CSS清除内外边距</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" rel="tag">CSS清除浮动</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" rel="tag">CSS溢出处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" rel="tag">CSS的插入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" rel="tag">CSS盒子模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" rel="tag">CSS盒子阴影</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS相对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" rel="tag">CSS精灵图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" rel="tag">CSS绝对定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF/" rel="tag">CSS背景</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" rel="tag">CSS背景图片位置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" rel="tag">CSS背景平铺</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" rel="tag">CSS行内元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" rel="tag">CSS行内块元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" rel="tag">CSS边框样式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS通配符选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">CSS链接伪类选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">C语言 文件操作</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">DNS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" rel="tag">DP的单调队列优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GUI/" rel="tag">GUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E5%88%97%E8%A1%A8/" rel="tag">HTML列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%A0%87%E7%AD%BE/" rel="tag">HTML标签</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E6%B3%A8%E9%87%8A/" rel="tag">HTML注释</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" rel="tag">HTML特殊字符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E5%8D%95/" rel="tag">HTML表单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%A1%A8%E6%A0%BC/" rel="tag">HTML表格</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML%E8%AF%AD%E8%A8%80/" rel="tag">HTML语言</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" rel="tag">HTTP协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICMP/" rel="tag">ICMP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO%E6%A8%A1%E5%9D%97/" rel="tag">IO模块</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IP%E5%9C%B0%E5%9D%80/" rel="tag">IP地址</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAC%E5%9C%B0%E5%9D%80/" rel="tag">MAC地址</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" rel="tag">Miller-Rabin素性检验</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PS/" rel="tag">PS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pollard-Rho/" rel="tag">Pollard-Rho</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAM/" rel="tag">RAM</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROM/" rel="tag">ROM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket%E5%BA%93/" rel="tag">Socket库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP&#x2F;IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP/" rel="tag">UDP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/" rel="tag">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL/" rel="tag">URL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Web服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emmet/" rel="tag">emmet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal%E7%AE%97%E6%B3%95/" rel="tag">kruskal算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web%E6%A0%87%E5%87%86/" rel="tag">web标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8Acode%E7%BC%96%E7%A0%81%E3%80%8B/" rel="tag">《code编码》</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" rel="tag">内联函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag">前缀和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8%E4%B8%8E%E5%87%8F%E6%B3%95%E5%99%A8/" rel="tag">加法器与减法器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" rel="tag">动态内存分配</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" rel="tag">动态数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9F%9FDP/" rel="tag">区域DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E9%97%B4DP/" rel="tag">区间DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8F%E8%AE%AE%E6%A0%88/" rel="tag">协议栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E5%90%91BFS/" rel="tag">双向BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" rel="tag">埃氏筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D/" rel="tag">域名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%80%81/" rel="tag">多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" rel="tag">多重背包DP的二进制优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" rel="tag">套接字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" rel="tag">威尔逊定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9D%97/" rel="tag">存储模块</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" rel="tag">层叠样式表CSS</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86/" rel="tag">差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" rel="tag">并查集的按秩合并优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" rel="tag">并查集的路径优化压缩</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" rel="tag">快速乘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">快速幂</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" rel="tag">思想方法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BA%BF/" rel="tag">总线</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E5%AF%BB%E5%9D%80/" rel="tag">扩展寻址</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">扩展欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" rel="tag">拓展欧几里得定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8C%87%E9%92%88/" rel="tag">指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A2%E6%A0%B9dp/" rel="tag">换根dp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag">数位DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83%E5%99%A8/" rel="tag">数值比较器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%88%B6%E4%B8%8E%E7%A0%81%E5%88%B6/" rel="tag">数制与码制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E9%80%89%E6%8B%A9%E5%99%A8/" rel="tag">数据选择器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%94%B5/" rel="tag">数电</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" rel="tag">时序逻辑电路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" rel="tag">最大公约数gcd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" rel="tag">最小公倍数lcm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%9F%E6%9C%9BDP/" rel="tag">期望DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/" rel="tag">机器语言</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" rel="tag">构造函数和析构函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" rel="tag">树上差分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" rel="tag">树上距离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2DP/" rel="tag">树形DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" rel="tag">树的深度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" rel="tag">树的直径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" rel="tag">树的重心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" rel="tag">欧拉函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" rel="tag">汇编语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" rel="tag">派生类</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">流运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/" rel="tag">浮点数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" rel="tag">环形DP的四边形不等式优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">生成树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">种类并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%AF%E5%8F%A3%E5%8F%B7/" rel="tag">端口号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%9B%E6%B3%95/" rel="tag">筛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" rel="tag">素数判定</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" rel="tag">线性筛法（欧拉筛法）</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" rel="tag">继承与复合关系</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">编码器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E5%8D%A1/" rel="tag">网卡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5/" rel="tag">网页</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%8C%E5%8C%85DP/" rel="tag">背包DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" rel="tag">虚函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" rel="tag">裴蜀定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="tag">解析器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A6%E5%8F%91%E5%99%A8/" rel="tag">触发器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E7%A0%81%E5%99%A8/" rel="tag">译码器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" rel="tag">请求消息</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" rel="tag">费马小定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%B3%E8%BD%ACJUMP/" rel="tag">跳转JUMP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" rel="tag">辗转相除法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E5%8A%A0%E5%99%A8/" rel="tag">连加器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" rel="tag">遍历问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" rel="tag">重载函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">链式二叉树</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ALU/" style="font-size: 13px;">ALU</a> <a href="/tags/BFS/" style="font-size: 13.17px;">BFS</a> <a href="/tags/C/" style="font-size: 13.75px;">C++</a> <a href="/tags/CMake/" style="font-size: 13.08px;">CMake</a> <a href="/tags/CPU/" style="font-size: 13px;">CPU</a> <a href="/tags/CSSID%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSSID选择器</a> <a href="/tags/CSS%E4%B8%89%E8%A7%92%E7%BB%98%E5%88%B6/" style="font-size: 13px;">CSS三角绘制</a> <a href="/tags/CSS%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98/" style="font-size: 13px;">CSS优先级问题</a> <a href="/tags/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS伪元素选择器</a> <a href="/tags/CSS%E5%85%83%E7%B4%A0%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9A%90%E8%97%8F/" style="font-size: 13px;">CSS元素显示与隐藏</a> <a href="/tags/CSS%E5%86%85%E8%BE%B9%E8%B7%9Dpadding/" style="font-size: 13px;">CSS内边距padding</a> <a href="/tags/CSS%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS后代选择器</a> <a href="/tags/CSS%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86/" style="font-size: 13px;">CSS圆角边框</a> <a href="/tags/CSS%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS块元素</a> <a href="/tags/CSS%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13.08px;">CSS复合选择器</a> <a href="/tags/CSS%E5%A4%96%E8%BE%B9%E8%B7%9Dmargin/" style="font-size: 13px;">CSS外边距margin</a> <a href="/tags/CSS%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8/" style="font-size: 13px;">CSS子绝父相</a> <a href="/tags/CSS%E5%AD%90%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS子选择器</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93font/" style="font-size: 13px;">CSS字体font</a> <a href="/tags/CSS%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/" style="font-size: 13px;">CSS字体图标</a> <a href="/tags/CSS%E5%AE%9A%E4%BD%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" style="font-size: 13px;">CSS定位注意事项</a> <a href="/tags/CSS%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS属性选择器</a> <a href="/tags/CSS%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS并集选择器</a> <a href="/tags/CSS%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1/" style="font-size: 13.08px;">CSS文字阴影</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0/" style="font-size: 13px;">CSS文本修饰</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90/" style="font-size: 13px;">CSS文本对齐</a> <a href="/tags/CSS%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%B1%9E%E6%80%A7/" style="font-size: 13px;">CSS文本格式属性</a> <a href="/tags/CSS%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">CSS显示模式</a> <a href="/tags/CSS%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS标签选择器</a> <a href="/tags/CSS%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">CSS注释</a> <a href="/tags/CSS%E6%B5%AE%E5%8A%A8float/" style="font-size: 13px;">CSS浮动float</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E5%86%85%E5%A4%96%E8%BE%B9%E8%B7%9D/" style="font-size: 13px;">CSS清除内外边距</a> <a href="/tags/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" style="font-size: 13px;">CSS清除浮动</a> <a href="/tags/CSS%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86/" style="font-size: 13px;">CSS溢出处理</a> <a href="/tags/CSS%E7%9A%84%E6%8F%92%E5%85%A5/" style="font-size: 13px;">CSS的插入</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">CSS盒子模型</a> <a href="/tags/CSS%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1/" style="font-size: 13px;">CSS盒子阴影</a> <a href="/tags/CSS%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS相对定位</a> <a href="/tags/CSS%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS类选择器</a> <a href="/tags/CSS%E7%B2%BE%E7%81%B5%E5%9B%BE/" style="font-size: 13px;">CSS精灵图</a> <a href="/tags/CSS%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D/" style="font-size: 13px;">CSS绝对定位</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF/" style="font-size: 13px;">CSS背景</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E4%BD%8D%E7%BD%AE/" style="font-size: 13px;">CSS背景图片位置</a> <a href="/tags/CSS%E8%83%8C%E6%99%AF%E5%B9%B3%E9%93%BA/" style="font-size: 13px;">CSS背景平铺</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内元素</a> <a href="/tags/CSS%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0/" style="font-size: 13px;">CSS行内块元素</a> <a href="/tags/CSS%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F/" style="font-size: 13px;">CSS边框样式</a> <a href="/tags/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS选择器</a> <a href="/tags/CSS%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS通配符选择器</a> <a href="/tags/CSS%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">CSS链接伪类选择器</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 13.75px;">C语言</a> <a href="/tags/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 13px;">C语言 文件操作</a> <a href="/tags/DFS/" style="font-size: 13.42px;">DFS</a> <a href="/tags/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">DNS服务器</a> <a href="/tags/DP%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" style="font-size: 13px;">DP的单调队列优化</a> <a href="/tags/GUI/" style="font-size: 13px;">GUI</a> <a href="/tags/HTML%E5%88%97%E8%A1%A8/" style="font-size: 13px;">HTML列表</a> <a href="/tags/HTML%E6%A0%87%E7%AD%BE/" style="font-size: 13.25px;">HTML标签</a> <a href="/tags/HTML%E6%B3%A8%E9%87%8A/" style="font-size: 13px;">HTML注释</a> <a href="/tags/HTML%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" style="font-size: 13px;">HTML特殊字符</a> <a href="/tags/HTML%E8%A1%A8%E5%8D%95/" style="font-size: 13px;">HTML表单</a> <a href="/tags/HTML%E8%A1%A8%E6%A0%BC/" style="font-size: 13px;">HTML表格</a> <a href="/tags/HTML%E8%AF%AD%E8%A8%80/" style="font-size: 13.33px;">HTML语言</a> <a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">HTTP协议</a> <a href="/tags/ICMP/" style="font-size: 13px;">ICMP</a> <a href="/tags/IO%E6%A8%A1%E5%9D%97/" style="font-size: 13px;">IO模块</a> <a href="/tags/IP%E5%9C%B0%E5%9D%80/" style="font-size: 13px;">IP地址</a> <a href="/tags/LCA/" style="font-size: 13.17px;">LCA</a> <a href="/tags/MAC%E5%9C%B0%E5%9D%80/" style="font-size: 13px;">MAC地址</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/Miller-Rabin%E7%B4%A0%E6%80%A7%E6%A3%80%E9%AA%8C/" style="font-size: 13px;">Miller-Rabin素性检验</a> <a href="/tags/OOP/" style="font-size: 13.42px;">OOP</a> <a href="/tags/PS/" style="font-size: 13px;">PS</a> <a href="/tags/Pollard-Rho/" style="font-size: 13px;">Pollard-Rho</a> <a href="/tags/RAM/" style="font-size: 13.25px;">RAM</a> <a href="/tags/ROM/" style="font-size: 13.08px;">ROM</a> <a href="/tags/STL/" style="font-size: 13.08px;">STL</a> <a href="/tags/Socket%E5%BA%93/" style="font-size: 13px;">Socket库</a> <a href="/tags/TCP-IP/" style="font-size: 13px;">TCP/IP</a> <a href="/tags/UDP/" style="font-size: 13px;">UDP</a> <a href="/tags/URI/" style="font-size: 13px;">URI</a> <a href="/tags/URL/" style="font-size: 13px;">URL</a> <a href="/tags/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">Web服务器</a> <a href="/tags/emmet/" style="font-size: 13px;">emmet</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kruskal%E7%AE%97%E6%B3%95/" style="font-size: 13px;">kruskal算法</a> <a href="/tags/web%E6%A0%87%E5%87%86/" style="font-size: 13px;">web标准</a> <a href="/tags/%E3%80%8Acode%E7%BC%96%E7%A0%81%E3%80%8B/" style="font-size: 13.67px;">《code编码》</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 13.08px;">二分</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.08px;">二叉树</a> <a href="/tags/%E5%80%8D%E5%A2%9E/" style="font-size: 13.17px;">倍增</a> <a href="/tags/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" style="font-size: 13px;">内联函数</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 13px;">函数</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 13px;">前缀和</a> <a href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8%E4%B8%8E%E5%87%8F%E6%B3%95%E5%99%A8/" style="font-size: 13.08px;">加法器与减法器</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 13px;">动态内存分配</a> <a href="/tags/%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84/" style="font-size: 13px;">动态数组</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13.83px;">动态规划</a> <a href="/tags/%E5%8C%BA%E5%9F%9FDP/" style="font-size: 13px;">区域DP</a> <a href="/tags/%E5%8C%BA%E9%97%B4DP/" style="font-size: 13.08px;">区间DP</a> <a href="/tags/%E5%8D%8F%E8%AE%AE%E6%A0%88/" style="font-size: 13px;">协议栈</a> <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 13px;">单调栈</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%8F%8C%E5%90%91BFS/" style="font-size: 13px;">双向BFS</a> <a href="/tags/%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">埃氏筛法</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 13px;">域名</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 13px;">多态</a> <a href="/tags/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85DP%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">多重背包DP的二进制优化</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 13px;">套接字</a> <a href="/tags/%E5%A8%81%E5%B0%94%E9%80%8A%E5%AE%9A%E7%90%86/" style="font-size: 13px;">威尔逊定理</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.17px;">字符串</a> <a href="/tags/%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9D%97/" style="font-size: 13.17px;">存储模块</a> <a href="/tags/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8CSS/" style="font-size: 13.75px;">层叠样式表CSS</a> <a href="/tags/%E5%B7%AE%E5%88%86/" style="font-size: 13px;">差分</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.08px;">并查集</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E6%8C%89%E7%A7%A9%E5%90%88%E5%B9%B6%E4%BC%98%E5%8C%96/" style="font-size: 13px;">并查集的按秩合并优化</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96%E5%8E%8B%E7%BC%A9/" style="font-size: 13px;">并查集的路径优化压缩</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 13px;">引用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E4%B9%98/" style="font-size: 13px;">快速乘</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 13px;">快速幂</a> <a href="/tags/%E6%80%9D%E6%83%B3%E6%96%B9%E6%B3%95/" style="font-size: 13.25px;">思想方法</a> <a href="/tags/%E6%80%BB%E7%BA%BF/" style="font-size: 13px;">总线</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AF%BB%E5%9D%80/" style="font-size: 13px;">扩展寻址</a> <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">扩展欧拉定理</a> <a href="/tags/%E6%8B%93%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%AE%9A%E7%90%86/" style="font-size: 13px;">拓展欧几里得定理</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 13.17px;">指针</a> <a href="/tags/%E6%8D%A2%E6%A0%B9dp/" style="font-size: 13px;">换根dp</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.17px;">操作系统</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 13px;">数位DP</a> <a href="/tags/%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83%E5%99%A8/" style="font-size: 13px;">数值比较器</a> <a href="/tags/%E6%95%B0%E5%88%B6%E4%B8%8E%E7%A0%81%E5%88%B6/" style="font-size: 13px;">数制与码制</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.83px;">数据结构</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E9%80%89%E6%8B%A9%E5%99%A8/" style="font-size: 13px;">数据选择器</a> <a href="/tags/%E6%95%B0%E7%94%B5/" style="font-size: 13.5px;">数电</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.08px;">数组</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 13.5px;">数论</a> <a href="/tags/%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" style="font-size: 13px;">时序逻辑电路</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0gcd/" style="font-size: 13px;">最大公约数gcd</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 13px;">最大流</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0lcm/" style="font-size: 13px;">最小公倍数lcm</a> <a href="/tags/%E6%9C%9F%E6%9C%9BDP/" style="font-size: 13px;">期望DP</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/" style="font-size: 13.08px;">机器语言</a> <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" style="font-size: 13px;">构造函数和析构函数</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.08px;">栈</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/" style="font-size: 13px;">树上差分</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E8%B7%9D%E7%A6%BB/" style="font-size: 13px;">树上距离</a> <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" style="font-size: 13.58px;">树上问题</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 13px;">树形DP</a> <a href="/tags/%E6%A0%91%E5%BD%A2dp/" style="font-size: 13.08px;">树形dp</a> <a href="/tags/%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" style="font-size: 13px;">树的深度</a> <a href="/tags/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" style="font-size: 13px;">树的直径</a> <a href="/tags/%E6%A0%91%E7%9A%84%E9%87%8D%E5%BF%83/" style="font-size: 13px;">树的重心</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" style="font-size: 13px;">欧拉函数</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 13px;">欧拉定理</a> <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" style="font-size: 13px;">汇编语言</a> <a href="/tags/%E6%B4%BE%E7%94%9F%E7%B1%BB/" style="font-size: 13px;">派生类</a> <a href="/tags/%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 13px;">流运算符</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.08px;">浏览器</a> <a href="/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/" style="font-size: 13px;">浮点数</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 13px;">状压DP</a> <a href="/tags/%E7%8E%AF%E5%BD%A2DP%E7%9A%84%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96/" style="font-size: 13px;">环形DP的四边形不等式优化</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 13px;">生成树</a> <a href="/tags/%E7%A7%8D%E7%B1%BB%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">种类并查集</a> <a href="/tags/%E7%AB%AF%E5%8F%A3%E5%8F%B7/" style="font-size: 13px;">端口号</a> <a href="/tags/%E7%AD%9B%E6%B3%95/" style="font-size: 13px;">筛法</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" style="font-size: 13px;">类和对象</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 13px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A/" style="font-size: 13px;">素数判定</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95%EF%BC%88%E6%AC%A7%E6%8B%89%E7%AD%9B%E6%B3%95%EF%BC%89/" style="font-size: 13px;">线性筛法（欧拉筛法）</a> <a href="/tags/%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%8D%E5%90%88%E5%85%B3%E7%B3%BB/" style="font-size: 13px;">继承与复合关系</a> <a href="/tags/%E7%BC%96%E7%A0%81%E5%99%A8/" style="font-size: 13px;">编码器</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13px;">编译原理</a> <a href="/tags/%E7%BD%91%E5%8D%A1/" style="font-size: 13px;">网卡</a> <a href="/tags/%E7%BD%91%E9%A1%B5/" style="font-size: 13.92px;">网页</a> <a href="/tags/%E8%83%8C%E5%8C%85DP/" style="font-size: 13px;">背包DP</a> <a href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/" style="font-size: 13px;">虚函数</a> <a href="/tags/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/" style="font-size: 13px;">裴蜀定理</a> <a href="/tags/%E8%A7%A3%E6%9E%90%E5%99%A8/" style="font-size: 13px;">解析器</a> <a href="/tags/%E8%A7%A6%E5%8F%91%E5%99%A8/" style="font-size: 13px;">触发器</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13.33px;">计算机组成原理</a> <a href="/tags/%E8%AF%91%E7%A0%81%E5%99%A8/" style="font-size: 13px;">译码器</a> <a href="/tags/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF/" style="font-size: 13px;">请求消息</a> <a href="/tags/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86/" style="font-size: 13px;">费马小定理</a> <a href="/tags/%E8%B7%B3%E8%BD%ACJUMP/" style="font-size: 13px;">跳转JUMP</a> <a href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/" style="font-size: 13px;">辗转相除法</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" style="font-size: 13.08px;">运算符重载</a> <a href="/tags/%E8%BF%9E%E5%8A%A0%E5%99%A8/" style="font-size: 13px;">连加器</a> <a href="/tags/%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/" style="font-size: 13px;">遍历问题</a> <a href="/tags/%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/" style="font-size: 13px;">重载函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">链式二叉树</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">91</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/" class="title">用电信号传输TCP/IP数据</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-27T11:48:56.580Z" itemprop="datePublished">2024-08-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/8%20%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80/" class="title">8 高级语言</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.635Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/7%20%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" class="title">7 定点数与浮点数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.632Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/6%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOperation%20System/" class="title">6 操作系统Operation System</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.629Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E3%80%8Acode%E7%BC%96%E7%A0%81%EF%BC%9A%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%8B/">《code编码：隐匿在计算机软硬件背后的语言》</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/19/5%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%EF%BC%9A%E6%80%BB%E7%BA%BF/" class="title">5 计算机组成原理：总线</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-19T11:53:47.626Z" itemprop="datePublished">2024-08-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93tcpip%E6%95%B0%E6%8D%AE"><span class="toc-number">1.</span> <span class="toc-text"> 第二章 用电信号传输TCP&#x2F;IP数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80-%E5%88%9B%E5%BB%BA%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 一、创建套接字</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%8D%8F%E8%AE%AE%E6%A0%88%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.1.1.</span> <span class="toc-text"> 1、协议栈的内部结构</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%A5%97%E6%8E%A5%E5%AD%97%E7%9A%84%E5%AE%9E%E4%BD%93%E5%B0%B1%E6%98%AF%E9%80%9A%E4%BF%A1%E6%8E%A7%E5%88%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.1.2.</span> <span class="toc-text"> 2、套接字的实体就是通信控制信息</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E8%B0%83%E7%94%A8socket%E6%97%B6%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.1.3.</span> <span class="toc-text"> 3、调用socket时的操作</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C-%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 二、连接服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.0.2.1.</span> <span class="toc-text"> 1、连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E8%B4%9F%E8%B4%A3%E4%BF%9D%E5%AD%98%E6%8E%A7%E5%88%B6%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%B4%E9%83%A8"><span class="toc-number">1.0.2.2.</span> <span class="toc-text"> 2、负责保存控制信息的头部</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E9%99%85%E8%BF%87%E7%A8%8B"><span class="toc-number">1.0.2.3.</span> <span class="toc-text"> 3、连接操作的实际过程</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89-%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 三、收发数据</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%B0%86http%E8%AF%B7%E6%B1%82%E4%BA%A4%E7%BB%99%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="toc-number">1.0.3.1.</span> <span class="toc-text"> 1、将HTTP请求交给协议栈</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%AF%B9%E8%BE%83%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E6%8B%86%E5%88%86"><span class="toc-number">1.0.3.2.</span> <span class="toc-text"> 2、对较大的数据进行拆分</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8ack%E5%8F%B7%E7%A1%AE%E8%AE%A4%E7%BD%91%E7%BB%9C%E5%8C%85%E5%B7%B2%E6%94%B6%E5%88%B0"><span class="toc-number">1.0.3.3.</span> <span class="toc-text"> 3、使用ACK号确认网络包已收到</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E6%A0%B9%E6%8D%AE%E7%BD%91%E7%BB%9C%E5%8C%85%E5%BE%80%E8%BF%94%E6%97%B6%E9%97%B4%E8%B0%83%E6%95%B4ack%E5%8F%B7%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-number">1.0.3.4.</span> <span class="toc-text"> 4、根据网络包往返时间调整ACK号超时时间</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8%E7%AA%97%E5%8F%A3%E6%9C%89%E6%95%88%E7%AE%A1%E7%90%86ack%E5%8F%B7"><span class="toc-number">1.0.3.5.</span> <span class="toc-text"> 5、使用窗口有效管理ACK号</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-ack%E5%8F%B7%E5%92%8C%E7%AA%97%E5%8F%A3%E5%8F%B7%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8F%91%E9%80%81"><span class="toc-number">1.0.3.6.</span> <span class="toc-text"> 6、ACK号和窗口号的同步发送</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#7-%E6%8E%A5%E6%94%B6http%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF"><span class="toc-number">1.0.3.7.</span> <span class="toc-text"> 7、接收HTTP响应消息</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%9B-%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%AD%E5%BC%80%E5%B9%B6%E5%88%A0%E9%99%A4%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">1.0.4.</span> <span class="toc-text"> 四、从服务器断开并删除套接字</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E5%AE%8C%E6%AF%95%E5%90%8E%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.0.4.1.</span> <span class="toc-text"> 1、数据发送完毕后断开连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%88%A0%E9%99%A4%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">1.0.4.2.</span> <span class="toc-text"> 2、删除套接字</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93"><span class="toc-number">1.0.4.3.</span> <span class="toc-text"> 3、数据收发操作小结</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%94-ip%E4%B8%8E%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E5%8C%85%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.5.</span> <span class="toc-text"> 五、IP与以太网的包收发操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%8C%85%E5%8F%8A%E5%85%B6%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.5.1.</span> <span class="toc-text"> 1、包及其收发操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90ip%E5%A4%B4%E9%83%A8"><span class="toc-number">1.0.5.2.</span> <span class="toc-text"> 2、生成IP头部</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84mac%E5%A4%B4%E9%83%A8"><span class="toc-number">1.0.5.3.</span> <span class="toc-text"> 3. 生成以太网的MAC头部</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E7%BD%91%E5%8D%A1%E5%B0%86ip%E5%8C%85%E8%BD%AC%E6%8D%A2%E6%88%90%E7%94%B5or%E5%85%89%E4%BF%A1%E5%8F%B7%E5%8F%91%E9%80%81%E5%87%BA%E5%8E%BB"><span class="toc-number">1.0.5.4.</span> <span class="toc-text"> 4. 网卡：将IP包转换成电or光信号发送出去</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-mac%E6%A8%A1%E5%9D%97%E5%92%8Cphymau%E6%A8%A1%E5%9D%97%E5%8F%91%E9%80%81%E7%BD%91%E7%BB%9C%E5%8C%85"><span class="toc-number">1.0.5.5.</span> <span class="toc-text"> 5. MAC模块和PHY(MAU)模块发送网络包</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-%E6%8E%A5%E6%94%B6%E8%BF%94%E5%9B%9E%E5%8C%85"><span class="toc-number">1.0.5.6.</span> <span class="toc-text"> 6. 接收返回包</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%94-udp%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.6.</span> <span class="toc-text"> 五、UDP协议的收发操作</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-02 用电信号传输TCP IP数据" class="article article-type-post" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+      <div class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      用电信号传输TCP/IP数据
+    </h1>
+  
+
+            
+              <div class="article-meta">
+                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/" class="article-date">
+	  <time datetime="2024-08-27T11:48:56.580Z" itemprop="datePublished">2024-08-27</time>
+	</a>
+</span>
+                  
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </span>
+
+                    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/ICMP/" rel="tag">ICMP</a>, <a class="article-tag-link-link" href="/tags/IP%E5%9C%B0%E5%9D%80/" rel="tag">IP地址</a>, <a class="article-tag-link-link" href="/tags/MAC%E5%9C%B0%E5%9D%80/" rel="tag">MAC地址</a>, <a class="article-tag-link-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a>, <a class="article-tag-link-link" href="/tags/UDP/" rel="tag">UDP</a>, <a class="article-tag-link-link" href="/tags/%E5%8D%8F%E8%AE%AE%E6%A0%88/" rel="tag">协议栈</a>, <a class="article-tag-link-link" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" rel="tag">套接字</a>, <a class="article-tag-link-link" href="/tags/%E7%AB%AF%E5%8F%A3%E5%8F%B7/" rel="tag">端口号</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E5%8D%A1/" rel="tag">网卡</a>
+  </span>
+
+
+                      
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+                        <span class="post-comment"><i class="icon icon-comment"></i> <a
+                            href="/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/#comments" class="article-comment-link">
+                            评论
+                          </a></span>
+                        
+              </div>
+      </div>
+      <div class="article-entry marked-body" itemprop="articleBody">
+        
+                  <h3 id="第二章-用电信号传输tcpip数据"><a class="markdownIt-Anchor" href="#第二章-用电信号传输tcpip数据"></a> 第二章 用电信号传输TCP/IP数据</h3>
+<p><strong>关键词：TCP/IP，套接字，协议栈，IP地址，端口号，包，头部，网卡，网卡驱动，MAC地址，以太网控制器，ICMP，UDP</strong></p>
+<h5 id="一-创建套接字"><a class="markdownIt-Anchor" href="#一-创建套接字"></a> 一、创建套接字</h5>
+<h6 id="1-协议栈的内部结构"><a class="markdownIt-Anchor" href="#1-协议栈的内部结构"></a> 1、协议栈的内部结构</h6>
+<p>TCP/IP软件采用分层结构：上层会向下层委派任务</p>
+<p><img src="/images/2024-08-06-20-01-55-image.png" alt="" /></p>
+<p>协议栈位于操作系统内部，协议栈内部包括上下两个部分。</p>
+<ul>
+<li>
+<p>上面部分包括：</p>
+<ul>
+<li>
+<p>TCP模块，负责用TCP协议收发数据，</p>
+</li>
+<li>
+<p>UDP模块，负责用UDP协议收发数据。</p>
+</li>
+</ul>
+<p>适用范围：</p>
+<ul>
+<li>
+<p>像浏览器、邮件等一般的应用程序都是使用TCP收发数据的；</p>
+</li>
+<li>
+<p>像DNS查询等，收发较短的控制数据时，则使用UDP模块。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>下面一半是IP模块，是用IP协议控制网络包收发操作的部分。</p>
+<p>IP模块：负责将数据切分成一个个网络包，以这种方式在互联网上传输。</p>
+<p>IP模块中还包含 <code>ICMP协议模块</code> 和 <code>ARP协议模块</code>：</p>
+<ul>
+<li>
+<p>ICMP协议模块：告知网络包传送过程中产生的错误，以及各种控制信息</p>
+</li>
+<li>
+<p>ARP协议模块：根据IP地址查询相应的以太网MAC地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>网卡驱动程序：负责控制网卡硬件</p>
+</li>
+<li>
+<p>网卡：负责实际的收发操作，对网线中的信号执行发送、接收操作</p>
+</li>
+</ul>
+<h6 id="2-套接字的实体就是通信控制信息"><a class="markdownIt-Anchor" href="#2-套接字的实体就是通信控制信息"></a> 2、套接字的实体就是通信控制信息</h6>
+<p>套接字：在协议栈内部一块用于存放控制信息的内存空间</p>
+<p>功能：记录用于控制通信操作的控制信息。</p>
+<p>（通信对象的IP地址、端口号、通信操作的进行状态：是否收到响应，发送数据已经经过了多长时间）</p>
+<p>netstat命令：Windows的命令行中输入netstat则显示套接字内容</p>
+<p><img src="/images/2024-08-06-22-04-24-image.png" alt="" /></p>
+<p>进程标识符（PID，Process ID）：操作系统为了标识程序而分配的编号，使用任务管理器可以查询所对应的程序名称</p>
+<ul>
+<li>
+<p>第8行：表示进程标识符（PID）为4的程序正在使用IP地址为10.10.1.16的网卡与IP地址为10.10.1.80的对象进行通信</p>
+</li>
+<li>
+<p>第1行：表示进程标识符（PID）为984的程序正在135端口等待另一方的连接，其中本地IP与远程IP都为0.0.0.0，表示通信还没开始</p>
+</li>
+</ul>
+<h6 id="3-调用socket时的操作"><a class="markdownIt-Anchor" href="#3-调用socket时的操作"></a> 3、调用socket时的操作</h6>
+<p><img src="/images/2024-08-06-22-37-31-0932d0e5fdcd6b8af6c82225fe5085f.jpg" alt="" /></p>
+<ul>
+<li>
+<p>创建套接字阶段：调用socket申请创建套接字，写入初始状态的控制信息。将套接字的描述符返回给应用程序。</p>
+</li>
+<li>
+<p>描述符是给应用程序区分不同套接字的标识，在收发信息的时候使用。</p>
+</li>
+</ul>
+<h5 id="二-连接服务器"><a class="markdownIt-Anchor" href="#二-连接服务器"></a> 二、连接服务器</h5>
+<h6 id="1-连接"><a class="markdownIt-Anchor" href="#1-连接"></a> 1、连接</h6>
+<p>连接（Connect）：通信双方交换控制信息。</p>
+<p>连接操作的目的：</p>
+<ol>
+<li>
+<p>客户端向服务器传达开始通信请求，并告知服务器自己的IP地址和端口号（提供给服务器的套接字）</p>
+</li>
+<li>
+<p>把服务器的IP地址和端口号写入套接字。</p>
+</li>
+<li>
+<p>分配缓冲区，临时存放要收发的数据的内存空间</p>
+</li>
+</ol>
+<h6 id="2-负责保存控制信息的头部"><a class="markdownIt-Anchor" href="#2-负责保存控制信息的头部"></a> 2、负责保存控制信息的头部</h6>
+<p><u>第一类</u>控制信息：存放控制信息的头部——TCP头部</p>
+<p>存放：客户端与服务器相互联络时，交换的控制信息</p>
+<p>依据协议：TCP协议</p>
+<p>记录内容：通信双方的端口号，序号（发送数据的顺序编号），ACK号（接受数据的顺序编号）</p>
+<p><img src="/images/2024-08-06-22-59-57-84993837e21edcfffa2a9dc2349f65c.jpg" alt="" /></p>
+<p>在连接阶段发送的网络包没有实际的数据，只有控制信息，如下图b所示</p>
+<p><img src="/images/2024-08-06-23-05-21-9bce43ea94eea89518a7acebf16008d.jpg" alt="" /></p>
+<p><u>第二类</u>控制信息：保存在套接字中，用来控制协议栈操作的信息</p>
+<h6 id="3-连接操作的实际过程"><a class="markdownIt-Anchor" href="#3-连接操作的实际过程"></a> 3、连接操作的实际过程</h6>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(&lt;描述符&gt;,&lt;服务器IP地址和端口号&gt;,……)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>客户端发送</li>
+</ol>
+<ul>
+<li>
+<p>客户端创建一个TCP头部</p>
+</li>
+<li>
+<p>通过双方端口的信息，客户端（发送方）的套接字 准确找到服务器（接收方）的套接字</p>
+</li>
+<li>
+<p>将TCP头部的控制位SYN比特设置为1，ACK控制位未初始化，为0；<u>设置序号字段的值（后面会有解释）</u></p>
+</li>
+<li>
+<p>设置合适的序号和窗口大小</p>
+</li>
+</ul>
+<ol start="2">
+<li>服务器返回</li>
+</ol>
+<ul>
+<li>
+<p>TCP模块将信息传递给IP模块并委托IP模块进行发送，服务器上的IP模块传递给服务器的TCP模块，服务器的TCP模块 通过TCP头部记录的端口号 找到对应的套接字。</p>
+</li>
+<li>
+<p>修改找到的套接字状态为“正在连接”</p>
+</li>
+<li>
+<p>返回响应：需要在返回的网络包的TCP头部将SYN设置为1（如果不同意连接则将RST设置为1），同时将ACK控制位设置为1</p>
+</li>
+</ul>
+<ol start="3">
+<li>客户端接收</li>
+</ol>
+<ul>
+<li>
+<p>返回客户端后，若SYN位为1，则会向套接字中写入服务器的IP地址、端口号等信息</p>
+</li>
+<li>
+<p>将状态改为“连接完毕”</p>
+</li>
+<li>
+<p>客户端将ACK比特设置为1的一个网络包发回服务器，告知服务器刚才的响应已经收到</p>
+</li>
+</ul>
+<p>当服务器收到这个返回包后，连接操作完成</p>
+<h5 id="三-收发数据"><a class="markdownIt-Anchor" href="#三-收发数据"></a> 三、收发数据</h5>
+<h6 id="1-将http请求交给协议栈"><a class="markdownIt-Anchor" href="#1-将http请求交给协议栈"></a> 1、将HTTP请求交给协议栈</h6>
+<p>数据的收发操作的开始：应用程序调用write</p>
+<p><img src="/images/2024-08-07-11-08-56-0932d0e5fdcd6b8af6c82225fe5085f.jpg" alt="" /></p>
+<p>发送数据的特点：</p>
+<ul>
+<li>
+<p>协议栈不关心数据的内容</p>
+</li>
+<li>
+<p>协议栈是先将数据存放在内部的发送缓冲区，并等待下一段数据，数据积累到一定量后再发送</p>
+</li>
+</ul>
+<p>判断是否执行发送的指标：</p>
+<ul>
+<li>
+<p>1.每个网络包能容纳的数据长度：MTU（网络包最大长度，包含头部），MSS（网络包最大数据长度，MTU-头部长度）</p>
+<p><img src="/images/2024-08-07-11-26-42-71c7a3e2f3e382f0158f8d72941d929.jpg" alt="" /></p>
+</li>
+<li>
+<p>2.时间：协议栈内部有计时器，当经过一个最长时间的阈值后就发送一次</p>
+</li>
+<li>
+<p>注：也可以由应用程序来控制发送时机</p>
+</li>
+<li>
+<p>注2：像浏览器这样的会话型应用程序在向服务器发送数据时，等待缓冲区填满太消耗时间，因此一般选择直接发送</p>
+</li>
+</ul>
+<h6 id="2-对较大的数据进行拆分"><a class="markdownIt-Anchor" href="#2-对较大的数据进行拆分"></a> 2、对较大的数据进行拆分</h6>
+<p>适用情况：发送缓冲区中数据长度超过MSS</p>
+<p>实现：1. 发送缓冲区的数据会被以MSS进行拆分    2. 每一块前面加上TCP头部</p>
+<p><img src="/images/2024-08-07-11-38-33-2912d0ec2ea03960a8f344a8c3c7b14.jpg" alt="" /></p>
+<h6 id="3-使用ack号确认网络包已收到"><a class="markdownIt-Anchor" href="#3-使用ack号确认网络包已收到"></a> 3、使用ACK号确认网络包已收到</h6>
+<p>序号：TCP在拆分数据时，会事先计算好每一块数据相当于从头开始的第几个字节，写入序号</p>
+<p>每次发送时会告知：</p>
+<p>1.当前序号</p>
+<p>2.接收方可以计算该包的数据长度（<u>等价于告知</u>）（=MTU-MSS）</p>
+<p>有了以上两个数值，我们就知道发送的数据是从第几个字节开始，长度是多少</p>
+<p><img src="/images/2024-08-07-11-55-29-067bf74e19439c016004e60ce84628c.jpg" alt="" /></p>
+<p>ACK号：确认响应。</p>
+<p>接收方会将到目前为止  接收到的数据长度加起来，计算出收到了多少字节，写入ACK号返回给发送方，告诉其已经收到这些数据。</p>
+<p>注：实际上，序号并不都是从1开始的</p>
+<p><strong>上面内容的解释</strong>：生成一个序号初始值，并告知通信对方约定的序号初始值。</p>
+<p>通信过程（以下编号对应图中编号）</p>
+<p>连接阶段：</p>
+<ol>
+<li>
+<p>客户端计算 客户端的数据的序号初始值，发给服务器</p>
+</li>
+<li>
+<p>服务器返回ACK号响应；服务器返回 服务器端的数据的序号初始值，发给客户端</p>
+</li>
+<li>
+<p>客户端收到服务器的序号初始值后，返回ACK号响应</p>
+</li>
+</ol>
+<p>数据收发阶段：</p>
+<ol start="4">
+<li>
+<p>给出序号+数据</p>
+</li>
+<li>
+<p>返回ACK号</p>
+</li>
+</ol>
+<p>…… …… ……</p>
+<p><img src="/images/2024-08-07-12-09-16-image.png" alt="" /></p>
+<h6 id="4-根据网络包往返时间调整ack号超时时间"><a class="markdownIt-Anchor" href="#4-根据网络包往返时间调整ack号超时时间"></a> 4、根据网络包往返时间调整ACK号超时时间</h6>
+<ul>
+<li>
+<p>超时时间设定的必要性：</p>
+<p>当网络繁忙时，发生堵塞，若很快判定为丢包而执行再次发送，则会出现ACK号姗姗来迟，而发出很多重复多余的包导致网络雪上加霜。</p>
+</li>
+<li>
+<p>动态调整时间：根据ACK号返回时间判断超时时间。</p>
+<ul>
+<li>如果返回时间慢，则响应延长超时时间；相对的，如果ACK号马上就能返回，则缩短超时时间</li>
+</ul>
+</li>
+</ul>
+<h6 id="5-使用窗口有效管理ack号"><a class="markdownIt-Anchor" href="#5-使用窗口有效管理ack号"></a> 5、使用窗口有效管理ACK号</h6>
+<p>滑动窗口：在发送一个包后，不等待ACK返回，而是直接发送后续的一系列包。可以有效利用等待ACK号的时间</p>
+<p><img src="/images/2024-08-07-19-12-35-71931ecae2dd07d5eea2b66bb42b9d3.jpg" alt="" /></p>
+<p>但如果不等待返回就发送ACK号就连续发送数据包，就有可能出现发送包的频率超过对方的处理能力的情况。</p>
+<ol>
+<li>
+<p>当接收方的TCP模块收到包后，会将数据存放到接收缓冲区。</p>
+</li>
+<li>
+<p>接收方需要计算ACK号返回客户端，并将数据块组装起来还原成原本数据，传递给应用程序</p>
+</li>
+</ol>
+<p>注：如果这些操作还没完成就收到了下一个包，下一个包会被存在接收缓冲区中。</p>
+<p>接收不过来的时候，势必导致缓冲区溢出</p>
+<p>所以，改进如下：</p>
+<p>接收方事先告知发送方自己最多能接收多少数据，然后发送方根据这个值对还剩的缓存区空间进行计算得知（总缓冲区容量-已经发送的信息量）</p>
+<p><img src="/images/2024-08-07-19-36-42-87a264ef6bbcbc367f50582b8fcdeed.jpg" alt="" /></p>
+<p>当有从缓冲区取出的操作时，会重新告知客户端还剩的缓冲区空间（更新窗口），则客户端更新缓冲区剩余容量的数据并给后续应用</p>
+<h6 id="6-ack号和窗口号的同步发送"><a class="markdownIt-Anchor" href="#6-ack号和窗口号的同步发送"></a> 6、ACK号和窗口号的同步发送</h6>
+<p>注：合并ACK号的发送和窗口更新的发送，从而减少包的数量</p>
+<p>注2：连续发送多个ACK号时，只用发送最后一个即可，也可以减少包的数量</p>
+<h6 id="7-接收http响应消息"><a class="markdownIt-Anchor" href="#7-接收http响应消息"></a> 7、接收HTTP响应消息</h6>
+<ol>
+<li>
+<p>应用程序调用read程序来获取响应消息，应用程序此时read操作会被挂起，直到FINISH包到达时应用程序才会真正开始读取数据</p>
+</li>
+<li>
+<p>控制流程转移到协议栈。协议栈从接收缓冲区中取出数据，根据TCP头部判断是否有数据缺失，若没有则传递给应用程序。再返回ACK号</p>
+</li>
+<li>
+<p>将控制流程交给应用程序</p>
+</li>
+</ol>
+<h5 id="四-从服务器断开并删除套接字"><a class="markdownIt-Anchor" href="#四-从服务器断开并删除套接字"></a> 四、从服务器断开并删除套接字</h5>
+<h6 id="1-数据发送完毕后断开连接"><a class="markdownIt-Anchor" href="#1-数据发送完毕后断开连接"></a> 1、数据发送完毕后断开连接</h6>
+<p>数据发送完毕的一方发起断开过程。（以下假设服务器一方发起断开过程）</p>
+<ol>
+<li>
+<p>服务器应用程序调用Socket库的close程序</p>
+</li>
+<li>
+<p>服务器协议栈生成包含断开信息（将控制位中的FIN设为1）的TCP头部的包（暂命名为FINISH包）</p>
+</li>
+<li>
+<p>当客户端收到FINISH包之后，会返回一个ACK号</p>
+</li>
+<li>
+<p>应用程序开始通过read读取数据。</p>
+</li>
+<li>
+<p>客户端程序调用close来结束数据收发操作。客户端也会生成一个FIN为1的TCP包，发给服务器，服务器返回ACK号表收到，通信结束。</p>
+</li>
+</ol>
+<p><img src="/images/2024-08-07-20-33-19-image.png" alt="" /></p>
+<h6 id="2-删除套接字"><a class="markdownIt-Anchor" href="#2-删除套接字"></a> 2、删除套接字</h6>
+<p>套接字会等待一段时间再被删除，为了防止误操作。</p>
+<h6 id="3-数据收发操作小结"><a class="markdownIt-Anchor" href="#3-数据收发操作小结"></a> 3、数据收发操作小结</h6>
+<p><img src="/images/2024-08-07-21-45-26-d157df0815fbcaf5f680fdb9d0ca2ff.jpg" alt="" /></p>
+<h5 id="五-ip与以太网的包收发操作"><a class="markdownIt-Anchor" href="#五-ip与以太网的包收发操作"></a> 五、IP与以太网的包收发操作</h5>
+<h6 id="1-包及其收发操作"><a class="markdownIt-Anchor" href="#1-包及其收发操作"></a> 1、包及其收发操作</h6>
+<p>包=头部+数据</p>
+<p>头部：目的地址等控制信息</p>
+<p><img src="/images/2024-08-07-22-13-38-01f90b6c878158b7a7a8933a45a832f.jpg" alt="" /></p>
+<p>转发过程：</p>
+<p>（1）路由器（按照IP协议）根据目标地址判断下一个路由器的位置</p>
+<p>（2）集线器（按照以太网规则）在子网中将网络包传给下一个路由</p>
+<p><img src="/images/2024-08-07-22-25-28-edd95d2e081a1b2fe0be02e0b85ea5e.jpg" alt="" /></p>
+<p>TCP/IP包 包含：</p>
+<ul>
+<li>
+<p>MAC头部（用于以太网协议）</p>
+</li>
+<li>
+<p>IP头部（用于IP协议）</p>
+</li>
+</ul>
+<p>IP头部：访问服务器的IP地址（不变），其他目的服务器的控制信息</p>
+<p>MAC头部：IP协议查找出的下一个路由器的IP地址（每次到一个<u>路由器</u>，被改写为下一个路由的IP地址，遇到集线器不变），最近路由器的控制信息<br />
+<img src="/images/2024-08-07-22-19-57-4b54748e37c4d9f91f1f64c6906f265.jpg" alt="" /></p>
+<p>以太网平替：无线局域网，ADSL，FTTH</p>
+<p>包收发操作的过程：</p>
+<p><img src="/images/2024-08-07-22-25-16-d1164e83ca180e0e581634470b68bb0.jpg" alt="" /></p>
+<h6 id="2-生成ip头部"><a class="markdownIt-Anchor" href="#2-生成ip头部"></a> 2、生成IP头部</h6>
+<ul>
+<li>
+<p>应用程序告诉TCP模块需要通信的服务器IP地址</p>
+</li>
+<li>
+<p>TCP模块 告知IP模块 需要生成的IP头部 的IP地址部分的内容</p>
+</li>
+</ul>
+<p>IP头部格式</p>
+<p><img src="/images/2024-08-07-22-31-16-13ade9dee2de1a554b9db9976e8c898.jpg" alt="" /></p>
+<p>IP头部的“接收方IP地址”填写通信对象的IP地址</p>
+<p>发送方IP地址需要判断发送所使用的网卡，并填写该网卡的IP地址</p>
+<p>显示路由表的内容：指令<code>route print</code></p>
+<p><img src="/images/2024-08-07-22-32-27-fba18365ec45b9fd1302ad1d960780c.jpg" alt="" /></p>
+<p>注：Gateway(网关)：在TCP/IP世界里就是路由器的意思</p>
+<p>注2：只需看IP地址<u>网络号部分</u>是否一样即确定转发的网卡</p>
+<p>注3：第一行中目标地址和子网掩码都是0.0.0.0表示默认网关。如果与其他的条目都无法匹配，则会执行这一条</p>
+<h6 id="3-生成以太网的mac头部"><a class="markdownIt-Anchor" href="#3-生成以太网的mac头部"></a> 3. 生成以太网的MAC头部</h6>
+<ul>
+<li>
+<p>由IP模块生成</p>
+</li>
+<li>
+<p>包含：接收方和发送方的MAC地址</p>
+<p><img src="/images/2024-08-27-20-00-50-cbe1477fce995f917c25d10fe32e6a5.jpg" alt="" /></p>
+</li>
+</ul>
+<p>发送方MAC地址：网卡生产时写入ROM中的地址</p>
+<p>（注：如果有多块网卡，则在设置发送方IP地址的时候，已经设置好了，只需要把对应IP地址网卡的MAC地址写进去即可）</p>
+<p>接收方MAC地址：IP模块已经在路由表中查询到相匹配的条目，得到Gateway的IP地址，填入Gateway中的IP地址对应的MAC地址</p>
+<p><strong>3.5 通过ARP查询目标路由器的MAC地址</strong></p>
+<ul>
+<li>ARP（地址解析协议）就是向所有设备，发出广播，给出Gateway的IP地址，请求其MAC地址。</li>
+</ul>
+<p><img src="/images/2024-08-27-20-00-41-3c4caac8a020dc6d25bc0d6e37d277f.jpg" alt="" /></p>
+<ul>
+<li>
+<p>注：路由表设置正确的话，该设备应该和Gateway在同一个子网中：</p>
+<p>如果操作成功，即可得到MAC地址</p>
+<p>操作失败，子网内设备无一ARP响应。认为对方不存在，包发送操作失败</p>
+</li>
+<li>
+<p>ARP缓存</p>
+<p>ARP查询结果的暂存位置</p>
+<p>在发送包前，优先访问ARP缓存，如果其中已经保存了对方的MAC地址，就不需要查询了</p>
+<p><img src="/images/2024-08-27-20-00-21-dd80d762f48af995dbc0646993cba51.jpg" alt="" /></p>
+<ul>
+<li>注：为了防止IP改变导致ARP中存储信息发生改变的问题，ARP缓存中的值过一段时间会被删除，需要重新获取</li>
+</ul>
+</li>
+</ul>
+<h6 id="4-网卡将ip包转换成电or光信号发送出去"><a class="markdownIt-Anchor" href="#4-网卡将ip包转换成电or光信号发送出去"></a> 4. 网卡：将IP包转换成电or光信号发送出去</h6>
+<p>背景：IP模块生成的网络包只是放在内存中的一串数字信息</p>
+<p>网卡的内部结构</p>
+<p><img src="/images/2024-08-27-19-59-51-9827960a438cff0da48aff40ca86e9a.jpg" alt="" /></p>
+<p>由此可见，网卡的MAC地址是保存在网卡ROM中的（生产时写入），在运行网卡驱动程序的时候，ROM中的MAC地址会被网卡驱动程序读取，分配给MAC模块</p>
+<ul>
+<li>
+<p>网卡的初始化操作</p>
+<ul>
+<li>
+<p>开机后网卡驱动程序对网卡的初始化操作</p>
+</li>
+<li>
+<p>包含硬件错误检查，初始设置等步骤</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>网卡MAC模块加入的3个控制数据</strong></p>
+<p>网卡驱动从IP模块读取包，复制到网卡缓冲区，向MAC模块发送包的命令</p>
+<p>MAC模块的工作</p>
+<ol>
+<li>
+<p>将包从缓冲区取出</p>
+</li>
+<li>
+<p>在开头加上报头、起始帧分界符</p>
+</li>
+<li>
+<p>在末尾加上帧校验序列：用于检测错误</p>
+</li>
+</ol>
+<p><img src="/images/2024-08-27-20-01-25-2145e0f130253f79b08eb5c40d6a04d.jpg" alt="" /></p>
+<p>报头（56bit）：101010循环的序列</p>
+<p><img src="/images/2024-08-27-20-01-42-8700bd1b82acb0697cc101a9d1e388d.jpg" alt="" /></p>
+<ul>
+<li>
+<p>作用：确定时机，判断每个比特信号的中间位置</p>
+<p><img src="/images/2024-08-27-20-01-57-b01908c0df23876f2649e9f9f4aaf5d.jpg" alt="" /></p>
+<p>当信号连续为1，或者连续为0时，比特之间的界限就会消失，此时如果以时钟信号为参照，就可以分别0,1。但是这样并不方便传输（传输导致时钟偏移）</p>
+<p>为了方便传输，需要将时钟信号叠加进去，可以判断出比特之间的界限：</p>
+</li>
+<li>
+<p>数据信号为1，时钟为上升沿 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 叠加为下降沿</p>
+</li>
+<li>
+<p>数据信号为0，时钟为下降沿 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 叠加为上升沿</p>
+</li>
+</ul>
+<p>接收方需要对信号进行观察，才能找到周期规律，此时报头的作用就是一段用来测量时钟信号的特殊信号</p>
+<p>起始帧分界符（SFD）（8bit）：0101011</p>
+<ul>
+<li>作用：生成后，波形不同，对方网卡将此处作为起始位置</li>
+</ul>
+<p>帧校验序列（FCS）：检查包传输过程中因噪声导致的波形紊乱，数据错误</p>
+<p>（当原始数据有一个发生变化的时候，计算结果就会变化，接受方就可以判断有无错误）</p>
+<h6 id="5-mac模块和phymau模块发送网络包"><a class="markdownIt-Anchor" href="#5-mac模块和phymau模块发送网络包"></a> 5. MAC模块和PHY(MAU)模块发送网络包</h6>
+<ol>
+<li>
+<p>MAC 模块从报头开始将数字信息转换成电信号</p>
+<ul>
+<li>数字信号转换为电信号的速率，就是网络的传输速率</li>
+</ul>
+</li>
+<li>
+<p>PHY(MAU)模块负责发送</p>
+<p>PHY(MAU)模块将MAC模块传来的数据转换成可在网线上传输的格式</p>
+</li>
+</ol>
+<ul>
+<li>PHY(MAU)模块的功能：格式转换，发送数据，监控有无信号进入（在半双工模式下，不检测可能会发生信号碰撞）</li>
+</ul>
+<p>PHY （物理层装置）和MAU（介质连接单元）仅仅是叫法不一样，其他一样</p>
+<h6 id="6-接收返回包"><a class="markdownIt-Anchor" href="#6-接收返回包"></a> 6. 接收返回包</h6>
+<p>半双工模式下，设备接收所有信号，然后执行相反的过程</p>
+<ol>
+<li>
+<p>PHY(MAU)模块将信号转换为通用格式，发给MAC模块</p>
+</li>
+<li>
+<p>MAC 模块将电信号转换为数字信号，存放到缓冲区</p>
+</li>
+<li>
+<p>MAC模块检查帧校验序列（FCS），发现有错误则丢弃</p>
+</li>
+<li>
+<p>检查接收方MAC地址，是否和自己的一样，不一样则丢弃</p>
+</li>
+<li>
+<p>通知计算机收到一个包：</p>
+<p>网卡向扩展总线里的中断信号线发送信号</p>
+<p>CPU暂时挂起处理任务，切换到操作系统中的中断处理程序</p>
+<p>中断处理程序调用网卡驱动，接收网卡发来的数据</p>
+</li>
+<li>
+<p>网卡驱动被调用：</p>
+<p>网卡驱动程序会从网卡的缓冲区取出收到的包</p>
+<p>通过MAC头部中的以太类型判断协议的类型：</p>
+<ul>
+<li>
+<p>0080h表示IP协议，驱动会把包交给TCP/IP协议栈</p>
+</li>
+<li>
+<p>809Bh表示AppleTalk协议，驱动会把包交给AppleTalk协议栈</p>
+</li>
+</ul>
+<p>讨论最普遍的情况，识别到0080h，网卡将包按照以太类型交给协议栈</p>
+</li>
+<li>
+<p>协议栈的IP模块：</p>
+<p>功能1：IP检查</p>
+<p>检查头部格式和IP地址。如果发现该包不是自己的，那么IP模块会通过ICMP消息将错误告知发送方（由下表可知，通过设置过Destination unreachable的值的包，发送回发送方即可）</p>
+<p><img src="/images/2024-08-27-20-02-15-f610911631843cc658bf33d33e19409.jpg" alt="" /></p>
+<p>功能2：分片重组</p>
+<p>IP将分片之后（如果有分片）的包还原成原始的包：（分片重组）</p>
+<ul>
+<li>IP模块会将收到的包暂存在其内存空间中，然后等待IP头部具有相同ID的包全部到达</li>
+</ul>
+<p>分片重组的依据：同一个包所有分片都具有相同的ID，且都具有分片偏移量字段，表示当前分片在整个包中的位置</p>
+<p>功能3：把包交给TCP/IP模块</p>
+</li>
+<li>
+<p>协议栈的TCP/IP模块：</p>
+<p>功能：根据IP头部中<u>接收方和发送方的IP地址</u>，以及TCP头部中的<u>接收方和发送方端口号</u>来查找对应的套接字。决定需要的操作是什么</p>
+</li>
+<li>
+<p>协议栈会判断这个包交给哪个应用程序</p>
+</li>
+</ol>
+<h5 id="五-udp协议的收发操作"><a class="markdownIt-Anchor" href="#五-udp协议的收发操作"></a> 五、UDP协议的收发操作</h5>
+<p>回忆：向DNS 服务器查询IP地址的时候，用得到；音频数据等实时更新的数据（重发无意义），用得到；</p>
+<p>UDP协议：数据短小，一般只用一个包，不用考虑哪个包未送达。只负责单纯发送包，不监控是否到达。出错就收不到对方回复，过一段时间重发即可</p>
+<p>做法：用UDP代替TCP，去掉TCP头部，代以UDP头部，其他一样</p>
+<p><img src="/images/2024-08-27-20-02-32-d878b15d542671517587f23a52a9feb.jpg" alt="" /></p>
+
+                    
+      </div>
+      <div class="article-footer">
+        <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://xqc-1368.github.io/2024/08/27/02%20%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93TCP%20IP%E6%95%B0%E6%8D%AE/" title="用电信号传输TCP/IP数据" target="_blank" rel="external">https://xqc-1368.github.io/2024/08/27/02 用电信号传输TCP IP数据/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/XQC-1368" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/XQC-1368" target="_blank"><span class="text-dark">XQC-1368</span><small class="ml-1x">我见青山多妩媚 料青山见我应如是</small></a></h3>
+        <div>Harbin Institute of Technology, Shenzhen 计算机科学与技术 本科在读</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+      </div>
+      
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+      
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/08/19/8%20%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80/" title="8 高级语言"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">    <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+    
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/XQC-1368" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: '请使用平和的语气畅所欲言...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
